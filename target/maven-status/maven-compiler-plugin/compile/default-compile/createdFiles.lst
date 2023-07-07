@@ -1,0 +1,6 @@
+com/ams/repository/AbstractRepository.class
+com/ams/repository/CrudRepository.class
+com/ams/controller/UserController.class
+com/ams/model/User.class
+com/ams/model/AbstractEntity.class
+com/ams/repository/UserRepository.class

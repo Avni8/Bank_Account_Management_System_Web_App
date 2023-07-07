@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>User-Details</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+
+    <body>    
+
+        <h:form class="my-navbar">    
+            <ui:include src="topmenu.xhtml" />  
+        </h:form>
+
+        <p:dialog header="Create a new user" widgetVar="userDialog" modal="true" resizable="true" width="420" height="410">
+            <h:form id="userForm" styleClass="no-border-input">
+                <p:panelGrid columns="2"> 
+
+                    <p:outputLabel value="Name:" />
+                    <p:inputText value="#{userController.user.name}" />
+
+                    <p:outputLabel value="Address:" />
+                    <p:inputText value="#{userController.user.address}" />
+
+                    <p:outputLabel value="Contact:" />
+                    <p:inputText value="#{userController.user.contact}" />
+
+                    <p:outputLabel value="Date of Birth:" />
+                    <p:inputText value="#{userController.user.dob}" />
+
+                    <p:outputLabel value="Email Address:" />
+                    <p:inputText value="#{userController.user.email}" />
+
+                    <p:outputLabel value="Product Type:" />
+                    <p:inputText value="#{userController.user.product_type}" />
+
+                    <p:outputLabel value="Username:" />
+                    <p:inputText value="#{userController.user.username}" />
+
+                    <p:outputLabel value="Password:" />
+                    <p:inputText value="#{userController.user.password}" />
+                </p:panelGrid>
+                <p:commandButton value="Save User" action="#{userController.createUpdate()}"
+                                 style="margin-top: 10px;" oncomplete="PF('userDialog').hide()"
+                                 update=":listForm"/>
+            </h:form>
+        </p:dialog>
+
+
+        <center>
+            <h:form id="listForm" >
+                <p:dataTable value="#{userController.userList}" var="user" >
+
+
+                    <f:facet name="header">
+                        User Details
+                        <div class="button-container" style="position: absolute;
+                             top: 45px;
+                             left: 95.3%;
+                             right: 0;
+                             margin: 10px;">
+                            <p:commandButton
+                                oncomplete="PF('userDialog').show()"
+                                icon="ui-icon-plusthick" title="Add User" update=":userForm" 
+                                actionListener="#{userController.beforeCreate()}" 
+                                style="height: 30px;"/>
+                        </div>
+                    </f:facet>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{user.id}" />
+                    </p:column>
+
+                    <p:column headerText="Name">
+                        <h:outputText value="#{user.name}" />
+                    </p:column>
+
+                    <p:column headerText="Address">
+                        <h:outputText value="#{user.address}" />
+                    </p:column>
+
+                    <p:column headerText="Contact">
+                        <h:outputText value="#{user.contact}" />
+                    </p:column>
+
+                    <p:column headerText="DOB">
+                        <h:outputText value="#{user.dob}" />
+                    </p:column>
+
+                    <p:column headerText="Email">
+                        <h:outputText value="#{user.email}" />
+                    </p:column>
+
+                    <p:column headerText="Product Type">
+                        <h:outputText value="#{user.product_type}" />
+                    </p:column>
+
+                    <p:column headerText="Username">
+                        <h:outputText value="#{user.username}" />
+                    </p:column> 
+
+                    <p:column headerText="Action">
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         icon="ui-icon-pencil" oncomplete="PF('userDialog').show()"
+                                         title="Edit User" update=":userForm" 
+                                         action="#{userController.beforeUpdate(user)}" />
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         title="Delete User"
+                                         icon="ui-icon-trash"
+                                         actionListener="#{userController.delete(user)}"
+                                         update=":listForm"
+                                         />
+                    </p:column>
+                </p:dataTable>
+
+                <h:panelGrid columns="2">
+                    <p:inputText value="#{userController.user.id}" />
+                    <p:commandButton value="Search" action="#{userController.findUserById}" update=":listForm" />
+                </h:panelGrid>
+            </h:form>
+        </center>    
+    </body>
+</html>

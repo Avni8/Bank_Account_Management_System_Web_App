@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Home-Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet library="primefaces" name="primefaces.css" />
+        <style>
+            
+/*            .my-navbar .ui-menuitem-text {
+                font-weight: normal;
+            }*/
+            .center-align {
+                text-align: center;
+                margin-top: 16%;
+            }
+
+      
+        </style>
+    </h:head>
+    <body>
+        <h:form class="my-navbar">    
+            <ui:include src="topmenu.xhtml" />  
+        </h:form>
+        <div class="center-align">
+           <h1>Welcome!</h1> 
+           <h2>Bank Account Management System</h2>
+        </div>    
+    </body>
+</html>
