@@ -119,11 +119,13 @@
                     </p:column>
                 </p:dataTable>
 
-                <h:panelGrid columns="2">
-                    <p:inputText value="#{userController.user.id}" />
-                    <p:commandButton value="Search" action="#{userController.findUserById}" update=":listForm" />
-                </h:panelGrid>
             </h:form>
-        </center>    
+        </center> 
+        <h:form>
+            <h:panelGrid columns="2">
+                <p:inputText value="#{userController.user.id}" />
+                <p:commandButton value="Search" action="#{userController.findUserById}" update=":listForm" />
+            </h:panelGrid>
+        </h:form>
     </body>
 </html>

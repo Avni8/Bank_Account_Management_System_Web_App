@@ -7,14 +7,117 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Staff-Details</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <body>
-       <h:form class="my-navbar">    
+        <h:form class="my-navbar">    
             <ui:include src="topmenu.xhtml" />  
         </h:form>
+
+        <p:dialog header="Create a new staff" widgetVar="staffDialog" modal="true" resizable="true" width="420" height="410">
+            <h:form id="staffForm" styleClass="no-border-input">
+                <p:panelGrid columns="2"> 
+
+                    <p:outputLabel value="Name:" />
+                    <p:inputText value="#{staffController.staff.name}" />
+
+                    <p:outputLabel value="Age:" />
+                    <p:inputText value="#{staffController.staff.age}" />
+
+                    <p:outputLabel value="Gender:" />
+                    <p:inputText value="#{staffController.staff.gender}" />
+
+                    <p:outputLabel value="Email Address:" />
+                    <p:inputText value="#{staffController.staff.email}" />
+
+                    <p:outputLabel value="Contact:" />
+                    <p:inputText value="#{staffController.staff.contact}" />
+
+                    <p:outputLabel value="Address:" />
+                    <p:inputText value="#{staffController.staff.address}" />
+
+                    <p:outputLabel value="Username:" />
+                    <p:inputText value="#{staffController.staff.username}" />
+
+                    <p:outputLabel value="Password:" />
+                    <p:inputText value="#{staffController.staff.password}" />
+                </p:panelGrid>
+                <p:commandButton value="Register staff" action="#{staffController.createUpdate()}"
+                                 style="margin-top: 10px;" oncomplete="PF('staffDialog').hide()"
+                                 update=":listForm"/>
+            </h:form>
+        </p:dialog>
+        <center>
+            <h:form id="listForm" >
+                <p:dataTable value="#{staffController.staffList}" var="staff" >
+
+
+                    <f:facet name="header">
+                        Staff Details
+                        <div class="button-container" style="position: absolute;
+                             top: 45px;
+                             left: 95.3%;
+                             right: 0;
+                             margin: 10px;">
+                            <p:commandButton
+                                oncomplete="PF('staffDialog').show()"
+                                icon="ui-icon-plusthick" title="Add Staff" update=":staffForm" 
+                                actionListener="#{staffController.beforeCreate()}" 
+                                style="height: 30px;"/>
+                        </div>
+                    </f:facet>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{staff.id}" />
+                    </p:column>
+
+                    <p:column headerText="Name">
+                        <h:outputText value="#{staff.name}" />
+                    </p:column>
+                    
+                    <p:column headerText="Age">
+                        <h:outputText value="#{staff.age}" />
+                    </p:column>
+                    
+                    <p:column headerText="Gender">
+                        <h:outputText value="#{staff.gender}" />
+                    </p:column>
+                    
+                    <p:column headerText="Email">
+                        <h:outputText value="#{staff.email}" />
+                    </p:column>
+
+                    <p:column headerText="Contact">
+                        <h:outputText value="#{staff.contact}" />
+                    </p:column>
+                    
+                    <p:column headerText="Address">
+                        <h:outputText value="#{staff.address}" />
+                    </p:column>
+
+                    <p:column headerText="Username">
+                        <h:outputText value="#{staff.username}" />
+                    </p:column> 
+
+                    <p:column headerText="Action">
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         icon="ui-icon-pencil" oncomplete="PF('staffDialog').show()"
+                                         title="Edit Staff Details" update=":staffForm" 
+                                         action="#{staffController.beforeUpdate(staff)}" />
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         title="Delete Staff"
+                                         icon="ui-icon-trash"
+                                         actionListener="#{staffController.delete(staff)}"
+                                         update=":listForm"
+                                         />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </center>    
     </body>
 </html>

@@ -1,6 +1,9 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/UserController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/CrudRepository.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Staff.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/User.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/StaffController.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/StaffRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AbstractRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AbstractEntity.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/UserRepository.java

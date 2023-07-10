@@ -13,8 +13,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import com.ams.model.User;
 import java.util.ArrayList;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -77,17 +75,7 @@ public class UserController implements Serializable {
         userRepository.delete(user.getId());
         loadData();
     }
-
-//    public void find(User user) {
-//        userList = new ArrayList<>();
-//        User foundUser = userRepository.findById(user.getId());
-//        if (foundUser != null) {
-//            userList.add(foundUser);
-//        } else {
-//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "User not found", "The user with the specified ID was not found."));
-//        }
-//
-//    }
+    
     public void findUserById(){
         this.userList =  userRepository.getUserById(user.getId());
         System.out.println("");
