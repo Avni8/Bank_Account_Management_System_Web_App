@@ -4,22 +4,26 @@
  */
 package com.ams.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  *
  * @author avni
  */
 @Entity
+@Table(name = "product")
 public class Product extends AbstractEntity {
     
-    private String product_type;
+    @Column(name = "product_type")
+    private String productType;
 
     public String getProduct_type() {
-        return product_type;
+        return productType;
     }
 
-    public void setProduct_type(String product_type) {
-        this.product_type = product_type;
+    public void setProduct_type(String productType) {
+        this.productType = productType;
     }
 }

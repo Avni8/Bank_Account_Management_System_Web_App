@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+    <h:head>
+        <title>Account-Details</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+        <h:form class="my-navbar">    
+            <ui:include src="topmenu.xhtml" />  
+        </h:form>
+
+        <p:dialog header="Create a new account" widgetVar="accountDialog" modal="true" resizable="true" width="420" height="410">
+            <h:form id="accountForm" styleClass="no-border-input">
+                <p:panelGrid columns="2"> 
+
+                    <p:outputLabel value="User ID:" />
+                    <p:inputText value="#{accountController.account.user.id}" />
+
+                    <p:outputLabel value="Product ID:" />
+                    <p:inputText value="#{accountController.account.product.id}" />
+
+                    <p:outputLabel value="Account Number:" />
+                    <p:inputText value="#{accountController.account.accNo}" />
+
+                    <p:outputLabel value="Interest Rate:" />
+                    <p:inputText value="#{accountController.account.interestRate}" />
+
+                    <p:outputLabel value="Opened Date:" />
+                    <p:inputText value="#{accountController.account.openedDate}" />
+
+                    <p:outputLabel value="Mature Date:" />
+                    <p:inputText value="#{accountController.account.matureDate}" />
+
+                    <p:outputLabel value="Balance:" />
+                    <p:inputText value="#{accountController.account.balance}" />
+
+                </p:panelGrid>
+                <p:commandButton value="Save Account" action="#{accountController.createUpdate()}"
+                                 style="margin-top: 10px;" oncomplete="PF('accountDialog').hide()"
+                                 update=":listForm"/>
+            </h:form>
+        </p:dialog>
+
+
+        <center>
+            <h:form id="listForm" >
+                <p:dataTable value="#{accountController.accountList}" var="account" >
+
+                    <f:facet name="header">
+                        Account Details
+                        <div class="button-container" style="position: absolute;
+                             top: 45px;
+                             left: 95.3%;
+                             right: 0;
+                             margin: 10px;">
+                            <p:commandButton
+                                oncomplete="PF('accountDialog').show()"
+                                icon="ui-icon-plusthick" title="Add Account" update=":accountForm" 
+                                actionListener="#{accountController.beforeCreate()}" 
+                                style="height: 30px;"/>
+                        </div>
+                    </f:facet>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{account.id}" />
+                    </p:column>
+
+                    <p:column headerText="User Name">
+                        <h:outputText value="#{account.user.name}" />
+                    </p:column>
+
+                    <p:column headerText="Account Number">
+                        <h:outputText value="#{account.accNo}" />
+                    </p:column>
+
+                    <p:column headerText="Interest Rate">
+                        <h:outputText value="#{account.interestRate}" />
+                    </p:column>
+
+                    <p:column headerText="Opened Date">
+                        <h:outputText value="#{account.openedDate}" />
+                    </p:column>
+
+                    <p:column headerText="Mature Date">
+                        <h:outputText value="#{account.matureDate}" />
+                    </p:column>
+
+                    <p:column headerText="Balance">
+                        <h:outputText value="#{account.balance}" />
+                    </p:column> 
+
+                    <p:column headerText="Product Type">
+                        <h:outputText value="#{account.product.product_type}" />
+                    </p:column> 
+
+                    <p:column headerText="Action">
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         icon="ui-icon-pencil" oncomplete="PF('accountDialog').show()"
+                                         title="Edit Account" update=":accountForm" 
+                                         action="#{accountController.beforeUpdate(account)}" />
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         title="Delete Account"
+                                         icon="ui-icon-trash"
+                                         actionListener="#{accountController.delete(account)}"
+                                         update=":listForm"
+                                         />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </center> 
+    </body>
+</html>

@@ -37,7 +37,13 @@
                     <p:inputText value="#{userController.user.email}" />
 
                     <p:outputLabel value="Product Type:" />
-                    <p:inputText value="#{userController.user.product_type}" />
+                    <p:selectOneMenu value="#{userController.user.product_type}">
+                        <f:selectItem itemLabel="Select Product Type" itemValue="" />
+                        <f:selectItem itemLabel="Savings" itemValue="Savings" />
+                        <f:selectItem itemLabel="Fixed Deposit" itemValue="Fixed Deposit" />
+                        <f:selectItem itemLabel="Current" itemValue="Current" />
+                        <f:selectItem itemLabel="Recurrent Deposit" itemValue="Recurrent Deposit" />
+                    </p:selectOneMenu>
 
                     <p:outputLabel value="Username:" />
                     <p:inputText value="#{userController.user.username}" />

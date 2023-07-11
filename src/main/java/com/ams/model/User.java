@@ -18,8 +18,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name="user")
 public class User extends AbstractEntity {
-    
-//    private Long id;
+  
     private String name;
     private String address;
     private String contact;
@@ -28,23 +27,6 @@ public class User extends AbstractEntity {
     private String product_type;
     private String username;
     private String password;
-    
-//    public User(Long id, String name, String address, String contact, String dob, String email, 
-//                    String product_type, String username, String password) {
-//        this.id = id;
-//        this.name = name;
-//        this.address = address;
-//        this.contact = contact;
-//        this.dob = dob;
-//        this.email = email;
-//        this.product_type = product_type;
-//        this.username = username;
-//        this.password = password;
-//    }
-    
-//    public Long getId() {
-//        return id;
-//    }
 
     public String getName() {
         return name;
@@ -81,10 +63,6 @@ public class User extends AbstractEntity {
         return "user";
     }
 
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -115,6 +93,5 @@ public class User extends AbstractEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-    
+    }   
 }

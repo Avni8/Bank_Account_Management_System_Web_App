@@ -29,7 +29,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:inputText value="#{staffController.staff.age}" />
 
                     <p:outputLabel value="Gender:" />
-                    <p:inputText value="#{staffController.staff.gender}" />
+                    <p:selectOneRadio value="#{staffController.staff.gender}">
+                        <f:selectItem itemLabel="Male" itemValue="Male" />
+                        <f:selectItem itemLabel="Female" itemValue="Female" />
+                        <f:selectItem itemLabel="Other" itemValue="Other" />
+                    </p:selectOneRadio>
 
                     <p:outputLabel value="Email Address:" />
                     <p:inputText value="#{staffController.staff.email}" />
@@ -77,15 +81,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:column headerText="Name">
                         <h:outputText value="#{staff.name}" />
                     </p:column>
-                    
+
                     <p:column headerText="Age">
                         <h:outputText value="#{staff.age}" />
                     </p:column>
-                    
+
                     <p:column headerText="Gender">
                         <h:outputText value="#{staff.gender}" />
                     </p:column>
-                    
+
                     <p:column headerText="Email">
                         <h:outputText value="#{staff.email}" />
                     </p:column>
@@ -93,7 +97,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:column headerText="Contact">
                         <h:outputText value="#{staff.contact}" />
                     </p:column>
-                    
+
                     <p:column headerText="Address">
                         <h:outputText value="#{staff.address}" />
                     </p:column>
