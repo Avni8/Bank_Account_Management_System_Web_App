@@ -76,9 +76,9 @@ public class UserController implements Serializable {
         loadData();
     }
     
-    public void findUserById(){
-        this.userList =  userRepository.getUserById(user.getId());
-        System.out.println("");
-    }
+//    public void findUserById(){
+//        this.userList =  userRepository.getUserById(user.getId());
+//        System.out.println("");
+//    }
 
 }

@@ -3,27 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.ams.model;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  *
  * @author avni
  */
-
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User extends AbstractEntity {
-  
+
     private String name;
     private String address;
     private String contact;
     private String dob;
-    private String email; 
+    private String email;
     private String product_type;
     private String username;
     private String password;
@@ -31,23 +32,23 @@ public class User extends AbstractEntity {
     public String getName() {
         return name;
     }
-    
+
     public String getAddress() {
         return address;
     }
-    
+
     public String getContact() {
         return contact;
     }
-    
+
     public String getDob() {
         return dob;
     }
-    
+
     public String getEmail() {
         return email;
     }
-    
+
     public String getProduct_type() {
         return product_type;
     }
@@ -59,7 +60,8 @@ public class User extends AbstractEntity {
     public String getPassword() {
         return password;
     }
-     public String getTableName(){
+
+    public String getTableName() {
         return "user";
     }
 
@@ -93,5 +95,17 @@ public class User extends AbstractEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }   
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        User otherUser = (User) obj;
+        return Objects.equals(this.getId(), otherUser.getId());
+    } 
 }

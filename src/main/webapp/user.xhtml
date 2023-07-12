@@ -60,7 +60,8 @@
 
         <center>
             <h:form id="listForm" >
-                <p:dataTable value="#{userController.userList}" var="user" >
+                <p:dataTable value="#{userController.userList}" var="user" paginator="true" rows="10"
+                             paginatorPosition="bottom"  emptyMessage="No records found">
 
 
                     <f:facet name="header">
@@ -77,39 +78,39 @@
                                 style="height: 30px;"/>
                         </div>
                     </f:facet>
-                    <p:column headerText="Id">
+                    <p:column headerText="Id" width="1" filterBy="#{user.id}" sortBy="#{user.id}">
                         <h:outputText value="#{user.id}" />
                     </p:column>
 
-                    <p:column headerText="Name">
+                    <p:column headerText="Name" width="34" filterBy="#{user.name}" sortBy="#{user.name}">
                         <h:outputText value="#{user.name}" />
                     </p:column>
 
-                    <p:column headerText="Address">
+                    <p:column headerText="Address" width="24">
                         <h:outputText value="#{user.address}" />
                     </p:column>
 
-                    <p:column headerText="Contact">
+                    <p:column headerText="Contact" width="16">
                         <h:outputText value="#{user.contact}" />
                     </p:column>
 
-                    <p:column headerText="DOB">
+                    <p:column headerText="DOB" width="15">
                         <h:outputText value="#{user.dob}" />
                     </p:column>
 
-                    <p:column headerText="Email">
+                    <p:column headerText="Email" width="35">
                         <h:outputText value="#{user.email}" />
                     </p:column>
 
-                    <p:column headerText="Product Type">
+                    <p:column headerText="Product Type" width="20">
                         <h:outputText value="#{user.product_type}" />
                     </p:column>
 
-                    <p:column headerText="Username">
+                    <p:column headerText="Username" width="16">
                         <h:outputText value="#{user.username}" />
                     </p:column> 
 
-                    <p:column headerText="Action">
+                    <p:column headerText="Action" width="12">
 
                         <p:commandButton styleClass="ui-button-raised ui-button-success" 
                                          icon="ui-icon-pencil" oncomplete="PF('userDialog').show()"
@@ -127,11 +128,6 @@
 
             </h:form>
         </center> 
-        <h:form>
-            <h:panelGrid columns="2">
-                <p:inputText value="#{userController.user.id}" />
-                <p:commandButton value="Search" action="#{userController.findUserById}" update=":listForm" />
-            </h:panelGrid>
-        </h:form>
+
     </body>
 </html>

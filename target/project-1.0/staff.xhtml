@@ -57,7 +57,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         </p:dialog>
         <center>
             <h:form id="listForm" >
-                <p:dataTable value="#{staffController.staffList}" var="staff" >
+                <p:dataTable value="#{staffController.staffList}" var="staff" paginator="true" 
+                             rows="10"
+                             paginatorPosition="bottom" >
 
 
                     <f:facet name="header">
@@ -74,39 +76,39 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                 style="height: 30px;"/>
                         </div>
                     </f:facet>
-                    <p:column headerText="Id">
+                    <p:column headerText="Id" width="1" filterBy="#{staff.id}" sortBy="#{staff.id}">
                         <h:outputText value="#{staff.id}" />
                     </p:column>
 
-                    <p:column headerText="Name">
+                    <p:column headerText="Name" width="34" filterBy="#{staff.name}" sortBy="#{staff.name}">
                         <h:outputText value="#{staff.name}" />
                     </p:column>
 
-                    <p:column headerText="Age">
+                    <p:column headerText="Age" width="1">
                         <h:outputText value="#{staff.age}" />
                     </p:column>
 
-                    <p:column headerText="Gender">
+                    <p:column headerText="Gender" width="10">
                         <h:outputText value="#{staff.gender}" />
                     </p:column>
 
-                    <p:column headerText="Email">
+                    <p:column headerText="Email" width="35">
                         <h:outputText value="#{staff.email}" />
                     </p:column>
 
-                    <p:column headerText="Contact">
+                    <p:column headerText="Contact" width="16">
                         <h:outputText value="#{staff.contact}" />
                     </p:column>
 
-                    <p:column headerText="Address">
+                    <p:column headerText="Address" width="24">
                         <h:outputText value="#{staff.address}" />
                     </p:column>
 
-                    <p:column headerText="Username">
+                    <p:column headerText="Username" width="15">
                         <h:outputText value="#{staff.username}" />
                     </p:column> 
 
-                    <p:column headerText="Action">
+                    <p:column headerText="Action" width="12">
 
                         <p:commandButton styleClass="ui-button-raised ui-button-success" 
                                          icon="ui-icon-pencil" oncomplete="PF('staffDialog').show()"

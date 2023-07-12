@@ -30,17 +30,17 @@ public class UserRepository extends AbstractRepository<User> {
         return entityManager;
     }
 
-    public List<User> getUserById(Long id) {
-        List<User> userList = null;
-        try {
-            Query query = entityManager().createQuery("Select u from User u where u.id=:id", User.class);
-            query.setParameter("id", id);
-            userList = query.getResultList();
-            return userList;
-
-        } catch (Exception r) {
-
-        }
-        return userList;
-    }
+//    public List<User> getUserById(Long id) {
+//        List<User> userList = null;
+//        try {
+//            Query query = entityManager().createQuery("Select u from User u where u.id=:id", User.class);
+//            query.setParameter("id", id);
+//            userList = query.getResultList();
+//            return userList;
+//
+//        } catch (Exception r) {
+//
+//        }
+//        return userList;
+//    }
 }

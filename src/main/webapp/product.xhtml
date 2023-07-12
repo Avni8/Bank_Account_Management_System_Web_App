@@ -37,7 +37,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
         <center>
             <h:form id="listForm" >
-                <p:dataTable value="#{productController.productList}" var="product" >
+                <p:dataTable value="#{productController.productList}" var="product" paginator="true" 
+                             rows="10"
+                             paginatorPosition="bottom">
 
 
                     <f:facet name="header">

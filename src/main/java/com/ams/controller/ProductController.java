@@ -69,7 +69,7 @@ public class ProductController implements Serializable{
         }
         loadData();
     }
-
+    
     public void delete(Product product) {
         productRepository.delete(product.getId());
         loadData();

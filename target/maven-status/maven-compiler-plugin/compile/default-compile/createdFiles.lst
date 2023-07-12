@@ -6,8 +6,11 @@ com/ams/controller/UserController.class
 com/ams/model/User.class
 com/ams/model/AbstractEntity.class
 com/ams/controller/AccountController.class
+com/ams/repository/ProductConverter.class
+com/ams/repository/GenericConverter.class
 com/ams/repository/StaffRepository.class
 com/ams/model/Product.class
+com/ams/repository/UserConverter.class
 com/ams/controller/ProductController.class
 com/ams/repository/ProductRepository.class
 com/ams/repository/CrudRepository.class

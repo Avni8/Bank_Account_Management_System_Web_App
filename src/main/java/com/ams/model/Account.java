@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.ams.model;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,11 +21,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "account")
 public class Account extends AbstractEntity {
-    
+
     @Column(name = "acc_no")
     private String accNo;
-//    @Column(name = "acc_type")
-//    private String accType;
     @Column(name = "interest_rate")
     private Double interestRate;
     @Column(name = "opened_date")
@@ -33,19 +32,14 @@ public class Account extends AbstractEntity {
     private String matureDate;
     @Column(name = "balance")
     private Double balance;
-    
-    @ManyToOne(cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "user_id")
+//    (cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
-    
-    @ManyToOne(cascade = {CascadeType.MERGE})
-//    @JoinColumn(name = "product_id")
+    //(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
-    
-    public Account() {
-        this.user = new User();
-        this.product = new Product();
-    }
 
     public String getAccNo() {
         return accNo;
@@ -62,7 +56,6 @@ public class Account extends AbstractEntity {
 //    public void setAccType(String accType) {
 //        this.accType = accType;
 //    }
-
     public Double getInterestRate() {
         return interestRate;
     }
@@ -94,7 +87,7 @@ public class Account extends AbstractEntity {
     public void setBalance(Double balance) {
         this.balance = balance;
     }
-    
+
     public User getUser() {
         return user;
     }
@@ -109,5 +102,5 @@ public class Account extends AbstractEntity {
 
     public void setProduct(Product product) {
         this.product = product;
-    }  
+    }
 }

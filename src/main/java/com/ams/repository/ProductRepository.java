@@ -21,7 +21,6 @@ public class ProductRepository extends AbstractRepository<Product>  {
     public ProductRepository() {
         super(Product.class);
     }
-
     @Override
     protected EntityManager entityManager() {
         return entityManager;

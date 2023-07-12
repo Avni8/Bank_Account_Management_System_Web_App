@@ -22,11 +22,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <h:form id="accountForm" styleClass="no-border-input">
                 <p:panelGrid columns="2"> 
 
-                    <p:outputLabel value="User ID:" />
-                    <p:inputText value="#{accountController.account.user.id}" />
+                    <p:outputLabel value="User:" />
+                    <p:selectOneMenu value="#{accountController.account.user}" 
+                                     converter="userConverter">
+                        <f:selectItem itemLabel="Select User" itemValue="" />
+                        <f:selectItems value="#{accountController.userList}" 
+                                       var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                    </p:selectOneMenu>
 
-                    <p:outputLabel value="Product ID:" />
-                    <p:inputText value="#{accountController.account.product.id}" />
+                    <p:outputLabel value="Product:" />
+                    <p:selectOneMenu value="#{accountController.account.product}" converter="productConverter">
+                        <f:selectItem itemLabel="Select Product Type" itemValue="" />
+                        <f:selectItems value="#{accountController.productList}" var="product" itemValue="#{product}" itemLabel="#{product.product_type}" />
+                    </p:selectOneMenu>
 
                     <p:outputLabel value="Account Number:" />
                     <p:inputText value="#{accountController.account.accNo}" />
@@ -49,11 +57,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                  update=":listForm"/>
             </h:form>
         </p:dialog>
-
-
         <center>
             <h:form id="listForm" >
-                <p:dataTable value="#{accountController.accountList}" var="account" >
+                <p:dataTable value="#{accountController.accountList}" var="account" paginator="true" 
+                             rows="10"
+                             paginatorPosition="bottom">
 
                     <f:facet name="header">
                         Account Details
@@ -69,39 +77,39 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                 style="height: 30px;"/>
                         </div>
                     </f:facet>
-                    <p:column headerText="Id">
+                    <p:column headerText="Id" width="1">
                         <h:outputText value="#{account.id}" />
                     </p:column>
 
-                    <p:column headerText="User Name">
+                    <p:column headerText="User Name" width="34">
                         <h:outputText value="#{account.user.name}" />
                     </p:column>
 
-                    <p:column headerText="Account Number">
+                    <p:column headerText="Account Number" width="30">
                         <h:outputText value="#{account.accNo}" />
                     </p:column>
 
-                    <p:column headerText="Interest Rate">
+                    <p:column headerText="Interest Rate" width="15">
                         <h:outputText value="#{account.interestRate}" />
                     </p:column>
 
-                    <p:column headerText="Opened Date">
+                    <p:column headerText="Opened Date" width="15">
                         <h:outputText value="#{account.openedDate}" />
                     </p:column>
 
-                    <p:column headerText="Mature Date">
+                    <p:column headerText="Mature Date" width="15">
                         <h:outputText value="#{account.matureDate}" />
                     </p:column>
 
-                    <p:column headerText="Balance">
+                    <p:column headerText="Balance" width="35">
                         <h:outputText value="#{account.balance}" />
                     </p:column> 
 
-                    <p:column headerText="Product Type">
+                    <p:column headerText="Product Type" width="35">
                         <h:outputText value="#{account.product.product_type}" />
                     </p:column> 
 
-                    <p:column headerText="Action">
+                    <p:column headerText="Action" width="15">
 
                         <p:commandButton styleClass="ui-button-raised ui-button-success" 
                                          icon="ui-icon-pencil" oncomplete="PF('accountDialog').show()"
