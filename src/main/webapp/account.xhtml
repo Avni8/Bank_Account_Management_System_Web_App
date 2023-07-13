@@ -77,31 +77,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                 style="height: 30px;"/>
                         </div>
                     </f:facet>
-                    <p:column headerText="Id" width="1">
+                    <p:column headerText="Id" width="1" filterBy="#{account.id}" sortBy="#{account.id}">
                         <h:outputText value="#{account.id}" />
                     </p:column>
 
-                    <p:column headerText="User Name" width="34">
+                    <p:column headerText="User Name" width="34" filterBy="#{account.user.name}"
+                              sortBy="#{account.user.name}">
                         <h:outputText value="#{account.user.name}" />
                     </p:column>
 
-                    <p:column headerText="Account Number" width="30">
+                    <p:column headerText="Account Number" width="30" >
                         <h:outputText value="#{account.accNo}" />
                     </p:column>
 
-                    <p:column headerText="Interest Rate" width="15">
+                    <p:column headerText="Interest Rate" width="12">
                         <h:outputText value="#{account.interestRate}" />
                     </p:column>
 
-                    <p:column headerText="Opened Date" width="15">
+                    <p:column headerText="Opened Date" width="30" filterBy="#{account.openedDate}"
+                              sortBy="#{account.openedDate}">
                         <h:outputText value="#{account.openedDate}" />
                     </p:column>
 
-                    <p:column headerText="Mature Date" width="15">
+                    <p:column headerText="Mature Date" width="30" filterBy="#{account.matureDate}"
+                              sortBy="#{account.matureDate}">
                         <h:outputText value="#{account.matureDate}" />
                     </p:column>
 
-                    <p:column headerText="Balance" width="35">
+                    <p:column headerText="Balance" width="30">
                         <h:outputText value="#{account.balance}" />
                     </p:column> 
 

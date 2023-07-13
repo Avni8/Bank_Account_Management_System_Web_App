@@ -1,4 +1,5 @@
 com/ams/repository/AbstractRepository.class
+com/ams/model/Transaction.class
 com/ams/repository/AccountRepository.class
 com/ams/controller/StaffController.class
 com/ams/model/Account.class
@@ -8,11 +9,14 @@ com/ams/model/AbstractEntity.class
 com/ams/controller/AccountController.class
 com/ams/repository/ProductConverter.class
 com/ams/repository/GenericConverter.class
+com/ams/repository/AccountConverter.class
 com/ams/repository/StaffRepository.class
 com/ams/model/Product.class
 com/ams/repository/UserConverter.class
 com/ams/controller/ProductController.class
+com/ams/repository/TransactionRepository.class
 com/ams/repository/ProductRepository.class
 com/ams/repository/CrudRepository.class
 com/ams/model/Staff.class
+com/ams/controller/TransactionController.class
 com/ams/repository/UserRepository.class

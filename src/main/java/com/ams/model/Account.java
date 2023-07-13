@@ -4,6 +4,7 @@
  */
 package com.ams.model;
 
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +37,7 @@ public class Account extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    //(cascade = CascadeType.ALL)
+    
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
@@ -103,4 +104,17 @@ public class Account extends AbstractEntity {
     public void setProduct(Product product) {
         this.product = product;
     }
+    
+     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Account account = (Account) obj;
+        return Objects.equals(this.getId(), account.getId());
+    } 
+    
 }
