@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Transaction-Details</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+        <h:form class="my-navbar">    
+            <ui:include src="topmenu.xhtml" />  
+        </h:form>
+        <p:dialog header="Create a new transaction" widgetVar="transactionDialog" modal="true" resizable="true" width="420" height="410">
+            <h:form id="transactionForm" styleClass="no-border-input">
+                <p:panelGrid columns="2"> 
+
+                    <p:outputLabel value="Date:" />
+                    <p:calendar value="#{transactionController.transaction.date}" showOn="button"
+                                pattern="yyyy-MM-dd"/>
+
+                    <p:outputLabel value="Account Number:" />
+                    <p:selectOneMenu value="#{transactionController.transaction.account}" converter="accountConverter">
+                        <f:selectItem itemLabel="Select Account Number" itemValue="" />
+                        <f:selectItems value="#{transactionController.accountList}" var="account" itemValue="#{account}" itemLabel="#{account.accNo}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Credit Amount:" />
+                    <p:inputText value="#{transactionController.transaction.creditAmount}" />
+
+                    <p:outputLabel value="Debit Amount:" />
+                    <p:inputText value="#{transactionController.transaction.debitAmount}" />
+
+                </p:panelGrid>
+                <p:commandButton value="Save Transaction" action="#{transactionController.createUpdate()}"
+                                 style="margin-top: 10px;" oncomplete="PF('transactionDialog').hide()"
+                                 update=":listForm"/>
+            </h:form>
+        </p:dialog>
+        <center>
+            <h:form id="listForm" >
+                <p:dataTable value="#{transactionController.transactionList}" var="transaction" paginator="true" 
+                             rows="10"
+                             paginatorPosition="bottom">
+
+
+                    <f:facet name="header">
+                        Transaction Details
+                        <div class="button-container" style="position: absolute;
+                             top: 45px;
+                             left: 95.3%;
+                             right: 0;
+                             margin: 10px;">
+                            <p:commandButton
+                                oncomplete="PF('transactionDialog').show()"
+                                icon="ui-icon-plusthick" title="Add Transaction" 
+                                update=":transactionForm" 
+                                actionListener="#{transactionController.beforeCreate()}" 
+                                style="height: 30px;"/>
+                        </div>
+                    </f:facet>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{transaction.id}" />
+                    </p:column>
+
+                    <p:column headerText="Date">
+                        <h:outputText value="#{transaction.date}" />
+                    </p:column>
+
+                    <p:column headerText="Credit Amount">
+                        <h:outputText value="#{transaction.creditAmount}" />
+                    </p:column>
+
+                    <p:column headerText="Debit Amount">
+                        <h:outputText value="#{transaction.debitAmount}" />
+                    </p:column>
+
+                    <p:column headerText="User">
+                        <h:outputText value="#{transaction.account.user.name}" />
+                    </p:column>
+
+                    <p:column headerText="Account Number">
+                        <h:outputText value="#{transaction.account.accNo}" />
+                    </p:column>
+
+
+
+                    <p:column headerText="Action">
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         icon="ui-icon-pencil" oncomplete="PF('transactionDialog').show()"
+                                         title="Edit Transaction" update=":transactionForm" 
+                                         action="#{transactionController.beforeUpdate(transaction)}" />
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         title="Delete Transaction"
+                                         icon="ui-icon-trash"
+                                         actionListener="#{transactionController.delete(transaction)}"
+                                         update=":listForm"
+                                         />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </center> 
+    </body>
+</html>

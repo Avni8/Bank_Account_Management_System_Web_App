@@ -42,9 +42,7 @@ public class AccountMISController implements Serializable {
         accountMIS.setSourceAccount(new Account());
         transactionTypes = Arrays.asList(TransactionType.values());
     }
-    
-    
-
+   
     public List<AccountMIS> getAccountMISList() {
         return accountMISList;
     }
@@ -56,9 +54,7 @@ public class AccountMISController implements Serializable {
     public List<TransactionType> getTransactionTypes() {
         return transactionTypes;
     }
-    
-    
-    
+   
     @PostConstruct
     public void init() {
         loadData();

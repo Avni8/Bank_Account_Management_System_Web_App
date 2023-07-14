@@ -11,6 +11,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,6 +33,7 @@ public class AccountMIS extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "destination_account_number")
     private Account destinationAccount;
+   
 
     public Account getSourceAccount() {
         return sourceAccount;
@@ -56,6 +58,8 @@ public class AccountMIS extends AbstractEntity {
     public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
     }
+  
+    
 
     @Override
     public int hashCode() {
