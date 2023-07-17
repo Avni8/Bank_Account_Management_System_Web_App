@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Deposit</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+
+        <h:form id="depositForm">
+            <p:panelGrid columns="2">
+
+                <p:outputLabel value="User:" />
+                <p:selectOneMenu value="#{depositController.selectedUser}" 
+                                 converter="userConverter">
+                    <f:selectItem itemLabel="Select User" itemValue="" />
+                    <f:selectItems value="#{accountController.userList}" 
+                                   var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                    <p:ajax listener="#{depositController.retrieveAccounts()}" update="account" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="account" value="Account Number:" />
+                <p:selectOneMenu id="account" value="#{depositController.selectedAccount}" converter="accountConverter">
+                    <f:selectItem itemLabel="Select Account Number" itemValue="" />
+                    <f:selectItems value="#{depositController.accountList}" var="account"
+                                   itemValue="#{account}" itemLabel="#{account.accNo} 
+                                   (Balance: #{account.balance})" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Amount" />
+                <p:inputText value="#{depositController.depositAmount}" />
+                   
+            </p:panelGrid> 
+            
+            <p:commandButton value="Deposit" action="#{depositController.deposit()}"
+                             oncomplete="PF('depositDialog').hide()" />
+        </h:form>    
+    </body>
+</html>

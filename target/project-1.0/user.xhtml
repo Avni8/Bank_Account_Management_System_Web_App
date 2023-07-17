@@ -60,8 +60,11 @@
 
         <center>
             <h:form id="listForm" >
-                <p:dataTable value="#{userController.userList}" var="user" paginator="true" rows="10"
-                             paginatorPosition="bottom"  emptyMessage="No records found">
+                <p:dataTable value="#{userController.userModel}" var="user" paginator="true" rows="10"
+                             paginatorPosition="bottom"  emptyMessage="No records found" 
+                             id="userTable"
+                             rowKey="#{user.id}"
+                             selectionMode="single" selection="#{userController.user}">
 
 
                     <f:facet name="header">
@@ -123,8 +126,33 @@
                                          actionListener="#{userController.delete(user)}"
                                          update=":listForm"
                                          />
+
                     </p:column>
+                    <p:ajax event="rowSelect" update=":listForm:accountForm" listener="#{userController.retrieveAccounts}" />
                 </p:dataTable>
+
+                <p:tabView dynamic="true" cache="false">
+                    <p:tab title="Deposit">
+
+                    </p:tab>
+                    <p:tab title="Withdraw">
+
+                    </p:tab>
+                    <p:tab title="Fund Transfer">
+
+                    </p:tab>
+                </p:tabView>
+
+                <h:panelGroup id="accountForm">
+                    <p:dataTable value="#{userController.accountList}" var="account">
+                        <p:column headerText="Account Number">
+                            <h:outputText value="#{account.accNo}" />
+                        </p:column>
+                        <p:column headerText="Balance">
+                            <h:outputText value="#{account.balance}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
 
             </h:form>
         </center> 

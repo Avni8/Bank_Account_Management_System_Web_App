@@ -1,5 +1,6 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountTransactionDetailsController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Account.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/DepositController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/UserController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/CrudRepository.java
@@ -14,6 +15,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountMISRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Product.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountMISController.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/UserModel.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/StaffRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AbstractRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AbstractEntity.java

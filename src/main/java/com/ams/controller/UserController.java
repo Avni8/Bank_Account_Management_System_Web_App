@@ -4,6 +4,7 @@
  */
 package com.ams.controller;
 
+import com.ams.model.Account;
 import com.ams.repository.UserRepository;
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +13,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import com.ams.model.User;
+import com.ams.model.UserModel;
+import com.ams.repository.AccountRepository;
 import java.util.ArrayList;
 
 /**
@@ -24,9 +27,22 @@ public class UserController implements Serializable {
 
     private User user;
     private List<User> userList;
+    private List<Account> accountList;
+    private UserModel userModel;
 
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private AccountRepository accountRepository;
+
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
+    }
 
     public List<User> getUserList() {
         return userList;
@@ -48,6 +64,7 @@ public class UserController implements Serializable {
     public void init() {
         user = new User();
         loadData();
+        userModel = new UserModel(userList);
     }
 
     private void loadData() {
@@ -75,10 +92,22 @@ public class UserController implements Serializable {
         userRepository.delete(user.getId());
         loadData();
     }
-    
+
 //    public void findUserById(){
 //        this.userList =  userRepository.getUserById(user.getId());
 //        System.out.println("");
 //    }
+    public void retrieveAccounts() {
+        if (user != null) {
+            // Call your repository or service to fetch the list of accounts based on the selected user
+            accountList = accountRepository.getAccountsByUser(user);
+        } else {
+            accountList = null;
+        }
+    }
+
+    public UserModel getUserModel() {
+        return userModel;
+    }
 
 }

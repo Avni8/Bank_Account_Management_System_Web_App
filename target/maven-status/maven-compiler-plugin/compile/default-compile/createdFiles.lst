@@ -7,6 +7,8 @@ com/ams/repository/StaffRepository.class
 com/ams/model/Product.class
 com/ams/repository/UserConverter.class
 com/ams/controller/ProductController.class
+com/ams/model/UserModel.class
+com/ams/controller/DepositController.class
 com/ams/repository/CrudRepository.class
 com/ams/model/Staff.class
 com/ams/repository/UserRepository.class

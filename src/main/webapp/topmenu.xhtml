@@ -17,6 +17,7 @@
         </style>
     </h:head>
     <body>
+        
         <h:form class="my-navbar">
             <p:menubar>
                 <p:menuitem value="Home" icon= "fa fa-home remove-bold" url="home.xhtml" />
@@ -24,10 +25,18 @@
                 <p:menuitem value="Staff" icon="fa fa-user-tie" url="staff.xhtml" />
                 <p:menuitem value="Product" icon="fa fa-bank" url="product.xhtml" />
                 <p:menuitem value="Account" icon="fa fa-coins" url="account.xhtml" />
-                <p:menuitem value="Account MIS" icon="fa fa-cog" url="accountmis.xhtml" />
-                <p:menuitem value="Account Transaction Details" icon="fa fa-exchange-alt" url="accountTransactionDetails.xhtml" />
-                
+                <p:submenu label="Transaction" icon="fa fa-exchange">
+                    <p:menuitem value="Deposit" onclick="PF('depositDialog').show()"/>
+                    <p:menuitem value="Fund Transfer" url="type2.xhtml" />
+                    <p:menuitem value="Withdrawal" url="type3.xhtml" />
+                </p:submenu>
+                <p:menuitem value="Account MIS" url="accountmis.xhtml" />
+                <p:menuitem value="Account Transaction Details"  url="accountTransactionDetails.xhtml" />
             </p:menubar>
         </h:form>
+        
+        <p:dialog header="Deposit" widgetVar="depositDialog" modal="true" resizable="false">
+            <ui:include src="depositDialog.xhtml" />
+        </p:dialog>
     </body>
 </html>
