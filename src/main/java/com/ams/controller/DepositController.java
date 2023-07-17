@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -23,20 +24,29 @@ import javax.inject.Named;
  */
 @ViewScoped
 @Named("depositController")
-public class DepositController implements Serializable{
+public class DepositController implements Serializable {
 
     private List<User> userList;
     private List<Account> accountList;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     private User selectedUser;
     private Account selectedAccount;
     private Double depositAmount;
+    
 
-    @Inject
     private AccountMISRepository accountMISRepository;
 
     @Inject
     private AccountTransactionDetailsRepository transactionRepository;
-    
+
     @Inject
     private AccountRepository accountRepository;
 
@@ -58,15 +68,14 @@ public class DepositController implements Serializable{
     public void setAccountList(List<Account> accountList) {
         this.accountList = accountList;
     }
-    
-     public User getSelectedUser() {
+
+    public User getSelectedUser() {
         return selectedUser;
     }
 
     public void setSelectedUser(User selectedUser) {
         this.selectedUser = selectedUser;
     }
-    
 
     public Account getSelectedAccount() {
         return selectedAccount;
@@ -84,7 +93,6 @@ public class DepositController implements Serializable{
         this.selectedAccount = selectedAccount;
     }
 
-    
     @PostConstruct
     public void init() {
         selectedAccount = new Account();
@@ -99,7 +107,7 @@ public class DepositController implements Serializable{
     public void beforeCreate() {
         selectedAccount = new Account();
         selectedUser = new User();
-       
+
     }
 
     public void beforeUpdate(Account selectedAccount) {
@@ -120,15 +128,28 @@ public class DepositController implements Serializable{
         accountRepository.delete(account.getId());
         loadData();
     }
-    
+
     public void retrieveAccounts() {
-    if (selectedUser != null) {
-        // Call your repository or service to fetch the list of accounts based on the selected user
-        accountList = accountRepository.getAccountsByUser(selectedUser);
-    } else {
-        accountList = null;
+        if (selectedUser != null) {
+            // Call your repository or service to fetch the list of accounts based on the selected user
+            accountList = accountRepository.getAccountsByUser(selectedUser);
+        } else {
+            accountList = null;
+        }
+
     }
     
+    public void onUserRowSelect(SelectEvent event) {
+        selectedUser = (User) event.getObject();
+    }
+
+   
+
+    
+   
 }
-  
-}
+
+    
+   
+    
+

@@ -16,6 +16,7 @@ import com.ams.model.User;
 import com.ams.model.UserModel;
 import com.ams.repository.AccountRepository;
 import java.util.ArrayList;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -26,7 +27,16 @@ import java.util.ArrayList;
 public class UserController implements Serializable {
 
     private User user;
+    private User selectedUser;
     private List<User> userList;
+
+    public User getSelectedUser() {
+        return selectedUser;
+    }
+
+    public void setSelectedUser(User selectedUser) {
+        this.selectedUser = selectedUser;
+    }
     private List<Account> accountList;
     private UserModel userModel;
 
@@ -64,11 +74,12 @@ public class UserController implements Serializable {
     public void init() {
         user = new User();
         loadData();
-        userModel = new UserModel(userList);
+//        userModel = new UserModel(userList);
     }
 
     private void loadData() {
         userList = userRepository.findAll();
+        userModel = new UserModel(userList);
     }
 
     public void beforeCreate() {
@@ -100,14 +111,23 @@ public class UserController implements Serializable {
     public void retrieveAccounts() {
         if (user != null) {
             // Call your repository or service to fetch the list of accounts based on the selected user
+            selectedUser=user;
             accountList = accountRepository.getAccountsByUser(user);
         } else {
             accountList = null;
         }
     }
+    
+    public void onUserRowSelect(SelectEvent event) {
+        user = (User) event.getObject();
+    }
 
     public UserModel getUserModel() {
         return userModel;
     }
+    
+    
+    
+    
 
 }

@@ -9,13 +9,27 @@
     <h:head>
         <title>User-Details</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <style>
+            .center-align-group{
+                display: flex;
+                justify-content: center;
+            }
+        </style>    
+
     </h:head>
+
 
     <body>    
 
         <h:form class="my-navbar">    
             <ui:include src="topmenu.xhtml" />  
+
+
         </h:form>
+
+
+
 
         <p:dialog header="Create a new user" widgetVar="userDialog" modal="true" resizable="true" width="420" height="410">
             <h:form id="userForm" styleClass="no-border-input">
@@ -128,34 +142,44 @@
                                          />
 
                     </p:column>
-                    <p:ajax event="rowSelect" update=":listForm:accountForm" listener="#{userController.retrieveAccounts}" />
+                    <p:ajax event="rowSelect" update=":account" listener="#{userController.retrieveAccounts()}" />
+
                 </p:dataTable>
 
-                <p:tabView dynamic="true" cache="false">
-                    <p:tab title="Deposit">
+            </h:form>
 
-                    </p:tab>
-                    <p:tab title="Withdraw">
+            <h:form>
+                <p:toolbar styleClass="center-align-group">
+                    <p:toolbarGroup>
+                        <p:commandButton value="Deposit" onclick="PF('depositDialog').show()" 
+                                         update=":depositForm"/>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Withdrawal"/>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Fund Transfer"/>
+                    </p:toolbarGroup>
+                </p:toolbar>
 
-                    </p:tab>
-                    <p:tab title="Fund Transfer">
+            </h:form>
 
-                    </p:tab>
-                </p:tabView>
+            <ui:include src="depositDialog.xhtml" />
+
+            <h:form id="account">
 
                 <h:panelGroup id="accountForm">
                     <p:dataTable value="#{userController.accountList}" var="account">
-                        <p:column headerText="Account Number">
-                            <h:outputText value="#{account.accNo}" />
+                        <p:column headerText="Account">
+                            <h:outputText value="#{account.accNo}-#{account.product.product_type}" />
                         </p:column>
                         <p:column headerText="Balance">
                             <h:outputText value="#{account.balance}" />
                         </p:column>
                     </p:dataTable>
                 </h:panelGroup>
-
             </h:form>
-        </center> 
 
+        </center> 
     </body>
 </html>
