@@ -10,6 +10,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
+<!--    <h:form class="my-navbar">    
+        <ui:include src="accountmis.xhtml" />  
+    </h:form>-->
+
     <p:dialog header="Deposit" widgetVar="depositDialog" modal="true" resizable="false" width="800" height="400">
 
         <h:form id="depositForm">
@@ -22,32 +26,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                   itemValue="#{userController.selectedUser}" />
                     <f:selectItems value="#{accountController.userList}" 
                                    var="user" itemValue="#{user}" itemLabel="#{user.name}" />
-
-                    
-
                 </p:selectOneMenu>
-
             </p:panelGrid>
-
             <h:panelGroup id="accountForm">
-                <p:dataTable value="#{userController.accountList}" var="account">
-                        <p:column headerText="Account">
-                            <h:outputText value="#{account.accNo}-#{account.product.product_type}" />
-                        </p:column>
-                        <p:column headerText="Balance">
-                            <h:outputText value="#{account.balance}" />
-                        </p:column>
-
-                        <p:column headerText="Amount">
-
-                        </p:column>
-
-                    </p:dataTable>
-                </h:panelGroup>
+                <p:dataTable value="#{userController.accountList}" var="account" selectionMode="single"
+                             selection="#{depositController.selectedAccount}" rowKey="#{account.getId()}">
+                    <p:column headerText="Account">
+                        <h:outputText value="#{account.accNo}-#{account.product.product_type}" />
+                    </p:column>
+                    <p:column headerText="Balance">
+                        <h:outputText value="#{account.balance}" />
+                    </p:column>
+                    <p:column headerText="Amount">
+                        <h:inputText value="#{depositController.depositAmount}" converter="javax.faces.Double" />
+                    </p:column>
+                </p:dataTable>
+            </h:panelGroup>
             <p:commandButton value="Deposit" action="#{depositController.deposit()}"
-                             oncomplete="PF('depositDialog').hide()" style="margin-top: 20px"/>
+                             oncomplete="PF('depositDialog').hide()"
+                             style="margin-top: 20px"/>
         </h:form>  
     </p:dialog>
-
 </ui:composition>
 

@@ -104,10 +104,6 @@ public class UserController implements Serializable {
         loadData();
     }
 
-//    public void findUserById(){
-//        this.userList =  userRepository.getUserById(user.getId());
-//        System.out.println("");
-//    }
     public void retrieveAccounts() {
         if (user != null) {
             // Call your repository or service to fetch the list of accounts based on the selected user
@@ -117,17 +113,8 @@ public class UserController implements Serializable {
             accountList = null;
         }
     }
-    
-    public void onUserRowSelect(SelectEvent event) {
-        user = (User) event.getObject();
-    }
 
     public UserModel getUserModel() {
         return userModel;
     }
-    
-    
-    
-    
-
 }

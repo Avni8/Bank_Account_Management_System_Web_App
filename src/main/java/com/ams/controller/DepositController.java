@@ -5,6 +5,9 @@
 package com.ams.controller;
 
 import com.ams.model.Account;
+import com.ams.model.AccountMIS;
+import com.ams.model.AccountTransactionDetails;
+import com.ams.model.TransactionType;
 import com.ams.model.User;
 import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
@@ -17,6 +20,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
+import java.util.Date;
 
 /**
  *
@@ -29,6 +33,10 @@ public class DepositController implements Serializable {
     private List<User> userList;
     private List<Account> accountList;
     private User user;
+    private Account account;
+    private User selectedUser;
+    private Account selectedAccount;
+    private Double depositAmount;
 
     public User getUser() {
         return user;
@@ -37,11 +45,8 @@ public class DepositController implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-    private User selectedUser;
-    private Account selectedAccount;
-    private Double depositAmount;
-    
 
+    @Inject
     private AccountMISRepository accountMISRepository;
 
     @Inject
@@ -75,6 +80,14 @@ public class DepositController implements Serializable {
 
     public void setSelectedUser(User selectedUser) {
         this.selectedUser = selectedUser;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public Account getSelectedAccount() {
@@ -138,18 +151,34 @@ public class DepositController implements Serializable {
         }
 
     }
-    
-    public void onUserRowSelect(SelectEvent event) {
-        selectedUser = (User) event.getObject();
+
+    public void deposit() {
+
+        if (selectedUser != null && selectedAccount != null && depositAmount != null) {
+
+            AccountMIS accountMIS = new AccountMIS();
+
+            accountMIS.setSourceAccount(selectedAccount);
+
+            accountMIS.setTransactionType(TransactionType.DEPOSIT);
+
+            AccountTransactionDetails accountTransactionDetails = new AccountTransactionDetails();
+            
+            accountTransactionDetails.setDate(new Date());
+
+            accountTransactionDetails.setCreditAmount(depositAmount);
+
+            accountTransactionDetails.setUser(selectedUser.getName());
+
+            accountTransactionDetails.setAccount(selectedAccount);
+            
+            Double currentBalance = selectedAccount.getBalance();
+            Double newBalance = currentBalance + depositAmount;
+            selectedAccount.setBalance(newBalance);
+            
+            accountMISRepository.save(accountMIS);
+            transactionRepository.save(accountTransactionDetails);
+            accountRepository.update(selectedAccount);
+        }
     }
-
-   
-
-    
-   
 }
-
-    
-   
-    
-

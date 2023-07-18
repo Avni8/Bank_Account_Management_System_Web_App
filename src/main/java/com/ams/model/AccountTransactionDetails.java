@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 /**
  *
  * @author avni
@@ -19,6 +21,7 @@ import javax.persistence.Table;
 public class AccountTransactionDetails extends AbstractEntity{
     
     @Column(name =  "date")
+    @Temporal(TemporalType.DATE)
     private Date date;
     @Column(name = "credit_amount")
     private Double creditAmount;
@@ -29,7 +32,7 @@ public class AccountTransactionDetails extends AbstractEntity{
     @JoinColumn(name = "account_id")
     private Account account;
     
-
+    private String user;
 //    public AccountMIS getAccountMIS() {
 //        return accountMIS;
 //    }
@@ -44,6 +47,14 @@ public class AccountTransactionDetails extends AbstractEntity{
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
     
     public Date getDate() {
