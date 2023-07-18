@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -37,10 +38,21 @@ public class Account extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    
+
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @Transient
+    private transient Double amount;
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
 
     public String getAccNo() {
         return accNo;
@@ -104,8 +116,8 @@ public class Account extends AbstractEntity {
     public void setProduct(Product product) {
         this.product = product;
     }
-    
-     @Override
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -115,6 +127,6 @@ public class Account extends AbstractEntity {
         }
         Account account = (Account) obj;
         return Objects.equals(this.getId(), account.getId());
-    } 
-    
+    }
+
 }

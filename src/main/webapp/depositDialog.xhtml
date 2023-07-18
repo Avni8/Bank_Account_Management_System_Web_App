@@ -29,8 +29,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:selectOneMenu>
             </p:panelGrid>
             <h:panelGroup id="accountForm">
-                <p:dataTable value="#{userController.accountList}" var="account" selectionMode="single"
-                             selection="#{depositController.selectedAccount}" rowKey="#{account.getId()}">
+                <p:dataTable value="#{userController.accountList}" var="account">
                     <p:column headerText="Account">
                         <h:outputText value="#{account.accNo}-#{account.product.product_type}" />
                     </p:column>
@@ -38,7 +37,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="#{account.balance}" />
                     </p:column>
                     <p:column headerText="Amount">
-                        <h:inputText value="#{depositController.depositAmount}" converter="javax.faces.Double" />
+                        <h:inputText value="#{account.amount}" converter="javax.faces.Double" />
                     </p:column>
                 </p:dataTable>
             </h:panelGroup>

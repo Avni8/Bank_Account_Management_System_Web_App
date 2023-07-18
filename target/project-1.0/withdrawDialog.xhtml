@@ -9,11 +9,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-
-<!--    <h:form class="my-navbar">    
-        <ui:include src="accountmis.xhtml" />  
-    </h:form>-->
-
     <p:dialog header="Withdrawal" widgetVar="withdrawDialog" modal="true" resizable="false" width="800" height="400">
 
         <h:form id="withdrawForm">
@@ -38,7 +33,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="#{account.balance}" />
                     </p:column>
                     <p:column headerText="Amount">
-                        <h:inputText value="#{withdrawController.withdrawAmount}" converter="javax.faces.Double" />
+                        <h:inputText value="#{account.amount}" converter="javax.faces.Double" />
                     </p:column>
                 </p:dataTable>
             </h:panelGroup>

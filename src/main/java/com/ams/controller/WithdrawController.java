@@ -26,10 +26,9 @@ import java.util.Date;
  *
  * @author avni
  */
-
 @ViewScoped
 @Named("withdrawController")
-public class WithdrawController implements Serializable{
+public class WithdrawController implements Serializable {
 
     private List<User> userList;
     private List<Account> accountList;
@@ -58,6 +57,9 @@ public class WithdrawController implements Serializable{
 
     @Inject
     private UserRepository userRepository;
+    
+    @Inject
+    private UserController userController;
 
     public List<User> getUserList() {
         return userList;
@@ -154,33 +156,49 @@ public class WithdrawController implements Serializable{
     }
 
     public void withdraw() {
+        
+        if (selectedUser != null) {
 
-        if (selectedUser != null && selectedAccount != null && withdrawAmount != null) {
+//            List<Account> userAccounts = accountRepository.getAccountsByUser(selectedUser);
+            
+            for (Account account : userController.getAccountList()) {
 
-            AccountMIS accountMIS = new AccountMIS();
+                if (account.getAmount() != null && account.getAmount() > 0) {
 
-            accountMIS.setSourceAccount(selectedAccount);
+                    AccountMIS accountMIS = new AccountMIS();
 
-            accountMIS.setTransactionType(TransactionType.WITHDRAWAL);
+                    accountMIS.setSourceAccount(account);
 
-            AccountTransactionDetails accountTransactionDetails = new AccountTransactionDetails();
+                    accountMIS.setTransactionType(TransactionType.WITHDRAWAL);
 
-            accountTransactionDetails.setDate(new Date());
+                    AccountTransactionDetails accountTransactionDetails =
+                            new AccountTransactionDetails();
 
-            accountTransactionDetails.setDebitAmount(withdrawAmount);
+                    accountTransactionDetails.setDate(new Date());
 
-            accountTransactionDetails.setUser(selectedUser.getName());
+                    accountTransactionDetails.setDebitAmount(account.getAmount());
 
-            accountTransactionDetails.setAccount(selectedAccount);
+                    accountTransactionDetails.setUser(selectedUser.getName());
 
-            Double currentBalance = selectedAccount.getBalance();
-            Double newBalance = currentBalance - withdrawAmount;
-            selectedAccount.setBalance(newBalance);
+                    accountTransactionDetails.setAccount(account);
 
-            accountMISRepository.save(accountMIS);
-            transactionRepository.save(accountTransactionDetails);
-            accountRepository.update(selectedAccount);
+                    Double currentBalance = account.getBalance();
+                    Double newBalance = currentBalance - account.getAmount();
+                    account.setBalance(newBalance);
+
+                    accountMISRepository.save(accountMIS);
+                    transactionRepository.save(accountTransactionDetails);
+                    accountRepository.update(account);
+
+                }
+
+            }
+
         }
+
+        
+        
+
     }
 
 }

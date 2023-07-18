@@ -16,6 +16,7 @@ import com.ams.model.User;
 import com.ams.model.UserModel;
 import com.ams.repository.AccountRepository;
 import java.util.ArrayList;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -97,6 +98,7 @@ public class UserController implements Serializable {
             userRepository.update(user);
         }
         loadData();
+        
     }
 
     public void delete(User user) {
