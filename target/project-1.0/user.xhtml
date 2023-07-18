@@ -155,7 +155,9 @@
                                          update=":depositForm"/>
                     </p:toolbarGroup>
                     <p:toolbarGroup>
-                        <p:commandButton value="Withdrawal"/>
+                        <p:commandButton value="Withdrawal" onclick="PF('withdrawDialog').show()"
+                                         update=":withdrawForm"
+                                         />
                     </p:toolbarGroup>
                     <p:toolbarGroup>
                         <p:commandButton value="Fund Transfer"/>
@@ -165,6 +167,8 @@
             </h:form>
 
             <ui:include src="depositDialog.xhtml" />
+            <ui:include src="withdrawDialog.xhtml" />
+            
 
             <h:form id="account">
 

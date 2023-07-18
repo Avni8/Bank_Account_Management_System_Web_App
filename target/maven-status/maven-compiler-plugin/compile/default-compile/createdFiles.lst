@@ -1,4 +1,5 @@
 com/ams/model/TransactionType.class
+com/ams/controller/WithdrawController.class
 com/ams/model/Account.class
 com/ams/model/AccountTransactionDetails.class
 com/ams/model/AbstractEntity.class
