@@ -110,7 +110,7 @@ public class UserController implements Serializable {
         if (user != null) {
             // Call your repository or service to fetch the list of accounts based on the selected user
             selectedUser=user;
-            accountList = accountRepository.getAccountsByUser(user);
+            accountList = accountRepository.getAccountsByUser(selectedUser);
         } else {
             accountList = null;
         }
@@ -119,4 +119,6 @@ public class UserController implements Serializable {
     public UserModel getUserModel() {
         return userModel;
     }
+    
+   
 }

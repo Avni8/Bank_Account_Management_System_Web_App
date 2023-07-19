@@ -20,7 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <p:dialog header="Create a new transaction" widgetVar="accountMISDialog" modal="true" 
                   resizable="true" width="420">
             <h:form id="accountMISForm" styleClass="no-border-input">
-                <p:panelGrid columns="2"> 
+                <h:panelGrid columns="2"> 
                     
                     <p:outputLabel value="Transaction Type:" />
                     <p:selectOneMenu value="#{accountMISController.accountMIS.transactionType}">
@@ -45,7 +45,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                        var="account" itemValue="#{account}" itemLabel="#{account.accNo}" />
                     </p:selectOneMenu>
 
-                </p:panelGrid>
+                </h:panelGrid>
                 <p:commandButton value="Save Transaction" action="#{accountMISController.createUpdate()}"
                                  style="margin-top: 10px;" oncomplete="PF('accountMISDialog').hide()"
                                  update=":listForm"/>

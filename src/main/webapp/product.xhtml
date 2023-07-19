@@ -21,14 +21,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         </h:form>
 
         <p:dialog header="Create a new product" widgetVar="productDialog" modal="true" 
-                  resizable="true" width="420">
+                  resizable="true">
             <h:form id="productForm" styleClass="no-border-input">
-                <p:panelGrid columns="2"> 
+                <h:panelGrid columns="2"> 
                     
                     <p:outputLabel value="Product Type:" />
-                    <p:inputText value="#{productController.product.product_type}" />
+                    <p:inputText value="#{productController.product.product_type}" required="true" />
                 
-                </p:panelGrid>
+                </h:panelGrid>
                 <p:commandButton value="Save Product" action="#{productController.createUpdate()}"
                                  style="margin-top: 10px;" oncomplete="PF('productDialog').hide()"
                                  update=":listForm"/>

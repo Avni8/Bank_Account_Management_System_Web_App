@@ -99,14 +99,6 @@ public class DepositController implements Serializable {
         return selectedAccount;
     }
 
-//    public Double getDepositAmount() {
-//        return depositAmount;
-//    }
-//
-//    public void setDepositAmount(Double depositAmount) {
-//        this.depositAmount = depositAmount;
-//    }
-
     public void setSelectedAccount(Account selectedAccount) {
         this.selectedAccount = selectedAccount;
     }

@@ -18,38 +18,39 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <ui:include src="topmenu.xhtml" />  
         </h:form>
 
-        <p:dialog header="Create a new staff" widgetVar="staffDialog" modal="true" resizable="true" width="420" height="410">
+        <p:dialog header="Create a new staff" widgetVar="staffDialog" modal="true" 
+                  resizable="true">
             <h:form id="staffForm" styleClass="no-border-input">
-                <p:panelGrid  columns="2"> 
+                <h:panelGrid  columns="2"> 
 
                     <p:outputLabel value="Name:" />
-                    <p:inputText value="#{staffController.staff.name}" />
+                    <p:inputText value="#{staffController.staff.name}" required="true" />
 
                     <p:outputLabel value="Age:" />
-                    <p:inputText value="#{staffController.staff.age}" />
+                    <p:inputText value="#{staffController.staff.age}" required="true"/>
 
                     <p:outputLabel value="Gender:" />
-                    <p:selectOneRadio value="#{staffController.staff.gender}">
+                    <p:selectOneRadio value="#{staffController.staff.gender}" required="true">
                         <f:selectItem itemLabel="Male" itemValue="Male" />
                         <f:selectItem itemLabel="Female" itemValue="Female" />
                         <f:selectItem itemLabel="Other" itemValue="Other" />
                     </p:selectOneRadio>
 
                     <p:outputLabel value="Email Address:" />
-                    <p:inputText value="#{staffController.staff.email}" />
+                    <p:inputText value="#{staffController.staff.email}" required="true" />
 
                     <p:outputLabel value="Contact:" />
-                    <p:inputText value="#{staffController.staff.contact}" />
+                    <p:inputText value="#{staffController.staff.contact}" required="true"/>
 
                     <p:outputLabel value="Address:" />
-                    <p:inputText value="#{staffController.staff.address}" />
+                    <p:inputText value="#{staffController.staff.address}" required="true"/>
 
                     <p:outputLabel value="Username:" />
-                    <p:inputText value="#{staffController.staff.username}" />
+                    <p:inputText value="#{staffController.staff.username}" required="true"/>
 
                     <p:outputLabel value="Password:" />
-                    <p:inputText value="#{staffController.staff.password}" />
-                </p:panelGrid>
+                    <p:inputText value="#{staffController.staff.password}" required="true"/>
+                </h:panelGrid>
                 <p:commandButton value="Register staff" action="#{staffController.createUpdate()}"
                                  style="margin-top: 10px;" oncomplete="PF('staffDialog').hide()"
                                  update=":listForm"/>

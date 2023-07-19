@@ -21,38 +21,39 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <p:dialog header="Create a new account" widgetVar="accountDialog" modal="true"
                   resizable="true" width="420">
             <h:form id="accountForm" styleClass="no-border-input">
-                <p:panelGrid columns="2"> 
+                <h:panelGrid columns="2"> 
 
                     <p:outputLabel value="User:" />
                     <p:selectOneMenu value="#{accountController.account.user}" 
-                                     converter="userConverter">
+                                     converter="userConverter" required="true" >
                         <f:selectItem itemLabel="Select User" itemValue="" />
                         <f:selectItems value="#{accountController.userList}" 
                                        var="user" itemValue="#{user}" itemLabel="#{user.name}" />
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Product:" />
-                    <p:selectOneMenu value="#{accountController.account.product}" converter="productConverter">
+                    <p:selectOneMenu value="#{accountController.account.product}" 
+                                     converter="productConverter" required="true">
                         <f:selectItem itemLabel="Select Product Type" itemValue="" />
                         <f:selectItems value="#{accountController.productList}" var="product" itemValue="#{product}" itemLabel="#{product.product_type}" />
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Account Number:" />
-                    <p:inputText value="#{accountController.account.accNo}" />
+                    <p:inputText value="#{accountController.account.accNo}" required="true"/>
 
                     <p:outputLabel value="Interest Rate:" />
-                    <p:inputText value="#{accountController.account.interestRate}" />
+                    <p:inputText value="#{accountController.account.interestRate}" required="true" />
 
                     <p:outputLabel value="Opened Date:" />
-                    <p:inputText value="#{accountController.account.openedDate}" />
+                    <p:inputText value="#{accountController.account.openedDate}" required="true"/>
 
                     <p:outputLabel value="Mature Date:" />
                     <p:inputText value="#{accountController.account.matureDate}" />
 
                     <p:outputLabel value="Balance:" />
-                    <p:inputText value="#{accountController.account.balance}" />
+                    <p:inputText value="#{accountController.account.balance}" required="true"/>
 
-                </p:panelGrid>
+                </h:panelGrid>
                 <p:commandButton value="Save Account" action="#{accountController.createUpdate()}"
                                  style="margin-top: 10px;" oncomplete="PF('accountDialog').hide()"
                                  update=":listForm"/>

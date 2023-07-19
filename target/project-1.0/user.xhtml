@@ -22,31 +22,34 @@
 
         <h:form class="my-navbar">    
             <ui:include src="topmenu.xhtml" />  
-
-
         </h:form>
 
-        <p:dialog header="Create a new user" widgetVar="userDialog" modal="true" resizable="true" width="420" height="410">
+        <p:dialog header="Create a new user" widgetVar="userDialog" modal="true" resizable="true">
             <h:form id="userForm" styleClass="no-border-input">
-                <h:panelGrid> 
-
+                <h:panelGrid columns="2"> 
                     <p:outputLabel value="Name:" />
-                    <p:inputText value="#{userController.user.name}" />
-
+                    <p:inputText value="#{userController.user.name}" required="true" 
+                                 />
+                    
                     <p:outputLabel value="Address:" />
-                    <p:inputText value="#{userController.user.address}" />
+                    <p:inputText value="#{userController.user.address}" required="true"
+                                 />
 
                     <p:outputLabel value="Contact:" />
-                    <p:inputText value="#{userController.user.contact}" />
+                    <p:inputText value="#{userController.user.contact}" required="true"
+                                 />
 
                     <p:outputLabel value="Date of Birth:" />
-                    <p:inputText value="#{userController.user.dob}" />
+                    <p:inputText value="#{userController.user.dob}" required="true" 
+                                 />
 
                     <p:outputLabel value="Email Address:" />
-                    <p:inputText value="#{userController.user.email}" />
+                    <p:inputText value="#{userController.user.email}" required="true"
+                                 />
 
                     <p:outputLabel value="Product Type:" />
-                    <p:selectOneMenu value="#{userController.user.product_type}">
+                    <p:selectOneMenu value="#{userController.user.product_type}" required="true"
+                                     >
                         <f:selectItem itemLabel="Select Product Type" itemValue="" />
                         <f:selectItem itemLabel="Savings" itemValue="Savings" />
                         <f:selectItem itemLabel="Fixed Deposit" itemValue="Fixed Deposit" />
@@ -55,10 +58,12 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Username:" />
-                    <p:inputText value="#{userController.user.username}" />
+                    <p:inputText value="#{userController.user.username}" required="true"
+                                 />
 
                     <p:outputLabel value="Password:" />
-                    <p:inputText value="#{userController.user.password}" />
+                    <p:inputText value="#{userController.user.password}" required="true"
+                                 />
                 </h:panelGrid>
                 <p:commandButton value="Save User" action="#{userController.createUpdate()}"
                                  style="margin-top: 10px;" oncomplete="PF('userDialog').hide()"
@@ -140,7 +145,7 @@
 
                     </p:column>
                     <p:ajax event="rowSelect" update=":account" listener="#{userController.retrieveAccounts()}" />
-
+                    <p:ajax event="rowSelect" update=":account" listener="#{userController.retrieveAccounts()}" />
                 </p:dataTable>
 
             </h:form>
@@ -157,7 +162,9 @@
                                          />
                     </p:toolbarGroup>
                     <p:toolbarGroup>
-                        <p:commandButton value="Fund Transfer"/>
+                        <p:commandButton value="Fund Transfer" onclick="PF('fundtransferDialog').show()"
+                                         update=":fundtransferForm" 
+                                         actionListener="#{fundtransferController.beforeTransfer()}"/>
                     </p:toolbarGroup>
                 </p:toolbar>
 
@@ -165,10 +172,9 @@
 
             <ui:include src="depositDialog.xhtml" />
             <ui:include src="withdrawDialog.xhtml" />
-
+            <ui:include src="fundtransferDialog.xhtml" />
 
             <h:form id="account">
-
                 <h:panelGroup id="accountForm">
                     <p:dataTable value="#{userController.accountList}" var="account">
                         <p:column headerText="Account">
@@ -180,10 +186,6 @@
                     </p:dataTable>
                 </h:panelGroup>
             </h:form>
-
-
-
-
         </center> 
     </body>
 </html>
