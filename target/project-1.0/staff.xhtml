@@ -12,6 +12,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <h:head>
         <title>Staff-Details</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+        <style>
+            
+             .required-label:after {
+                content: "*";
+                color: red; /* You can customize the color here */
+                margin-left: 4px; /* Adjust the space between the label and the asterisk */
+            }
+
+            
+        </style>
     </h:head>
     <body>
         <h:form class="my-navbar">    
@@ -23,32 +34,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <h:form id="staffForm" styleClass="no-border-input">
                 <h:panelGrid  columns="2"> 
 
-                    <p:outputLabel value="Name:" />
-                    <p:inputText value="#{staffController.staff.name}" required="true" />
+                    <p:outputLabel value="Name:" styleClass="required-label"/>
+                    <p:inputText value="#{staffController.staff.name}" required="true"/>
 
-                    <p:outputLabel value="Age:" />
-                    <p:inputText value="#{staffController.staff.age}" required="true"/>
+                    <p:outputLabel value="Age:"/>
+                    <p:inputText value="#{staffController.staff.age}"/>
 
-                    <p:outputLabel value="Gender:" />
-                    <p:selectOneRadio value="#{staffController.staff.gender}" required="true">
+                    <p:outputLabel value="Gender:"/>
+                    <p:selectOneRadio value="#{staffController.staff.gender}">
                         <f:selectItem itemLabel="Male" itemValue="Male" />
                         <f:selectItem itemLabel="Female" itemValue="Female" />
                         <f:selectItem itemLabel="Other" itemValue="Other" />
                     </p:selectOneRadio>
 
-                    <p:outputLabel value="Email Address:" />
+                    <p:outputLabel value="Email Address:" styleClass="required-label" />
                     <p:inputText value="#{staffController.staff.email}" required="true" />
 
-                    <p:outputLabel value="Contact:" />
+                    <p:outputLabel value="Contact:" styleClass="required-label" />
                     <p:inputText value="#{staffController.staff.contact}" required="true"/>
 
-                    <p:outputLabel value="Address:" />
+                    <p:outputLabel value="Address:" styleClass="required-label" />
                     <p:inputText value="#{staffController.staff.address}" required="true"/>
 
-                    <p:outputLabel value="Username:" />
+                    <p:outputLabel value="Username:" styleClass="required-label" />
                     <p:inputText value="#{staffController.staff.username}" required="true"/>
 
-                    <p:outputLabel value="Password:" />
+                    <p:outputLabel value="Password:" styleClass="required-label" />
                     <p:inputText value="#{staffController.staff.password}" required="true"/>
                 </h:panelGrid>
                 <p:commandButton value="Register staff" action="#{staffController.createUpdate()}"

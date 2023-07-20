@@ -21,6 +21,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
 import java.util.Date;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -154,14 +156,19 @@ public class WithdrawController implements Serializable {
         }
 
     }
+    
+    public void beforeWithdrawal(User user) {
+            this.selectedUser = user != null ? user:null;
+            this.accountList = this.selectedUser != null
+                    ? accountRepository.getAccountsByUser(selectedUser):null;
+    }
+
 
     public void withdraw() {
         
         if (selectedUser != null) {
 
-//            List<Account> userAccounts = accountRepository.getAccountsByUser(selectedUser);
-            
-            for (Account account : userController.getAccountList()) {
+            for (Account account : accountList) {
 
                 if (account.getAmount() != null && account.getAmount() > 0) {
 
@@ -189,6 +196,10 @@ public class WithdrawController implements Serializable {
                     accountMISRepository.save(accountMIS);
                     transactionRepository.save(accountTransactionDetails);
                     accountRepository.update(account);
+                    
+                    FacesContext context = FacesContext.getCurrentInstance();
+
+                    context.addMessage(null, new FacesMessage("Withdrawal Successful"));
 
                 }
 

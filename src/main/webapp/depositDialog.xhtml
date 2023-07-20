@@ -13,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
         <h:form id="depositForm">
             <p:panelGrid columns="2" style="margin-bottom: 20px">
-
+                
                 <p:outputLabel value="User:" />
                 <p:selectOneMenu value="#{depositController.selectedUser}" 
                                  converter="userConverter" id="userMenu">
@@ -21,24 +21,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                   itemValue="#{userController.selectedUser}" />
                     <f:selectItems value="#{accountController.userList}" 
                                    var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                    <p:ajax listener="#{depositController.retrieveAccounts()}" update="accountForm" />
+                    
                 </p:selectOneMenu>
             </p:panelGrid>
+            
             <h:panelGroup id="accountForm">
-                <p:dataTable value="#{userController.accountList}" var="account">
+                <p:dataTable value="#{depositController.accountList}" var="account">
                     <p:column headerText="Account">
                         <h:outputText value="#{account.accNo}-#{account.product.product_type}" />
                     </p:column>
                     <p:column headerText="Balance">
-                        <h:outputText value="#{account.balance}" />
+                        <h:outputText value="#{account.balance}"/>
                     </p:column>
                     <p:column headerText="Amount">
-                        <h:inputText value="#{account.amount}" converter="javax.faces.Double" />
+                        <p:inputNumber value="#{account.amount}"/>
                     </p:column>
                 </p:dataTable>
             </h:panelGroup>
             <p:commandButton value="Deposit" action="#{depositController.deposit()}"
                              oncomplete="PF('depositDialog').hide()"
-                             style="margin-top: 20px"/>
+                             style="margin-top: 20px"
+                             />
         </h:form>  
     </p:dialog>
 </ui:composition>

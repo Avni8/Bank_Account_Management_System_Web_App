@@ -17,9 +17,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.component.messages.Messages;
 
 /**
  *
@@ -32,7 +35,6 @@ public class FundTransferController implements Serializable {
     private List<User> userList;
     private List<Account> sourceAccountList;
     private List<Account> destinationAccountList;
-    private User user;
     private Account account;
     private User selectedUser;
     private User fromUser;
@@ -53,16 +55,6 @@ public class FundTransferController implements Serializable {
     @Inject
     private UserRepository userRepository;
 
-    @Inject
-    private UserController userController;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public User getFromUser() {
         return fromUser;
@@ -178,9 +170,7 @@ public class FundTransferController implements Serializable {
 //        loadData();
 //    }
     public void retrieveSourceAccounts() {
-        if (userController.getSelectedUser() != null) {
-            
-            fromUser = userController.getSelectedUser();
+        if (fromUser != null) {
             sourceAccountList = accountRepository.getAccountsByUser(fromUser);
         } else {
             sourceAccountList = null;
@@ -196,14 +186,10 @@ public class FundTransferController implements Serializable {
         }
     }
 
-     public void beforeTransfer(){
-        if(userController.getUser() != null){
-            
-            setFromUser(userController.getUser());
-        }
-        else{
-            setFromUser(null);
-        }
+    public void beforeTransfer(User user) {
+            this.fromUser = user != null ? user:null;
+            this.sourceAccountList = this.fromUser != null
+                    ? accountRepository.getAccountsByUser(fromUser):null;
     }
 
     public void transferFunds() {
@@ -251,6 +237,10 @@ public class FundTransferController implements Serializable {
                         + transferAmount;
                 destinationAccount.setBalance(newDestinationAccountBalance);
                 accountRepository.update(destinationAccount);
+
+                FacesContext context = FacesContext.getCurrentInstance();
+
+                context.addMessage(null, new FacesMessage("Transfer Successful"));
 
             }
 

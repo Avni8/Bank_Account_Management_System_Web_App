@@ -15,6 +15,14 @@
                 display: flex;
                 justify-content: center;
             }
+
+            .required-label:after {
+                content: "*";
+                color: red; /* You can customize the color here */
+                margin-left: 4px; /* Adjust the space between the label and the asterisk */
+            }
+
+
         </style>    
 
     </h:head>
@@ -25,31 +33,44 @@
         </h:form>
 
         <p:dialog header="Create a new user" widgetVar="userDialog" modal="true" resizable="true">
-            <h:form id="userForm" styleClass="no-border-input">
-                <h:panelGrid columns="2"> 
-                    <p:outputLabel value="Name:" />
-                    <p:inputText value="#{userController.user.name}" required="true" 
-                                 />
+            <h:form id="userForm">
+                <p:messages id="msgs"  />
+                <p:panel>
                     
-                    <p:outputLabel value="Address:" />
-                    <p:inputText value="#{userController.user.address}" required="true"
-                                 />
+                    <h:panelGrid> 
+                    <p:outputLabel value="Name:" styleClass="required-label"/>
+                    <p:inputText id="name" value="#{userController.user.name}" required="true">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>
+                    <p:message for="name"/>
 
-                    <p:outputLabel value="Contact:" />
-                    <p:inputText value="#{userController.user.contact}" required="true"
-                                 />
+                    <p:outputLabel value="Address:" styleClass="required-label"/>
+                    <p:inputText id="address" value="#{userController.user.address}" required="true">
+                         <f:validateLength minimum="2" />
+                         <p:ajax update="msgAddress" event="keyup" />  
+                    </p:inputText>
+                    <p:message for="address" id="msgAddress"/>
 
-                    <p:outputLabel value="Date of Birth:" />
-                    <p:inputText value="#{userController.user.dob}" required="true" 
-                                 />
+                    <p:outputLabel value="Contact:" styleClass="required-label"/>
+                    <p:inputText id="contact" value="#{userController.user.contact}" required="true">
+                         <f:validateLength minimum="10" maximum="10" />
+                    </p:inputText>
+                    <p:message for="contact"/>
 
-                    <p:outputLabel value="Email Address:" />
-                    <p:inputText value="#{userController.user.email}" required="true"
-                                 />
+                    <p:outputLabel value="Date of Birth:" styleClass="required-label"/>
+                    <p:inputText id="dob" value="#{userController.user.dob}" required="true">
+                        <f:validateRegex pattern="^\\d{4}-\\d{2}-\\d{2}$" />
+                    </p:inputText>
+                     <p:message for="dob" display="icon" />
 
-                    <p:outputLabel value="Product Type:" />
-                    <p:selectOneMenu value="#{userController.user.product_type}" required="true"
-                                     >
+                    <p:outputLabel value="Email Address:" styleClass="required-label"/>
+                    <p:inputText id="email" value="#{userController.user.email}" required="true">
+                        <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$" />
+                    </p:inputText>
+                    <p:message for="email" display="icon" />
+
+                    <p:outputLabel value="Product Type:" styleClass="required-label"/>
+                    <p:selectOneMenu value="#{userController.user.product_type}">
                         <f:selectItem itemLabel="Select Product Type" itemValue="" />
                         <f:selectItem itemLabel="Savings" itemValue="Savings" />
                         <f:selectItem itemLabel="Fixed Deposit" itemValue="Fixed Deposit" />
@@ -57,25 +78,28 @@
                         <f:selectItem itemLabel="Recurrent Deposit" itemValue="Recurrent Deposit" />
                     </p:selectOneMenu>
 
-                    <p:outputLabel value="Username:" />
-                    <p:inputText value="#{userController.user.username}" required="true"
-                                 />
+                    <p:outputLabel id="username" value="Username:" styleClass="required-label"/>
+                    <p:inputText value="#{userController.user.username}" required="true" >
+                    </p:inputText>
+                    <p:message for="username" display="icon" />
 
-                    <p:outputLabel value="Password:" />
-                    <p:inputText value="#{userController.user.password}" required="true"
-                                 />
+                    <p:outputLabel id="password" value="Password:" styleClass="required-label"/>
+                    <p:inputText value="#{userController.user.password}" required="true">
+                    </p:inputText>
+                    <p:message for="password" display="icon" />                      
+                    
                 </h:panelGrid>
                 <p:commandButton value="Save User" action="#{userController.createUpdate()}"
                                  style="margin-top: 10px;" oncomplete="PF('userDialog').hide()"
                                  update=":listForm"
                                  />
+                </p:panel>
             </h:form>
         </p:dialog>
 
-
-
         <center>
             <h:form id="listForm" >
+                <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" /> 
                 <p:dataTable value="#{userController.userModel}" var="user" paginator="true" rows="10"
                              paginatorPosition="bottom"  emptyMessage="No records found" 
                              id="userTable"
@@ -144,8 +168,9 @@
                                          />
 
                     </p:column>
-                    <p:ajax event="rowSelect" update=":account" listener="#{userController.retrieveAccounts()}" />
-                    <p:ajax event="rowSelect" update=":account" listener="#{userController.retrieveAccounts()}" />
+                    <p:ajax event="rowSelect" update=":account" 
+                            listener="#{userController.retrieveAccounts()}" />
+                    
                 </p:dataTable>
 
             </h:form>
@@ -154,17 +179,21 @@
                 <p:toolbar styleClass="center-align-group">
                     <p:toolbarGroup>
                         <p:commandButton value="Deposit" onclick="PF('depositDialog').show()" 
-                                         update=":depositForm"/>
+                                         update=":depositForm"
+                                         actionListener=
+                                         "#{depositController.beforeDeposit(userController.user)}"/>
                     </p:toolbarGroup>
                     <p:toolbarGroup>
                         <p:commandButton value="Withdrawal" onclick="PF('withdrawDialog').show()"
                                          update=":withdrawForm"
-                                         />
+                                         actionListener=
+                                         "#{withdrawController.beforeWithdrawal(userController.user)}"/>
                     </p:toolbarGroup>
                     <p:toolbarGroup>
                         <p:commandButton value="Fund Transfer" onclick="PF('fundtransferDialog').show()"
                                          update=":fundtransferForm" 
-                                         actionListener="#{fundtransferController.beforeTransfer()}"/>
+                                         actionListener=
+                                         "#{fundtransferController.beforeTransfer(userController.user)}"/>
                     </p:toolbarGroup>
                 </p:toolbar>
 

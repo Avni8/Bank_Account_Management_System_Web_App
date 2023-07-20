@@ -21,19 +21,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                   itemValue="#{userController.selectedUser}" />
                     <f:selectItems value="#{accountController.userList}" 
                                    var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                    <p:ajax listener="#{withdrawController.retrieveAccounts()}" update="accountForm" />
+                    
                 </p:selectOneMenu>
             </p:panelGrid>
             <h:panelGroup id="accountForm">
-                <p:dataTable value="#{userController.accountList}" var="account" selectionMode="single"
-                             selection="#{withdrawController.selectedAccount}" rowKey="#{account.getId()}">
+                <p:dataTable value="#{withdrawController.accountList}" var="account">
                     <p:column headerText="Account">
-                        <h:outputText value="#{account.accNo}-#{account.product.product_type}" />
+                        <h:outputText value="#{account.accNo}-#{account.product.product_type}"/>
                     </p:column>
                     <p:column headerText="Balance">
-                        <h:outputText value="#{account.balance}" />
+                        <h:outputText value="#{account.balance}"/>
                     </p:column>
                     <p:column headerText="Amount">
-                        <h:inputText value="#{account.amount}" converter="javax.faces.Double" />
+                        <p:inputNumber value="#{account.amount}"/>
                     </p:column>
                 </p:dataTable>
             </h:panelGroup>

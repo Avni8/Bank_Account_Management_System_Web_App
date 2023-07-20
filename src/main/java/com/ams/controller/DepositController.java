@@ -21,6 +21,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
 import java.util.Date;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -105,7 +107,7 @@ public class DepositController implements Serializable {
 
     @PostConstruct
     public void init() {
-        selectedAccount = new Account();
+//        selectedAccount = new Account();
         loadData();
     }
 
@@ -138,6 +140,21 @@ public class DepositController implements Serializable {
         accountRepository.delete(account.getId());
         loadData();
     }
+    
+    public void onUserSelect() {
+        if (selectedUser != null) {
+            retrieveAccounts(); // Call the method to fetch accounts based on the selected user
+            if (accountList != null && !accountList.isEmpty()) {
+                // Set the first account as the default selected account
+                selectedAccount = accountList.get(0);
+            } else {
+                selectedAccount = null;
+            }
+        } else {
+            // If no user is selected, reset the selected account as well
+            selectedAccount = null;
+        }
+    }
 
     public void retrieveAccounts() {
         if (selectedUser != null) {
@@ -148,6 +165,12 @@ public class DepositController implements Serializable {
         }
 
     }
+    
+    public void beforeDeposit(User user) {
+            this.selectedUser = user != null ? user:null;
+            this.accountList = this.selectedUser != null
+                    ? accountRepository.getAccountsByUser(selectedUser):null;
+    }
 
     public void deposit() {
 
@@ -155,7 +178,7 @@ public class DepositController implements Serializable {
 
 //            List<Account> userAccounts = accountRepository.getAccountsByUser(selectedUser);
             
-            for (Account account : userController.getAccountList()) {
+            for (Account account : accountList) {
 
                 if (account.getAmount() != null && account.getAmount() > 0) {
 
@@ -183,6 +206,10 @@ public class DepositController implements Serializable {
                     accountMISRepository.save(accountMIS);
                     transactionRepository.save(accountTransactionDetails);
                     accountRepository.update(account);
+                    
+                    FacesContext context = FacesContext.getCurrentInstance();
+
+                    context.addMessage(null, new FacesMessage("Deposit Successful"));
 
                 }
 

@@ -13,6 +13,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <h:head>
         <title>Product-Details</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+           .required-label:after {
+                content: "*";
+                color: red; /* You can customize the color here */
+                margin-left: 4px; /* Adjust the space between the label and the asterisk */
+            } 
+            
+        </style>
+        
+        
     </h:head>
     
     <body>
@@ -25,7 +35,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <h:form id="productForm" styleClass="no-border-input">
                 <h:panelGrid columns="2"> 
                     
-                    <p:outputLabel value="Product Type:" />
+                    <p:outputLabel value="Product Type:" styleClass="required-label"/>
                     <p:inputText value="#{productController.product.product_type}" required="true" />
                 
                 </h:panelGrid>

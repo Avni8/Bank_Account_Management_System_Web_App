@@ -119,6 +119,4 @@ public class UserController implements Serializable {
     public UserModel getUserModel() {
         return userModel;
     }
-    
-   
 }

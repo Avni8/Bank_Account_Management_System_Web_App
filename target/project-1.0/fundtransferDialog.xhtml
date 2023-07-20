@@ -17,7 +17,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 <p:outputLabel value="From User:" />
 
-                <p:selectOneMenu value="#{fundtransferController.user}" 
+                <p:selectOneMenu value="#{fundtransferController.fromUser}" 
                                  converter="userConverter" id="fromUserMenu">
                     
                     <f:selectItem itemLabel="#{userController.selectedUser.name}"
@@ -38,7 +38,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                     <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
                    
-                    <f:selectItems value="#{userController.accountList}" var="account"
+                    <f:selectItems value="#{fundtransferController.sourceAccountList}" var="account"
                                    itemValue="#{account}" itemLabel="#{account.accNo} 
                                    (Balance: #{account.balance})" />
                 </p:selectOneMenu>
@@ -68,8 +68,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Amount:" />
-                <h:inputText value="#{fundtransferController.transferAmount}" converter="javax.faces.Double" />
-
+                <p:inputNumber value="#{fundtransferController.transferAmount}"/>
             </h:panelGrid>
             <p:commandButton value="Transfer" action="#{fundtransferController.transferFunds()}"
                              oncomplete="PF('fundtransferDialog').hide()"
