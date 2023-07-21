@@ -4,6 +4,8 @@
  */
 package com.ams.controller;
 
+import com.ams.model.AbstractEntity;
+import com.ams.repository.AbstractRepository;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -12,16 +14,25 @@ import javax.faces.context.FacesContext;
  *
  * @author avni
  */
-public class AbstractController implements Serializable {
+public abstract class AbstractController extends AbstractMessageController {
 
-    public void infoMessage(String message) {
+    
 
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(message));
+    public void createUpdate() {
+        if (getEntity().getId() == null) {
+            getRepository().save(getEntity());
+            infoMessage("Created Successfully");
+        } else {
+            getRepository().update(getEntity());
+            infoMessage("Updated successfully");
+        }
+        loadData();
     }
 
-    public void warningMessage(String message) {
+    public abstract void loadData();
 
-    }
+    public abstract AbstractRepository getRepository();
+
+    public abstract AbstractEntity getEntity();
 
 }

@@ -4,10 +4,12 @@
  */
 package com.ams.controller;
 
+import com.ams.model.AbstractEntity;
 import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import com.ams.model.Product;
+import com.ams.repository.AbstractRepository;
 import com.ams.repository.ProductRepository;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -19,7 +21,7 @@ import javax.inject.Inject;
  */
 @ViewScoped
 @Named("productController")
-public class ProductController implements Serializable{
+public class ProductController extends AbstractController{
     
     private Product product;
     private List<Product> productList;
@@ -49,7 +51,8 @@ public class ProductController implements Serializable{
         loadData();
     }
 
-    private void loadData() {
+    @Override
+    public void loadData() {
         productList = productRepository.findAll();
     }
 
@@ -61,17 +64,19 @@ public class ProductController implements Serializable{
         this.product = product;
     }
 
-    public void createUpdate() {
-        if (product.getId() == null) {
-            productRepository.save(product);
-        } else {
-            productRepository.update(product);
-        }
-        loadData();
-    }
-    
     public void delete(Product product) {
         productRepository.delete(product.getId());
         loadData();
     } 
+    
+    @Override
+    public AbstractRepository getRepository() {
+        return productRepository;
+    }
+
+    @Override
+    public AbstractEntity getEntity() {
+        return product;
+    }
+    
 }

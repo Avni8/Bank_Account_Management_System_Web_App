@@ -4,11 +4,13 @@
  */
 package com.ams.controller;
 
+import com.ams.model.AbstractEntity;
 import com.ams.model.Account;
 import com.ams.model.AccountMIS;
 import com.ams.model.AccountTransactionDetails;
 import com.ams.model.TransactionType;
 import com.ams.model.User;
+import com.ams.repository.AbstractRepository;
 import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
@@ -30,7 +32,7 @@ import javax.faces.context.FacesContext;
  */
 @ViewScoped
 @Named("depositController")
-public class DepositController extends AbstractController{
+public class DepositController extends AbstractMessageController{
 
     private List<User> userList;
     private List<Account> accountList;
@@ -111,7 +113,8 @@ public class DepositController extends AbstractController{
         loadData();
     }
 
-    private void loadData() {
+    
+    public void loadData() {
         accountList = accountRepository.findAll();
 
     }
@@ -216,4 +219,5 @@ public class DepositController extends AbstractController{
         }
 
     }
+
 }

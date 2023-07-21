@@ -23,6 +23,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AbstractController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AbstractRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AbstractEntity.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AbstractMessageController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Staff.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AccountTransactionDetails.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountRepository.java

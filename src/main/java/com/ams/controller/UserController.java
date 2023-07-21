@@ -4,6 +4,7 @@
  */
 package com.ams.controller;
 
+import com.ams.model.AbstractEntity;
 import com.ams.model.Account;
 import com.ams.repository.UserRepository;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import com.ams.model.User;
 import com.ams.model.UserModel;
+import com.ams.repository.AbstractRepository;
 import com.ams.repository.AccountRepository;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -83,7 +85,8 @@ public class UserController extends AbstractController {
 //        userModel = new UserModel(userList);
     }
 
-    private void loadData() {
+    @Override
+    public void loadData() {
         userList = userRepository.findAll();
         userModel = new UserModel(userList);
     }
@@ -96,15 +99,7 @@ public class UserController extends AbstractController {
         this.user = user;
     }
 
-    public void createUpdate() {
-        if (user.getId() == null) {
-            userRepository.save(user);
-        } else {
-            userRepository.update(user);
-        }
-        loadData();
-        
-    }
+    
 
     public void delete(User user) {
         userRepository.delete(user.getId());
@@ -123,6 +118,16 @@ public class UserController extends AbstractController {
 
     public UserModel getUserModel() {
         return userModel;
+    }
+
+    @Override
+    public AbstractRepository getRepository() {
+        return userRepository;
+    }
+
+    @Override
+    public AbstractEntity getEntity() {
+        return user;
     }
     
     

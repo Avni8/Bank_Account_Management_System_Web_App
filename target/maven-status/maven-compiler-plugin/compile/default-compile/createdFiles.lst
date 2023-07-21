@@ -15,6 +15,7 @@ com/ams/controller/DepositController.class
 com/ams/repository/CrudRepository.class
 com/ams/model/Staff.class
 com/ams/repository/UserRepository.class
+com/ams/controller/AbstractMessageController.class
 com/ams/repository/AbstractRepository.class
 com/ams/repository/AccountRepository.class
 com/ams/controller/StaffController.class

@@ -4,11 +4,13 @@
  */
 package com.ams.controller;
 
+import com.ams.model.AbstractEntity;
 import com.ams.model.Account;
 import com.ams.model.AccountMIS;
 import com.ams.model.AccountTransactionDetails;
 import com.ams.model.TransactionType;
 import com.ams.model.User;
+import com.ams.repository.AbstractRepository;
 import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
@@ -30,7 +32,7 @@ import org.primefaces.component.messages.Messages;
  */
 @ViewScoped
 @Named("fundtransferController")
-public class FundTransferController extends AbstractController{
+public class FundTransferController extends AbstractMessageController{
 
     private List<User> userList;
     private List<Account> sourceAccountList;
@@ -249,4 +251,5 @@ public class FundTransferController extends AbstractController{
         }
 
     }
+
 }
