@@ -16,6 +16,8 @@ import com.ams.model.User;
 import com.ams.model.UserModel;
 import com.ams.repository.AccountRepository;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -31,13 +33,7 @@ public class UserController implements Serializable {
     private User selectedUser;
     private List<User> userList;
 
-    public User getSelectedUser() {
-        return selectedUser;
-    }
-
-    public void setSelectedUser(User selectedUser) {
-        this.selectedUser = selectedUser;
-    }
+    
     private List<Account> accountList;
     private UserModel userModel;
 
@@ -47,6 +43,15 @@ public class UserController implements Serializable {
     @Inject
     private AccountRepository accountRepository;
 
+    
+    public User getSelectedUser() {
+        return selectedUser;
+    }
+
+    public void setSelectedUser(User selectedUser) {
+        this.selectedUser = selectedUser;
+    }
+    
     public List<Account> getAccountList() {
         return accountList;
     }
@@ -119,4 +124,8 @@ public class UserController implements Serializable {
     public UserModel getUserModel() {
         return userModel;
     }
+    
+    
 }
+
+

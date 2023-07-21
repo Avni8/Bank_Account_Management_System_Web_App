@@ -39,7 +39,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
                    
                     <f:selectItems value="#{fundtransferController.sourceAccountList}" var="account"
-                                   itemValue="#{account}" itemLabel="#{account.accNo} 
+                                   itemValue="#{account}" itemLabel="#{account.accNo}
+                                   -#{account.product.product_type} 
                                    (Balance: #{account.balance})" />
                 </p:selectOneMenu>
 
@@ -63,7 +64,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                     <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
                     <f:selectItems value="#{fundtransferController.destinationAccountList}" var="account"
-                                   itemValue="#{account}" itemLabel="#{account.accNo} 
+                                   itemValue="#{account}" itemLabel="#{account.accNo}
+                                   -#{account.product.product_type} 
                                    (Balance: #{account.balance})" />
                 </p:selectOneMenu>
 

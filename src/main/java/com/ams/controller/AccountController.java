@@ -16,6 +16,9 @@ import com.ams.model.Product;
 import com.ams.model.Account;
 import com.ams.repository.ProductRepository;
 import com.ams.repository.UserRepository;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -31,6 +34,7 @@ public class AccountController implements Serializable {
     private List<Product> productList;
     private User user;
     private Product product;
+    private DepositController depositController;
 
     @Inject
     private AccountRepository accountRepository;
@@ -40,6 +44,8 @@ public class AccountController implements Serializable {
 
     @Inject
     private ProductRepository productRepository;
+    
+    
 
     public List<Account> getAccountList() {
         return accountList;
@@ -114,5 +120,33 @@ public class AccountController implements Serializable {
         }
         return productList;
     }
+
+    public DepositController getDepositController() {
+        return depositController;
+    }
+
+    public void setDepositController(DepositController depositController) {
+        this.depositController = depositController;
+    }
+    
+    
+    public List<User> getFilteredUserList() {
+        Set<String> uniqueNames = new HashSet<>();
+        List<User> filteredList = new ArrayList<>();
+
+        for (User user : userList) {
+            if (!uniqueNames.contains(user.getName())) {
+                filteredList.add(user);
+                uniqueNames.add(user.getName());
+            }
+          
+        }
+        if (depositController.getSelectedUser() != null && userList.contains(depositController.getSelectedUser())) {
+            filteredList.remove(depositController.getSelectedUser());
+        }
+
+        return filteredList;
+    }
+    
 
 }

@@ -10,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -23,7 +26,10 @@ public class User extends AbstractEntity {
     private String name;
     private String address;
     private String contact;
-    private String dob;
+    
+    @Temporal(TemporalType.DATE)
+    private Date dob;
+    
     private String email;
     private String product_type;
     private String username;
@@ -41,7 +47,7 @@ public class User extends AbstractEntity {
         return contact;
     }
 
-    public String getDob() {
+    public Date getDob() {
         return dob;
     }
 
@@ -77,7 +83,7 @@ public class User extends AbstractEntity {
         this.contact = contact;
     }
 
-    public void setDob(String dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 

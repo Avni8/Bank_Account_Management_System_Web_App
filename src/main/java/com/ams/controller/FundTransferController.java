@@ -187,6 +187,10 @@ public class FundTransferController implements Serializable {
     }
 
     public void beforeTransfer(User user) {
+        
+            this.toUser = new User();
+            this.transferAmount = null;
+            this.destinationAccount = null;
             this.fromUser = user != null ? user:null;
             this.sourceAccountList = this.fromUser != null
                     ? accountRepository.getAccountsByUser(fromUser):null;

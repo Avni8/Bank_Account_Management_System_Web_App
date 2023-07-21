@@ -34,72 +34,83 @@
 
         <p:dialog header="Create a new user" widgetVar="userDialog" modal="true" resizable="true">
             <h:form id="userForm">
-                <p:messages id="msgs"  />
+                <!--<p:messages id="msgs"  />-->
                 <p:panel>
-                    
+
                     <h:panelGrid> 
-                    <p:outputLabel value="Name:" styleClass="required-label"/>
-                    <p:inputText id="name" value="#{userController.user.name}" required="true">
-                        <f:validateLength minimum="2" />
-                    </p:inputText>
-                    <p:message for="name"/>
+                        <p:outputLabel value="Name:" styleClass="required-label"/>
+                        <p:inputText id="name" value="#{userController.user.name}" required="true">
+                            <f:validateLength minimum="2" />
+                            <p:ajax event="keyup"/>  
+                        </p:inputText>
+                        <!--<p:message id="nameMsg" for="name"/>-->
 
-                    <p:outputLabel value="Address:" styleClass="required-label"/>
-                    <p:inputText id="address" value="#{userController.user.address}" required="true">
-                         <f:validateLength minimum="2" />
-                         <p:ajax update="msgAddress" event="keyup" />  
-                    </p:inputText>
-                    <p:message for="address" id="msgAddress"/>
+                        <p:outputLabel value="Address:" styleClass="required-label"/>
+                        <p:inputText id="address" value="#{userController.user.address}" required="true">
+                            <f:validateLength minimum="2" />
+                            <p:ajax event="keyup"/>  
+                        </p:inputText>
+                        <!--<p:message id="addressMsg" for="address"/>-->
 
-                    <p:outputLabel value="Contact:" styleClass="required-label"/>
-                    <p:inputText id="contact" value="#{userController.user.contact}" required="true">
-                         <f:validateLength minimum="10" maximum="10" />
-                    </p:inputText>
-                    <p:message for="contact"/>
+                        <p:outputLabel value="Contact:" styleClass="required-label"/>
+                        <p:inputText id="contact" value="#{userController.user.contact}" required="true">
+                            <f:validateLength minimum="10" maximum="10" />
+                            <p:ajax event="keyup"/> 
+                        </p:inputText>
+                        <!--<p:message id="contactMsg" for="contact"/>-->
 
-                    <p:outputLabel value="Date of Birth:" styleClass="required-label"/>
-                    <p:inputText id="dob" value="#{userController.user.dob}" required="true">
-                        <f:validateRegex pattern="^\\d{4}-\\d{2}-\\d{2}$" />
-                    </p:inputText>
-                     <p:message for="dob" display="icon" />
+                        <p:outputLabel value="Date of Birth:" styleClass="required-label"/>
+                        <p:inputText id="dob" value="#{userController.user.dob}" required="true">
+                            <f:convertDateTime pattern="MM-dd-yyyy"/>
+                            <p:ajax event="keyup"/> 
+                        </p:inputText>
+                        <!--<p:message id="dobMsg" for="dob"/>-->
 
-                    <p:outputLabel value="Email Address:" styleClass="required-label"/>
-                    <p:inputText id="email" value="#{userController.user.email}" required="true">
-                        <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$" />
-                    </p:inputText>
-                    <p:message for="email" display="icon" />
+                        <p:outputLabel value="Email Address:" styleClass="required-label"/>
+                        <p:inputText id="email" value="#{userController.user.email}" required="true">
+                            <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$" />
+                            <p:ajax event="keyup"/> 
+                        </p:inputText>
+                        <!--<p:message id="emailMsg" for="email"/>-->
 
-                    <p:outputLabel value="Product Type:" styleClass="required-label"/>
-                    <p:selectOneMenu value="#{userController.user.product_type}">
-                        <f:selectItem itemLabel="Select Product Type" itemValue="" />
-                        <f:selectItem itemLabel="Savings" itemValue="Savings" />
-                        <f:selectItem itemLabel="Fixed Deposit" itemValue="Fixed Deposit" />
-                        <f:selectItem itemLabel="Current" itemValue="Current" />
-                        <f:selectItem itemLabel="Recurrent Deposit" itemValue="Recurrent Deposit" />
-                    </p:selectOneMenu>
+                        <p:outputLabel value="Product Type:" styleClass="required-label"/>
+                        <p:selectOneMenu id="product" value="#{userController.user.product_type}" required="true">
+                            <f:selectItem itemLabel="Select Product Type" itemValue="" />
+                            <f:selectItem itemLabel="Savings" itemValue="Savings" />
+                            <f:selectItem itemLabel="Fixed Deposit" itemValue="Fixed Deposit" />
+                            <f:selectItem itemLabel="Current" itemValue="Current" />
+                            <f:selectItem itemLabel="Recurrent Deposit" itemValue="Recurrent Deposit" />
+                            <p:ajax event="keyup"/> 
+                        </p:selectOneMenu>
+                        <!--<p:message id="productTypeMsg" for="product"/>-->
 
-                    <p:outputLabel id="username" value="Username:" styleClass="required-label"/>
-                    <p:inputText value="#{userController.user.username}" required="true" >
-                    </p:inputText>
-                    <p:message for="username" display="icon" />
+                        <p:outputLabel id="username" value="Username:" styleClass="required-label"/>
+                        <p:inputText value="#{userController.user.username}" required="true" >
+                            <f:validateLength minimum="5"/>
+                            <p:ajax event="keyup"/> 
+                        </p:inputText>
+                        <!--<p:message id="usernameMsg" for="username"/>-->
 
-                    <p:outputLabel id="password" value="Password:" styleClass="required-label"/>
-                    <p:inputText value="#{userController.user.password}" required="true">
-                    </p:inputText>
-                    <p:message for="password" display="icon" />                      
-                    
-                </h:panelGrid>
-                <p:commandButton value="Save User" action="#{userController.createUpdate()}"
-                                 style="margin-top: 10px;" oncomplete="PF('userDialog').hide()"
-                                 update=":listForm"
-                                 />
+                        <p:outputLabel id="password" value="Password:" styleClass="required-label"/>
+                        <p:inputText value="#{userController.user.password}" required="true">
+                            <f:validateLength minimum="8" maximum="8"/>
+                            <p:ajax event="keyup"/> 
+                        </p:inputText>
+
+                        <!--<p:message id="passwordMsg" for="password"/>-->                      
+
+                    </h:panelGrid>
+                    <p:commandButton value="Save User" action="#{userController.createUpdate()}"
+                                     style="margin-top: 10px;" oncomplete="PF('userDialog').hide()"
+                                     update=":listForm"
+                                     />
                 </p:panel>
             </h:form>
         </p:dialog>
 
         <center>
             <h:form id="listForm" >
-                <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" /> 
+                <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" life="5000" /> 
                 <p:dataTable value="#{userController.userModel}" var="user" paginator="true" rows="10"
                              paginatorPosition="bottom"  emptyMessage="No records found" 
                              id="userTable"
@@ -170,7 +181,7 @@
                     </p:column>
                     <p:ajax event="rowSelect" update=":account" 
                             listener="#{userController.retrieveAccounts()}" />
-                    
+
                 </p:dataTable>
 
             </h:form>
@@ -180,21 +191,33 @@
                     <p:toolbarGroup>
                         <p:commandButton value="Deposit" onclick="PF('depositDialog').show()" 
                                          update=":depositForm"
+                                         title="Initiate Deposit"
                                          actionListener=
                                          "#{depositController.beforeDeposit(userController.user)}"/>
                     </p:toolbarGroup>
                     <p:toolbarGroup>
                         <p:commandButton value="Withdrawal" onclick="PF('withdrawDialog').show()"
                                          update=":withdrawForm"
+                                         title="Initiate Withdrawal"
                                          actionListener=
                                          "#{withdrawController.beforeWithdrawal(userController.user)}"/>
                     </p:toolbarGroup>
                     <p:toolbarGroup>
                         <p:commandButton value="Fund Transfer" onclick="PF('fundtransferDialog').show()"
                                          update=":fundtransferForm" 
+                                         title="Transfer Amount"
                                          actionListener=
                                          "#{fundtransferController.beforeTransfer(userController.user)}"/>
                     </p:toolbarGroup>
+                    
+                    <p:toolbarGroup>
+                        <p:commandButton value="Statement" onclick="PF('statementDialog').show()"
+                                         update=":statementForm" 
+                                         title="View Statement"
+                                         actionListener=
+                                         "#{statementController.beforeViewStatement(userController.user)}"/>
+                    </p:toolbarGroup>
+                    
                 </p:toolbar>
 
             </h:form>
@@ -202,6 +225,8 @@
             <ui:include src="depositDialog.xhtml" />
             <ui:include src="withdrawDialog.xhtml" />
             <ui:include src="fundtransferDialog.xhtml" />
+            <ui:include src="statementDialog.xhtml" />
+            
 
             <h:form id="account">
                 <h:panelGroup id="accountForm">
