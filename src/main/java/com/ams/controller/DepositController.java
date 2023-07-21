@@ -30,7 +30,7 @@ import javax.faces.context.FacesContext;
  */
 @ViewScoped
 @Named("depositController")
-public class DepositController implements Serializable {
+public class DepositController extends AbstractController{
 
     private List<User> userList;
     private List<Account> accountList;
@@ -207,9 +207,7 @@ public class DepositController implements Serializable {
                     transactionRepository.save(accountTransactionDetails);
                     accountRepository.update(account);
                     
-                    FacesContext context = FacesContext.getCurrentInstance();
-
-                    context.addMessage(null, new FacesMessage("Deposit Successful"));
+                    super.infoMessage("Deposit Successfull");
 
                 }
 

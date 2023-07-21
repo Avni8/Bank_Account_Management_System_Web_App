@@ -30,7 +30,7 @@ import javax.faces.context.FacesContext;
  */
 @ViewScoped
 @Named("withdrawController")
-public class WithdrawController implements Serializable {
+public class WithdrawController extends AbstractController{
 
     private List<User> userList;
     private List<Account> accountList;
@@ -197,9 +197,7 @@ public class WithdrawController implements Serializable {
                     transactionRepository.save(accountTransactionDetails);
                     accountRepository.update(account);
                     
-                    FacesContext context = FacesContext.getCurrentInstance();
-
-                    context.addMessage(null, new FacesMessage("Withdrawal Successful"));
+                    super.infoMessage("Amount Successfully withdrawn");
 
                 }
 

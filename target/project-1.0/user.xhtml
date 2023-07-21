@@ -110,7 +110,7 @@
 
         <center>
             <h:form id="listForm" >
-                <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" life="5000" /> 
+                
                 <p:dataTable value="#{userController.userModel}" var="user" paginator="true" rows="10"
                              paginatorPosition="bottom"  emptyMessage="No records found" 
                              id="userTable"
@@ -226,7 +226,6 @@
             <ui:include src="withdrawDialog.xhtml" />
             <ui:include src="fundtransferDialog.xhtml" />
             <ui:include src="statementDialog.xhtml" />
-            
 
             <h:form id="account">
                 <h:panelGroup id="accountForm">

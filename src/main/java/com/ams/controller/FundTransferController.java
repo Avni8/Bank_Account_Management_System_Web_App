@@ -30,7 +30,7 @@ import org.primefaces.component.messages.Messages;
  */
 @ViewScoped
 @Named("fundtransferController")
-public class FundTransferController implements Serializable {
+public class FundTransferController extends AbstractController{
 
     private List<User> userList;
     private List<Account> sourceAccountList;
@@ -241,10 +241,8 @@ public class FundTransferController implements Serializable {
                         + transferAmount;
                 destinationAccount.setBalance(newDestinationAccountBalance);
                 accountRepository.update(destinationAccount);
-
-                FacesContext context = FacesContext.getCurrentInstance();
-
-                context.addMessage(null, new FacesMessage("Transfer Successful"));
+                
+                super.infoMessage("Fund Transfer Successful");
 
             }
 

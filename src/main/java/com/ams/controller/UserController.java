@@ -27,7 +27,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ViewScoped
 @Named("userController")
-public class UserController implements Serializable {
+public class UserController extends AbstractController {
 
     private User user;
     private User selectedUser;
