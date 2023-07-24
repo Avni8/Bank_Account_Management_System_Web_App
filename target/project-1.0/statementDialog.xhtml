@@ -11,10 +11,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
     <p:dialog header="Statement" widgetVar="statementDialog" modal="true" resizable="false" width="800" height="400">
 
-        <h:form id="statementForm" style="margin-top: 20px">
+        <h:form id="statementForm" style="margin-top: 8px">
 
 
-            <h:panelGrid style="margin-bottom: 20px">
+            <h:panelGrid style="margin-bottom: 20px; margin-right: 59%;">
                 <p:outputLabel value="User:" />
 
                 <p:selectOneMenu value="#{statementController.selectedUser}" 
@@ -39,29 +39,40 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                     <f:selectItems value="#{statementController.accountList}" var="account"
                                    itemValue="#{account}" itemLabel="#{account.accNo}
-                                   -#{account.product.product_type} 
-                                   (Balance: #{account.balance})" />
-
-                    <p:ajax event="change" 
-                            listener="#{statementController.loadTransactionDetails()}" 
-                            update="transactionPG" />
+                                   -#{account.product.product_type}"/>
 
                 </p:selectOneMenu>
 
-                <h:panelGroup id="transactionPG" >
-                    <p:dataTable value="#{statementController.transactionDetails}" var="transaction">
-                        <p:column headerText="Date">
-                            <h:outputText value="#{transaction.date}"/>
-                        </p:column>
-                        <p:column headerText="Credit Amount">
-                            <h:outputText value="#{transaction.creditAmount}"/>
-                        </p:column>
-                        <p:column headerText="Debit Amount">
-                            <h:outputText value="#{transaction.debitAmount}"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:panelGroup>
+                <p:outputLabel value="From:" />
+                <p:calendar value="#{statementController.fromDate}" showOn="button" pattern="MM/dd/yyyy" />
+
+                <p:outputLabel value="To:" />
+                <p:calendar value="#{statementController.toDate}" showOn="button" pattern="MM/dd/yyyy" />
+
+                <p:commandButton value="Show Details" action="#{statementController.loadTransactionDetails()}" update="transactionPG" />
+
+
             </h:panelGrid>
+            <h:panelGroup id="transactionPG" >
+                <h:panelGroup style="margin-left:65%;">
+                    <h:panelGroup layout="block">
+                        <h:outputLabel value="Latest Balance: " />
+                        <h:outputText value="#{statementController.selectedAccount.getBalance()}" />
+                    </h:panelGroup>
+                </h:panelGroup>
+                <p:dataTable value="#{statementController.transactionDetails}" var="transaction"
+                             sortBy="#{transaction.date}" sortOrder="descending">
+                    <p:column headerText="Date">
+                        <h:outputText value="#{transaction.date}"/>
+                    </p:column>
+                    <p:column headerText="Credit Amount">
+                        <h:outputText value="#{transaction.creditAmount}"/>
+                    </p:column>
+                    <p:column headerText="Debit Amount">
+                        <h:outputText value="#{transaction.debitAmount}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:panelGroup>
         </h:form>  
     </p:dialog>
 </ui:composition>

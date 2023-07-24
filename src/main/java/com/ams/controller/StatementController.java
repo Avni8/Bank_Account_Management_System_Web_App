@@ -12,11 +12,14 @@ import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
 import com.ams.repository.UserRepository;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -33,6 +36,12 @@ public class StatementController implements Serializable{
     private Account account;
     private User selectedUser;
     private Account selectedAccount;
+    @Temporal(TemporalType.DATE)
+    private Date fromDate;
+    @Temporal(TemporalType.DATE)
+    private Date toDate;
+    
+    private Double openingBalance;
     
     
     @Inject
@@ -98,6 +107,30 @@ public class StatementController implements Serializable{
         this.selectedAccount = selectedAccount;
     }
 
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public Double getOpeningBalance() {
+        return openingBalance;
+    }
+
+    public void setOpeningBalance(Double openingBalance) {
+        this.openingBalance = openingBalance;
+    }
+    
     public List<AccountTransactionDetails> getTransactionDetails() {
         return transactionDetails;
     }
@@ -157,25 +190,12 @@ public class StatementController implements Serializable{
                     ? accountRepository.getAccountsByUser(selectedUser):null;
     }
     
-    
     public void loadTransactionDetails(){
         
         if(selectedAccount != null){
-            
             transactionDetails = transactionRepository.getTransactionsByAccount
-        (selectedAccount);
+        (selectedAccount, fromDate, toDate);
             
         }
-        
-        
     }
-    
-    
-    
-    
-    
-    
-
-    
-    
 }

@@ -97,10 +97,10 @@ public class UserController extends AbstractController {
         this.user = user;
     }
 
-    public void delete(User user) {
-        userRepository.delete(user.getId());
-        loadData();
-    }
+//    public void delete(User user) {
+//        userRepository.delete(user.getId());
+//        loadData();
+//    }
 
     public void retrieveAccounts() {
         if (user != null) {
@@ -125,7 +125,6 @@ public class UserController extends AbstractController {
     public AbstractEntity getEntity() {
         return user;
     }
-    
     
 }
 

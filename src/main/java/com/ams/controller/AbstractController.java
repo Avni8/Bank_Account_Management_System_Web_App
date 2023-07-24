@@ -22,8 +22,16 @@ public abstract class AbstractController extends AbstractMessageController {
             super.infoMessage("Created Successfully");
         } else {
             getRepository().update(getEntity());
-            super.infoMessage("Updated successfully");
+            super.infoMessage("Updated Successfully");
         }
+        loadData();
+    }
+    
+    public void delete(AbstractEntity entity){
+        
+//        entity = getEntity();
+        getRepository().delete(entity.getId());
+        super.infoMessage("Deleted Successfully");
         loadData();
     }
 

@@ -6,6 +6,7 @@ package com.ams.repository;
 
 import com.ams.model.Account;
 import com.ams.model.AccountTransactionDetails;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,12 +31,15 @@ public class AccountTransactionDetailsRepository extends AbstractRepository<Acco
         return entityManager;
     }
 
-    public List<AccountTransactionDetails> getTransactionsByAccount(Account account) {
+    public List<AccountTransactionDetails> getTransactionsByAccount(Account account, Date fromDate,
+            Date toDate) {
 
         return entityManager.createQuery("SELECT a FROM AccountTransactionDetails"
-                + " a WHERE a.account.id = :acId", AccountTransactionDetails.class)
+                + " a WHERE a.account.id = :acId"
+                + " AND a.date BETWEEN :startDate AND :endDate", AccountTransactionDetails.class)
                 .setParameter("acId", account.getId())
+                .setParameter("startDate", fromDate)
+                .setParameter("endDate", toDate)
                 .getResultList();
     }
-
 }

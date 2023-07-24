@@ -71,10 +71,10 @@ public class StaffController extends AbstractController{
 //        loadData();
 //    }
 
-    public void delete(Staff staff) {
-        staffRepository.delete(staff.getId());
-        loadData();
-    } 
+//    public void delete(Staff staff) {
+//        staffRepository.delete(staff.getId());
+//        loadData();
+//    } 
     
     @Override
     public AbstractRepository getRepository(){

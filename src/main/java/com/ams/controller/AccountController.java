@@ -71,9 +71,9 @@ public class AccountController extends AbstractController {
         loadData();
     }
 
+    @Override
     public void loadData() {
         accountList = accountRepository.findAll();
-
     }
 
     public void beforeCreate() {
@@ -97,18 +97,20 @@ public class AccountController extends AbstractController {
 //    }
 
     
+    @Override
     public AbstractRepository getRepository() {
         return accountRepository;
     }
     
+    @Override
     public AbstractEntity getEntity(){
         return account;
     }
 
-    public void delete(Account account) {
-        accountRepository.delete(account.getId());
-        loadData();
-    }
+//    public void delete(Account account) {
+//        accountRepository.delete(account.getId());
+//        loadData();
+//    }
 
     public User getSelectedUser() {
         return user;
@@ -158,6 +160,4 @@ public class AccountController extends AbstractController {
 
         return filteredList;
     }
-    
-
 }
