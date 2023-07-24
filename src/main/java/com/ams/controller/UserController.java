@@ -34,8 +34,6 @@ public class UserController extends AbstractController {
     private User user;
     private User selectedUser;
     private List<User> userList;
-
-    
     private List<Account> accountList;
     private UserModel userModel;
 
@@ -98,8 +96,6 @@ public class UserController extends AbstractController {
     public void beforeUpdate(User user) {
         this.user = user;
     }
-
-    
 
     public void delete(User user) {
         userRepository.delete(user.getId());

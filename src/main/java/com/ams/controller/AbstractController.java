@@ -16,15 +16,13 @@ import javax.faces.context.FacesContext;
  */
 public abstract class AbstractController extends AbstractMessageController {
 
-    
-
     public void createUpdate() {
         if (getEntity().getId() == null) {
             getRepository().save(getEntity());
-            infoMessage("Created Successfully");
+            super.infoMessage("Created Successfully");
         } else {
             getRepository().update(getEntity());
-            infoMessage("Updated successfully");
+            super.infoMessage("Updated successfully");
         }
         loadData();
     }

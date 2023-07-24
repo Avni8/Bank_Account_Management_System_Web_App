@@ -4,6 +4,7 @@
  */
 package com.ams.controller;
 
+import com.ams.model.AbstractEntity;
 import com.ams.repository.AccountRepository;
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.inject.Named;
 import com.ams.model.User;
 import com.ams.model.Product;
 import com.ams.model.Account;
+import com.ams.repository.AbstractRepository;
 import com.ams.repository.ProductRepository;
 import com.ams.repository.UserRepository;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.Set;
  */
 @ViewScoped
 @Named("accountController")
-public class AccountController implements Serializable {
+public class AccountController extends AbstractController {
 
     private Account account;
     private List<Account> accountList;
@@ -69,7 +71,7 @@ public class AccountController implements Serializable {
         loadData();
     }
 
-    private void loadData() {
+    public void loadData() {
         accountList = accountRepository.findAll();
 
     }
@@ -84,14 +86,23 @@ public class AccountController implements Serializable {
         this.account = account;
     }
 
-    public void createUpdate() {
+//    public void createUpdate() {
+//
+//        if (account.getId() == null) {
+//            accountRepository.save(account);
+//        } else {
+//            accountRepository.update(account);
+//        }
+//        loadData();
+//    }
 
-        if (account.getId() == null) {
-            accountRepository.save(account);
-        } else {
-            accountRepository.update(account);
-        }
-        loadData();
+    
+    public AbstractRepository getRepository() {
+        return accountRepository;
+    }
+    
+    public AbstractEntity getEntity(){
+        return account;
     }
 
     public void delete(Account account) {

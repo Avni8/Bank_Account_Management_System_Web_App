@@ -50,18 +50,18 @@
                             <f:validateLength minimum="2" />
                             <p:ajax event="keyup"/>  
                         </p:inputText>
-                        <!--<p:message id="addressMsg" for="address"/>-->
+                        
 
                         <p:outputLabel value="Contact:" styleClass="required-label"/>
                         <p:inputText id="contact" value="#{userController.user.contact}" required="true">
                             <f:validateLength minimum="10" maximum="10" />
                             <p:ajax event="keyup"/> 
                         </p:inputText>
-                        <!--<p:message id="contactMsg" for="contact"/>-->
+                        
 
                         <p:outputLabel value="Date of Birth:" styleClass="required-label"/>
                         <p:inputText id="dob" value="#{userController.user.dob}" required="true">
-                            <!--<f:convertDateTime pattern="MM-dd-yyyy"/>-->
+                           <f:convertDateTime pattern="yyyy-MM-dd"/>
                             <p:ajax event="keyup"/> 
                         </p:inputText>
                         <!--<p:message id="dobMsg" for="dob"/>-->

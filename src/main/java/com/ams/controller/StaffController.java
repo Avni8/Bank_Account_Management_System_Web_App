@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.ams.controller;
+import com.ams.model.AbstractEntity;
 import com.ams.repository.StaffRepository;
 import com.ams.model.Staff;
+import com.ams.repository.AbstractRepository;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -18,7 +20,7 @@ import javax.inject.Named;
  */
 @ViewScoped
 @Named("staffController")
-public class StaffController implements Serializable {
+public class StaffController extends AbstractController{
     
     private Staff staff;
     private List<Staff> staffList;
@@ -48,7 +50,7 @@ public class StaffController implements Serializable {
         loadData();
     }
 
-    private void loadData() {
+    public void loadData() {
         staffList = staffRepository.findAll();
     }
 
@@ -60,17 +62,27 @@ public class StaffController implements Serializable {
         this.staff = staff;
     }
 
-    public void createUpdate() {
-        if (staff.getId() == null) {
-            staffRepository.save(staff);
-        } else {
-            staffRepository.update(staff);
-        }
-        loadData();
-    }
+//    public void createUpdate() {
+//        if (staff.getId() == null) {
+//            staffRepository.save(staff);
+//        } else {
+//            staffRepository.update(staff);
+//        }
+//        loadData();
+//    }
 
     public void delete(Staff staff) {
         staffRepository.delete(staff.getId());
         loadData();
     } 
+    
+    @Override
+    public AbstractRepository getRepository(){
+        return staffRepository;
+    }
+    
+    @Override
+    public AbstractEntity getEntity(){
+        return staff;
+    }
 }
