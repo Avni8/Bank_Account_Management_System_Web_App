@@ -26,7 +26,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                     <p:outputLabel id="userLbl" for="userInp" value="User:"/>
                     <p:selectOneMenu id="userInp" value="#{accountController.account.user}" 
-                                     converter="userConverter" required="true" >
+                                     converter="userConverter" required="true" 
+                                     requiredMessage="User is required!">
                         <f:selectItem itemLabel="Select User" itemValue="" />
                         <f:selectItems value="#{accountController.userList}" 
                                        var="user" itemValue="#{user}" itemLabel="#{user.name}" />
@@ -34,25 +35,30 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                     <p:outputLabel id="productLbl" for="productInp" value="Product:"/>
                     <p:selectOneMenu id="productInp" value="#{accountController.account.product}" 
-                                     converter="productConverter" required="true">
+                                     converter="productConverter" required="true"
+                                     requiredMessage="Product is required!">
                         <f:selectItem itemLabel="Select Product Type" itemValue="" />
                         <f:selectItems value="#{accountController.productList}" var="product" itemValue="#{product}" itemLabel="#{product.product_type}" />
                     </p:selectOneMenu>
 
                     <p:outputLabel id="accLbl" for="accInp" value="Account Number:"/>
-                    <p:inputText id="accInp" value="#{accountController.account.accNo}" required="true"/>
+                    <p:inputText id="accInp" value="#{accountController.account.accNo}" 
+                                 required="true" requiredMessage="Account Number is required!"/>
 
                     <p:outputLabel id="interestLbl" for="interestInp" value="Interest Rate:"/>
-                    <p:inputText id="interestInp" value="#{accountController.account.interestRate}" required="true" />
+                    <p:inputText id="interestInp" value="#{accountController.account.interestRate}" 
+                                 required="true" requiredMessage="Interest Rate is required!"/>
 
                     <p:outputLabel id="openedDateLbl" for="openedDateInp" value="Opened Date:" />
-                    <p:inputText id="openedDateInp" value="#{accountController.account.openedDate}" required="true"/>
+                    <p:inputText id="openedDateInp" value="#{accountController.account.openedDate}"
+                                 required="true" requiredMessage="Opened Date is required!"/>
 
                     <p:outputLabel id="matureDateLbl" for="matureDateInp" value="Mature Date:" />
                     <p:inputText id="matureDateInp" value="#{accountController.account.matureDate}" />
 
                     <p:outputLabel id="balanceLbl" for="balanceInp" value="Balance:" />
-                    <p:inputText id="balanceInp" value="#{accountController.account.balance}" required="true"/>
+                    <p:inputText id="balanceInp" value="#{accountController.account.balance}" 
+                                 required="true" requiredMessage="Initial Balance is required!"/>
 
                 </h:panelGrid>
                 <p:commandButton value="Save Account" action="#{accountController.createUpdate()}"

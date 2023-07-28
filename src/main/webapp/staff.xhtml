@@ -24,7 +24,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:panelGrid  columns="2"> 
 
                     <p:outputLabel  id="nameLbl" for="nameInp" value="Name:"/>
-                    <p:inputText id="nameInp" value="#{staffController.staff.name}" required="true"/>
+                    <p:inputText id="nameInp" value="#{staffController.staff.name}" 
+                                 required="true" requiredMessage="Name is required!"/>
 
                     <p:outputLabel id="ageLbl" for="ageInp" value="Age:"/>
                     <p:inputText id="ageInp" value="#{staffController.staff.age}"/>
@@ -37,19 +38,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     </p:selectOneRadio>
 
                     <p:outputLabel id="emailLbl" for="emailInp" value="Email Address:" />
-                    <p:inputText id="emailInp" value="#{staffController.staff.email}" required="true" />
+                    <p:inputText id="emailInp" value="#{staffController.staff.email}" 
+                                 required="true" requiredMessage="Email Address is required!"/>
 
                     <p:outputLabel id="contactLbl" for="contactInp" value="Contact:" />
-                    <p:inputText id="contactInp" value="#{staffController.staff.contact}" required="true"/>
+                    <p:inputText id="contactInp" value="#{staffController.staff.contact}" 
+                                 required="true" requiredMessage="Contact Number is required!"/>
 
                     <p:outputLabel id="addressLbl" for="addressInp" value="Address:" />
-                    <p:inputText id="addressInp" value="#{staffController.staff.address}" required="true"/>
+                    <p:inputText id="addressInp" value="#{staffController.staff.address}" 
+                                 required="true" requiredMessage="Address is required!"/>
 
                     <p:outputLabel id="usernameLbl" for="usernameInp"  value="Username:" />
-                    <p:inputText id="usernameInp" value="#{staffController.staff.username}" required="true"/>
+                    <p:inputText id="usernameInp" value="#{staffController.staff.username}" 
+                                 required="true" requiredMessage="Username is required!"/>
 
                     <p:outputLabel id="passwordLbl" for="passwordInp" value="Password:" />
-                    <p:inputText id="passwordInp" value="#{staffController.staff.password}" required="true"/>
+                    <p:inputText id="passwordInp" value="#{staffController.staff.password}" 
+                                 required="true" requiredMessage="Password is required!"/>
                 </h:panelGrid>
                 <p:commandButton value="Register staff" action="#{staffController.createUpdate()}"
                                  style="margin-top: 10px;" 
