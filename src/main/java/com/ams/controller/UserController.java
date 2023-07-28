@@ -97,11 +97,6 @@ public class UserController extends AbstractController {
         this.user = user;
     }
 
-//    public void delete(User user) {
-//        userRepository.delete(user.getId());
-//        loadData();
-//    }
-
     public void retrieveAccounts() {
         if (user != null) {
             // Call your repository or service to fetch the list of accounts based on the selected user

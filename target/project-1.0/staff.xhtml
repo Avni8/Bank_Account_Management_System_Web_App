@@ -12,17 +12,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <h:head>
         <title>Staff-Details</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
-        <style>
-            
-             .required-label:after {
-                content: "*";
-                color: red; /* You can customize the color here */
-                margin-left: 4px; /* Adjust the space between the label and the asterisk */
-            }
-
-            
-        </style>
     </h:head>
     <body>
         <h:form class="my-navbar">    
@@ -34,36 +23,38 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <h:form id="staffForm" styleClass="no-border-input">
                 <h:panelGrid  columns="2"> 
 
-                    <p:outputLabel value="Name:" styleClass="required-label"/>
-                    <p:inputText value="#{staffController.staff.name}" required="true"/>
+                    <p:outputLabel  id="nameLbl" for="nameInp" value="Name:"/>
+                    <p:inputText id="nameInp" value="#{staffController.staff.name}" required="true"/>
 
-                    <p:outputLabel value="Age:"/>
-                    <p:inputText value="#{staffController.staff.age}"/>
+                    <p:outputLabel id="ageLbl" for="ageInp" value="Age:"/>
+                    <p:inputText id="ageInp" value="#{staffController.staff.age}"/>
 
-                    <p:outputLabel value="Gender:"/>
-                    <p:selectOneRadio value="#{staffController.staff.gender}">
+                    <p:outputLabel id="genderLbl" for="genderInp" value="Gender:"/>
+                    <p:selectOneRadio id="genderInp" value="#{staffController.staff.gender}">
                         <f:selectItem itemLabel="Male" itemValue="Male" />
                         <f:selectItem itemLabel="Female" itemValue="Female" />
                         <f:selectItem itemLabel="Other" itemValue="Other" />
                     </p:selectOneRadio>
 
-                    <p:outputLabel value="Email Address:" styleClass="required-label" />
-                    <p:inputText value="#{staffController.staff.email}" required="true" />
+                    <p:outputLabel id="emailLbl" for="emailInp" value="Email Address:" />
+                    <p:inputText id="emailInp" value="#{staffController.staff.email}" required="true" />
 
-                    <p:outputLabel value="Contact:" styleClass="required-label" />
-                    <p:inputText value="#{staffController.staff.contact}" required="true"/>
+                    <p:outputLabel id="contactLbl" for="contactInp" value="Contact:" />
+                    <p:inputText id="contactInp" value="#{staffController.staff.contact}" required="true"/>
 
-                    <p:outputLabel value="Address:" styleClass="required-label" />
-                    <p:inputText value="#{staffController.staff.address}" required="true"/>
+                    <p:outputLabel id="addressLbl" for="addressInp" value="Address:" />
+                    <p:inputText id="addressInp" value="#{staffController.staff.address}" required="true"/>
 
-                    <p:outputLabel value="Username:" styleClass="required-label" />
-                    <p:inputText value="#{staffController.staff.username}" required="true"/>
+                    <p:outputLabel id="usernameLbl" for="usernameInp"  value="Username:" />
+                    <p:inputText id="usernameInp" value="#{staffController.staff.username}" required="true"/>
 
-                    <p:outputLabel value="Password:" styleClass="required-label" />
-                    <p:inputText value="#{staffController.staff.password}" required="true"/>
+                    <p:outputLabel id="passwordLbl" for="passwordInp" value="Password:" />
+                    <p:inputText id="passwordInp" value="#{staffController.staff.password}" required="true"/>
                 </h:panelGrid>
                 <p:commandButton value="Register staff" action="#{staffController.createUpdate()}"
-                                 style="margin-top: 10px;" oncomplete="PF('staffDialog').hide()"
+                                 style="margin-top: 10px;" 
+                                 oncomplete="if (args &amp;&amp; !args.validationFailed) 
+                                      PF('staffDialog').hide();"
                                  update=":listForm"/>
             </h:form>
         </p:dialog>

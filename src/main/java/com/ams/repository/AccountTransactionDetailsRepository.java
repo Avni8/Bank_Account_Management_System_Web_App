@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -41,5 +42,23 @@ public class AccountTransactionDetailsRepository extends AbstractRepository<Acco
                 .setParameter("startDate", fromDate)
                 .setParameter("endDate", toDate)
                 .getResultList();
+    }
+
+    public Double getOpeningBalance(Account account, Date fromDate) {
+        
+        String jpql = "SELECT (COALESCE(SUM(atd.creditAmount), 0) - COALESCE(SUM(atd.debitAmount), 0)) + :accountBalance "
+                + "FROM AccountTransactionDetails atd "
+                + "WHERE atd.account = :account AND atd.date < :fromDate";
+
+        Double accountBalance = account.getBalance();
+
+        TypedQuery<Double> query = entityManager.createQuery(jpql, Double.class);
+        query.setParameter("account", account);
+        query.setParameter("fromDate", fromDate);
+        query.setParameter("accountBalance", accountBalance);
+
+        Double openingBalance = query.getSingleResult();
+
+        return openingBalance;
     }
 }

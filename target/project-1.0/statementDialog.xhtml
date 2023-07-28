@@ -27,7 +27,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                     <p:ajax listener="#{statementController.retrieveAccounts()}" 
                             update="userMenu account" />
-
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Account:" />
@@ -40,7 +39,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:selectItems value="#{statementController.accountList}" var="account"
                                    itemValue="#{account}" itemLabel="#{account.accNo}
                                    -#{account.product.product_type}"/>
-
                 </p:selectOneMenu>
 
                 <p:outputLabel value="From:" />
@@ -51,14 +49,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 <p:commandButton value="Show Details" action="#{statementController.loadTransactionDetails()}" update="transactionPG" />
 
-
             </h:panelGrid>
             <h:panelGroup id="transactionPG" >
-                <h:panelGroup style="margin-left:65%;">
-                    <h:panelGroup layout="block">
+                <h:panelGroup>
+                    <div style="margin-bottom: 5px; margin-left: 60%;">
                         <h:outputLabel value="Latest Balance: " />
                         <h:outputText value="#{statementController.selectedAccount.getBalance()}" />
-                    </h:panelGroup>
+                    </div>
+                    
+                    <div style="margin-left: 60%;" >
+                        <h:outputLabel value="Opening Balance: " />
+                        <h:outputText value="#{statementController.loadOpeningBalance()}" />
+                    </div>
                 </h:panelGroup>
                 <p:dataTable value="#{statementController.transactionDetails}" var="transaction"
                              sortBy="#{transaction.date}" sortOrder="descending">

@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
  */
 @ViewScoped
 @Named("statementController")
-public class StatementController implements Serializable{
+public class StatementController extends AbstractMessageController{
     
     private List<User> userList;
     private List<Account> accountList;
@@ -42,7 +42,6 @@ public class StatementController implements Serializable{
     private Date toDate;
     
     private Double openingBalance;
-    
     
     @Inject
     private AccountMISRepository accountMISRepository;
@@ -197,5 +196,15 @@ public class StatementController implements Serializable{
         (selectedAccount, fromDate, toDate);
             
         }
+    }
+    
+    public Double loadOpeningBalance(){
+       
+        if(selectedAccount != null){
+            
+            return transactionRepository.
+                    getOpeningBalance(selectedAccount, fromDate);
+        }
+        return 0.0;
     }
 }

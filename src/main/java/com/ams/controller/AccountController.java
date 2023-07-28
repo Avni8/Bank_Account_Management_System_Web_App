@@ -86,17 +86,6 @@ public class AccountController extends AbstractController {
         this.account = account;
     }
 
-//    public void createUpdate() {
-//
-//        if (account.getId() == null) {
-//            accountRepository.save(account);
-//        } else {
-//            accountRepository.update(account);
-//        }
-//        loadData();
-//    }
-
-    
     @Override
     public AbstractRepository getRepository() {
         return accountRepository;
@@ -106,11 +95,6 @@ public class AccountController extends AbstractController {
     public AbstractEntity getEntity(){
         return account;
     }
-
-//    public void delete(Account account) {
-//        accountRepository.delete(account.getId());
-//        loadData();
-//    }
 
     public User getSelectedUser() {
         return user;

@@ -50,6 +50,7 @@ public class StaffController extends AbstractController{
         loadData();
     }
 
+    @Override
     public void loadData() {
         staffList = staffRepository.findAll();
     }

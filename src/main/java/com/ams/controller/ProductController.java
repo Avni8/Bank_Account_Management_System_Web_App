@@ -63,11 +63,6 @@ public class ProductController extends AbstractController{
     public void beforeUpdate(Product product) {
         this.product = product;
     }
-
-//    public void delete(Product product) {
-//        productRepository.delete(product.getId());
-//        loadData();
-//    } 
     
     @Override
     public AbstractRepository getRepository() {

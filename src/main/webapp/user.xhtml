@@ -38,43 +38,42 @@
                 <p:panel>
 
                     <h:panelGrid> 
-                        <p:outputLabel value="Name:" styleClass="required-label"/>
-                        <p:inputText id="name" value="#{userController.user.name}" required="true">
+                        <p:outputLabel id="nameLbl" for="nameInp" value="Name:"/>
+                        <p:inputText id="nameInp" value="#{userController.user.name}" required="true">
                             <f:validateLength minimum="2" />
                             <p:ajax event="keyup"/>  
                         </p:inputText>
                         <!--<p:message id="nameMsg" for="name"/>-->
 
-                        <p:outputLabel value="Address:" styleClass="required-label"/>
-                        <p:inputText id="address" value="#{userController.user.address}" required="true">
+                        <p:outputLabel  id="addressLbl" for="addressInp" value="Address:"/>
+                        <p:inputText id="addressInp" value="#{userController.user.address}" required="true">
                             <f:validateLength minimum="2" />
                             <p:ajax event="keyup"/>  
                         </p:inputText>
-                        
 
-                        <p:outputLabel value="Contact:" styleClass="required-label"/>
-                        <p:inputText id="contact" value="#{userController.user.contact}" required="true">
+                        <p:outputLabel id="contactLbl" for="contactInp" value="Contact:"/>
+                        <p:inputText id="contactInp" value="#{userController.user.contact}" required="true">
                             <f:validateLength minimum="10" maximum="10" />
                             <p:ajax event="keyup"/> 
                         </p:inputText>
-                        
 
-                        <p:outputLabel value="Date of Birth:" styleClass="required-label"/>
-                        <p:inputText id="dob" value="#{userController.user.dob}" required="true">
-                           <f:convertDateTime pattern="MM-dd-yyyy"/>
+
+                        <p:outputLabel id="dobLbl" for="dobInp" value="Date of Birth:"/>
+                        <p:inputText id="dobInp" value="#{userController.user.dob}" required="true">
+                            <f:convertDateTime pattern="MM-dd-yyyy"/>
                             <p:ajax event="keyup"/> 
                         </p:inputText>
                         <!--<p:message id="dobMsg" for="dob"/>-->
 
-                        <p:outputLabel value="Email Address:" styleClass="required-label"/>
-                        <p:inputText id="email" value="#{userController.user.email}" required="true">
+                        <p:outputLabel id="emailLbl" for="emailInp" value="Email Address:"/>
+                        <p:inputText id="emailInp" value="#{userController.user.email}" required="true">
                             <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$" />
                             <p:ajax event="keyup"/> 
                         </p:inputText>
                         <!--<p:message id="emailMsg" for="email"/>-->
 
-                        <p:outputLabel value="Product Type:" styleClass="required-label"/>
-                        <p:selectOneMenu id="product" value="#{userController.user.product_type}" required="true">
+                        <p:outputLabel id="productLbl" for="productInp" value="Product Type:"/>
+                        <p:selectOneMenu id="productInp" value="#{userController.user.product_type}" required="true">
                             <f:selectItem itemLabel="Select Product Type" itemValue="" />
                             <f:selectItem itemLabel="Savings" itemValue="Savings" />
                             <f:selectItem itemLabel="Fixed Deposit" itemValue="Fixed Deposit" />
@@ -84,15 +83,15 @@
                         </p:selectOneMenu>
                         <!--<p:message id="productTypeMsg" for="product"/>-->
 
-                        <p:outputLabel id="username" value="Username:" styleClass="required-label"/>
-                        <p:inputText value="#{userController.user.username}" required="true" >
+                        <p:outputLabel id="usernameLbl" for="usernameInp" value="Username:"/>
+                        <p:inputText id="usernameInp" value="#{userController.user.username}" required="true" >
                             <f:validateLength minimum="5"/>
                             <p:ajax event="keyup"/> 
                         </p:inputText>
                         <!--<p:message id="usernameMsg" for="username"/>-->
 
-                        <p:outputLabel id="password" value="Password:" styleClass="required-label"/>
-                        <p:inputText value="#{userController.user.password}" required="true">
+                        <p:outputLabel id="passwordLbl" for="passwordInp" value="Password:"/>
+                        <p:inputText id="passwordInp" value="#{userController.user.password}" required="true">
                             <f:validateLength minimum="8" maximum="8"/>
                             <p:ajax event="keyup"/> 
                         </p:inputText>
@@ -101,16 +100,19 @@
 
                     </h:panelGrid>
                     <p:commandButton value="Save User" action="#{userController.createUpdate()}"
-                                     style="margin-top: 10px;" oncomplete="PF('userDialog').hide()"
+                                     style="margin-top: 10px;" 
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) 
+                                      PF('userDialog').hide();"
                                      update=":listForm"
                                      />
                 </p:panel>
+
             </h:form>
         </p:dialog>
 
         <center>
             <h:form id="listForm" >
-                
+
                 <p:dataTable value="#{userController.userModel}" var="user" paginator="true" rows="10"
                              paginatorPosition="bottom"  emptyMessage="No records found" 
                              id="userTable"
@@ -209,7 +211,7 @@
                                          actionListener=
                                          "#{fundtransferController.beforeTransfer(userController.user)}"/>
                     </p:toolbarGroup>
-                    
+
                     <p:toolbarGroup>
                         <p:commandButton value="Statement" onclick="PF('statementDialog').show()"
                                          update=":statementForm" 
@@ -217,7 +219,7 @@
                                          actionListener=
                                          "#{statementController.beforeViewStatement(userController.user)}"/>
                     </p:toolbarGroup>
-                    
+
                 </p:toolbar>
 
             </h:form>

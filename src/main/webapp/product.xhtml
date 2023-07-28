@@ -33,14 +33,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <p:dialog header="Create a new product" widgetVar="productDialog" modal="true" 
                   resizable="true">
             <h:form id="productForm" styleClass="no-border-input">
-                <h:panelGrid columns="2"> 
+                <h:panelGrid columns="3"> 
                     
-                    <p:outputLabel value="Product Type:" styleClass="required-label"/>
-                    <p:inputText value="#{productController.product.product_type}" required="true" />
+                    <p:outputLabel id="productTypeLbl" value="Product Type:" for="productTypeInp" />
+                    <p:inputText id="productTypeInp" value="#{productController.product.product_type}" 
+                                 required="true" requiredMessage="Product Type is required !" />
                 
                 </h:panelGrid>
                 <p:commandButton value="Save Product" action="#{productController.createUpdate()}"
-                                 style="margin-top: 10px;" oncomplete="PF('productDialog').hide()"
+                                 style="margin-top: 10px;"
+                                 oncomplete="if (args &amp;&amp; !args.validationFailed) 
+                                      PF('productDialog').hide();"
                                  update=":listForm"/>
             </h:form>
         </p:dialog>

@@ -13,15 +13,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <title>Account-Details</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        <style>
-            .required-label:after {
-                content: "*";
-                color: red; /* You can customize the color here */
-                margin-left: 4px; /* Adjust the space between the label and the asterisk */
-            }
-        </style>
-
-
     </h:head>
     <body>
         <h:form class="my-navbar">    
@@ -33,39 +24,41 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <h:form id="accountForm" styleClass="no-border-input">
                 <h:panelGrid columns="2"> 
 
-                    <p:outputLabel value="User:" styleClass="required-label"/>
-                    <p:selectOneMenu value="#{accountController.account.user}" 
+                    <p:outputLabel id="userLbl" for="userInp" value="User:"/>
+                    <p:selectOneMenu id="userInp" value="#{accountController.account.user}" 
                                      converter="userConverter" required="true" >
                         <f:selectItem itemLabel="Select User" itemValue="" />
                         <f:selectItems value="#{accountController.userList}" 
                                        var="user" itemValue="#{user}" itemLabel="#{user.name}" />
                     </p:selectOneMenu>
 
-                    <p:outputLabel value="Product:" styleClass="required-label"/>
-                    <p:selectOneMenu value="#{accountController.account.product}" 
+                    <p:outputLabel id="productLbl" for="productInp" value="Product:"/>
+                    <p:selectOneMenu id="productInp" value="#{accountController.account.product}" 
                                      converter="productConverter" required="true">
                         <f:selectItem itemLabel="Select Product Type" itemValue="" />
                         <f:selectItems value="#{accountController.productList}" var="product" itemValue="#{product}" itemLabel="#{product.product_type}" />
                     </p:selectOneMenu>
 
-                    <p:outputLabel value="Account Number:" styleClass="required-label"/>
-                    <p:inputText value="#{accountController.account.accNo}" required="true"/>
+                    <p:outputLabel id="accLbl" for="accInp" value="Account Number:"/>
+                    <p:inputText id="accInp" value="#{accountController.account.accNo}" required="true"/>
 
-                    <p:outputLabel value="Interest Rate:" styleClass="required-label"/>
-                    <p:inputText value="#{accountController.account.interestRate}" required="true" />
+                    <p:outputLabel id="interestLbl" for="interestInp" value="Interest Rate:"/>
+                    <p:inputText id="interestInp" value="#{accountController.account.interestRate}" required="true" />
 
-                    <p:outputLabel value="Opened Date:" styleClass="required-label"/>
-                    <p:inputText value="#{accountController.account.openedDate}" required="true"/>
+                    <p:outputLabel id="openedDateLbl" for="openedDateInp" value="Opened Date:" />
+                    <p:inputText id="openedDateInp" value="#{accountController.account.openedDate}" required="true"/>
 
-                    <p:outputLabel value="Mature Date:" />
-                    <p:inputText value="#{accountController.account.matureDate}" />
+                    <p:outputLabel id="matureDateLbl" for="matureDateInp" value="Mature Date:" />
+                    <p:inputText id="matureDateInp" value="#{accountController.account.matureDate}" />
 
-                    <p:outputLabel value="Balance:" styleClass="required-label"/>
-                    <p:inputText value="#{accountController.account.balance}" required="true"/>
+                    <p:outputLabel id="balanceLbl" for="balanceInp" value="Balance:" />
+                    <p:inputText id="balanceInp" value="#{accountController.account.balance}" required="true"/>
 
                 </h:panelGrid>
                 <p:commandButton value="Save Account" action="#{accountController.createUpdate()}"
-                                 style="margin-top: 10px;" oncomplete="PF('accountDialog').hide()"
+                                 style="margin-top: 10px;" 
+                                 oncomplete="if (args &amp;&amp; !args.validationFailed) 
+                                      PF('accountDialog').hide();"
                                  update=":listForm"/>
             </h:form>
         </p:dialog>
