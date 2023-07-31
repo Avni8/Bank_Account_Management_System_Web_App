@@ -119,7 +119,7 @@ public class StatementController extends AbstractMessageController{
     }
     
     
-     @PostConstruct
+    @PostConstruct
     public void init() {
         selectedUser = new User();
         selectedAccount = new Account();

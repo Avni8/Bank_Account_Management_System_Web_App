@@ -49,30 +49,34 @@ public class AccountTransactionDetailsRepository extends AbstractRepository<Acco
     }
 
     public Double getOpeningBalance(Account account, Date date) {
-        String jpql = "SELECT COALESCE(SUM(atd.creditAmount), 0) - COALESCE(SUM(atd.debitAmount), 0) "
+        String jpql = "SELECT COALESCE(SUM(atd.creditAmount), 0) - "
+                + "COALESCE(SUM(atd.debitAmount), 0) + :balance "
                 + "FROM AccountTransactionDetails atd "
-                + "WHERE atd.account = :account AND atd.date <=:date";
+                + "WHERE atd.account = :account AND atd.date < :date";
         TypedQuery<Double> query = entityManager.createQuery(jpql, Double.class);
         query.setParameter("account", account);
-        query.setParameter("fromDate", date);
+        query.setParameter("date", date);
+        query.setParameter("balance", account.getInitialBalance());
         Double openingBalance = query.getSingleResult();
         return openingBalance;
     }
 
     public BalanceView getOpeningBalance(BalanceView balanceView) {
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(balanceView.getFromDate()); 
-        int daysToDecrement = -1;
-        cal.add(Calendar.DATE, daysToDecrement);
-        Date actualFromDate = cal.getTime(); 
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(balanceView.getFromDate()); 
+//        int daysToDecrement = -1;
+//        cal.add(Calendar.DATE, daysToDecrement);
+//        Date actualFromDate = cal.getTime(); 
+//        Double balanceUptoFromDate = getOpeningBalance(balanceView.getAccount(),
+//                actualFromDate);
+        
         Double balanceUptoFromDate = getOpeningBalance(balanceView.getAccount(),
-                actualFromDate);
+                balanceView.getFromDate());
         Double balanceUptoToDate = getOpeningBalance(balanceView.getAccount(),
                 balanceView.getToDate());
         balanceView.setBalanceUptoFromDate(balanceUptoFromDate);
         balanceView.setBalanceUptoToDate(balanceUptoToDate);
         return balanceView;
     }
-
 }

@@ -47,23 +47,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:outputLabel value="To:" />
                 <p:calendar value="#{statementController.balanceView.toDate}" showOn="button" pattern="MM/dd/yyyy" />
 
-                <p:commandButton value="Show Details" action="#{statementController.loadTransactionDetails()}" update="transactionPG" />
+                <p:commandButton value="Show Details" 
+                                 action="#{statementController.loadTransactionDetails()}" 
+                                 update="transactionPG" />
 
             </h:panelGrid>
             <h:panelGroup id="transactionPG" >
-                <h:panelGrid columns="6">
+                <h:panelGrid columns="2">
                         <h:outputLabel value="Latest Balance: " />
                         <h:outputText value="#{statementController.balanceView.account.getBalance()}" />
                     
-                        <h:outputLabel value="Upto #{statementController.balanceView.getFromDate()} " >
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <h:outputLabel value="Opening Balance:" >
+                            <!--<f:convertDateTime pattern="MM/dd/yyyy" />-->
                         </h:outputLabel>
                         <h:outputText value="#{statementController.balanceView.balanceUptoFromDate}" />
                     
-                        <h:outputLabel value="Upto #{statementController.balanceView.getToDate()}"  >
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputLabel>
-                        <h:outputText value="#{statementController.balanceView.balanceUptoToDate}" />
                 </h:panelGrid>
                     
                 <p:dataTable value="#{statementController.transactionDetails}" var="transaction"

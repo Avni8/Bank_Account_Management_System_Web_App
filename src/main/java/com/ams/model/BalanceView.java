@@ -4,6 +4,7 @@
  */
 package com.ams.model;
 
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -67,4 +68,5 @@ public class BalanceView {
         }
         return 0.0;
     }
+    
 }
