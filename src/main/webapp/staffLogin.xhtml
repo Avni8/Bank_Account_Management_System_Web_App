@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Login-Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:growl id="growl" showDetail="false" sticky="true" autoUpdate="true" life="100" />
+            <p:dialog header="Login" widgetVar="loginDialog" modal="true" resizable="false" draggable="false">
+                <h:panelGrid columns="2" cellpadding="5">
+
+                    <p:outputLabel for="username" value="Username:" />
+                    <p:inputText id="username" value="#{staffLoginController.username}" required="true" />
+
+                    <p:outputLabel for="password" value="Password:" />
+                    <p:password id="password" value="#{staffLoginController.password}" required="true" />
+
+                    <p:commandButton value="Login" action="#{staffLoginController.login()}" />
+
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                PF('loginDialog').show();
+            });
+        </script>
+    </h:body>
+</html>
+

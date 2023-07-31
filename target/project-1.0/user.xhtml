@@ -33,15 +33,14 @@
         <p:dialog header="Create a new user" widgetVar="userDialog" modal="true" resizable="true">
             <h:form id="userForm">
                 <!--<p:messages id="msgs"  />-->
-                <p:panel>
-                    <h:panelGrid> 
+                <h:panelGrid columns="2" cellpadding="5">
                         <p:outputLabel id="nameLbl" for="nameInp" value="Name:"/>
                         <p:inputText id="nameInp" value="#{userController.user.name}" 
                                      required="true" requiredMessage="Name is required!">
                             <f:validateLength minimum="2" />
                             <p:ajax event="keyup"/>  
                         </p:inputText>
-                        <!--<p:message id="nameMsg" for="name"/>-->
+                        
 
                         <p:outputLabel  id="addressLbl" for="addressInp" value="Address:"/>
                         <p:inputText id="addressInp" value="#{userController.user.address}" 
@@ -64,7 +63,7 @@
                             <f:convertDateTime pattern="MM-dd-yyyy"/>
                             <p:ajax event="keyup"/> 
                         </p:inputText>
-                        <!--<p:message id="dobMsg" for="dob"/>-->
+                        
 
                         <p:outputLabel id="emailLbl" for="emailInp" value="Email Address:"/>
                         <p:inputText id="emailInp" value="#{userController.user.email}" 
@@ -72,7 +71,7 @@
                             <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$" />
                             <p:ajax event="keyup"/> 
                         </p:inputText>
-                        <!--<p:message id="emailMsg" for="email"/>-->
+                        
 
                         <p:outputLabel id="productLbl" for="productInp" value="Product Type:"/>
                         <p:selectOneMenu id="productInp" value="#{userController.user.product_type}" 
@@ -85,7 +84,7 @@
                             <f:selectItem itemLabel="Recurrent Deposit" itemValue="Recurrent Deposit" />
                             <p:ajax event="keyup"/> 
                         </p:selectOneMenu>
-                        <!--<p:message id="productTypeMsg" for="product"/>-->
+                        
 
                         <p:outputLabel id="usernameLbl" for="usernameInp" value="Username:"/>
                         <p:inputText id="usernameInp" value="#{userController.user.username}" 
@@ -93,7 +92,7 @@
                             <f:validateLength minimum="5"/>
                             <p:ajax event="keyup"/> 
                         </p:inputText>
-                        <!--<p:message id="usernameMsg" for="username"/>-->
+                        
 
                         <p:outputLabel id="passwordLbl" for="passwordInp" value="Password:"/>
                         <p:inputText id="passwordInp" value="#{userController.user.password}" 
@@ -102,7 +101,7 @@
                             <p:ajax event="keyup"/> 
                         </p:inputText>
 
-                        <!--<p:message id="passwordMsg" for="password"/>-->                      
+                                             
 
                     </h:panelGrid>
                     <p:commandButton value="Save User" action="#{userController.createUpdate()}"
@@ -111,7 +110,7 @@
                                       PF('userDialog').hide();"
                                      update=":listForm"
                                      />
-                </p:panel>
+                
             </h:form>
         </p:dialog>
 

@@ -20,9 +20,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         </h:form>
 
         <p:dialog header="Create a new account" widgetVar="accountDialog" modal="true"
-                  resizable="true" width="420">
+                  resizable="true">
             <h:form id="accountForm" styleClass="no-border-input">
-                <h:panelGrid columns="2"> 
+                <h:panelGrid columns="2" cellpadding="5"> 
 
                     <p:outputLabel id="userLbl" for="userInp" value="User:"/>
                     <p:selectOneMenu id="userInp" value="#{accountController.account.user}" 

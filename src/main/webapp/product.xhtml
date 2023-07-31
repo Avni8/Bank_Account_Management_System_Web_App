@@ -33,7 +33,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <p:dialog header="Create a new product" widgetVar="productDialog" modal="true" 
                   resizable="true">
             <h:form id="productForm" styleClass="no-border-input">
-                <h:panelGrid columns="3"> 
+                <h:panelGrid columns="3" cellpadding="5"> 
                     
                     <p:outputLabel id="productTypeLbl" value="Product Type:" for="productTypeInp" />
                     <p:inputText id="productTypeInp" value="#{productController.product.product_type}" 

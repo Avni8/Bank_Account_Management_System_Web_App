@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -43,4 +44,6 @@ public class UserRepository extends AbstractRepository<User> {
 //        }
 //        return userList;
 //    }
+    
+    
 }

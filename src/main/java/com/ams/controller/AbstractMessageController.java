@@ -28,7 +28,7 @@ public abstract class AbstractMessageController implements Serializable {
          addMessage(FacesMessage.SEVERITY_WARN, message);
     }
     
-    public void ErrorMessage(String message) {
+    public void errorMessage(String message) {
          addMessage(FacesMessage.SEVERITY_ERROR, message);
     }
     

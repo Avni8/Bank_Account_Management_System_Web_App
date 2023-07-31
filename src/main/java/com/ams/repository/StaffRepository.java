@@ -4,9 +4,11 @@
  */
 package com.ams.repository;
 import com.ams.model.Staff;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -25,5 +27,15 @@ public class StaffRepository extends AbstractRepository<Staff>{
     @Override
     protected EntityManager entityManager() {
         return entityManager;
+    }
+    
+    public Staff findByUsername(String username) {
+        TypedQuery<Staff> query = entityManager.createQuery(
+                "SELECT u FROM Staff u WHERE u.username = :username", Staff.class
+        ).setParameter("username", username);
+
+        List<Staff> staffList = query.getResultList();
+        return staffList.isEmpty() ? null : staffList.get(0);
+        
     }
 }
