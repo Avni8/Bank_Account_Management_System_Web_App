@@ -56,8 +56,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:outputLabel id="matureDateLbl" for="matureDateInp" value="Mature Date:" />
                     <p:inputText id="matureDateInp" value="#{accountController.account.matureDate}" />
 
-                    <p:outputLabel id="balanceLbl" for="balanceInp" value="Balance:" />
-                    <p:inputText id="balanceInp" value="#{accountController.account.balance}" 
+                    <p:outputLabel id="balanceLbl" for="balanceInp" value="Initial Balance:" />
+                    <p:inputText id="balanceInp" value="#{accountController.account.initialBalance}" 
                                  required="true" requiredMessage="Initial Balance is required!"/>
 
                 </h:panelGrid>
@@ -105,7 +105,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="#{account.interestRate}" />
                     </p:column>
 
-                    <p:column headerText="Opened Date" width="30" filterBy="#{account.openedDate}"
+                    <p:column headerText="Opened Date" width="25" filterBy="#{account.openedDate}"
                               sortBy="#{account.openedDate}">
                         <h:outputText value="#{account.openedDate}" />
                     </p:column>
@@ -115,6 +115,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="#{account.matureDate}" />
                     </p:column>
 
+                    <p:column headerText="Initial Balance" width="30">
+                        <h:outputText value="#{account.initialBalance}" />
+                    </p:column>
+                    
                     <p:column headerText="Balance" width="30">
                         <h:outputText value="#{account.balance}" />
                     </p:column> 
@@ -123,7 +127,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="#{account.product.product_type}" />
                     </p:column> 
 
-                    <p:column headerText="Action" width="15">
+                    <p:column headerText="Action" width="20">
 
                         <p:commandButton styleClass="ui-button-raised ui-button-success" 
                                          icon="ui-icon-pencil" oncomplete="PF('accountDialog').show()"

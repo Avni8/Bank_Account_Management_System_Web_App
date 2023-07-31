@@ -6,6 +6,7 @@ package com.ams.controller;
 
 import com.ams.model.Account;
 import com.ams.model.AccountTransactionDetails;
+import com.ams.model.BalanceView;
 import com.ams.model.User;
 import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
@@ -36,12 +37,7 @@ public class StatementController extends AbstractMessageController{
     private Account account;
     private User selectedUser;
     private Account selectedAccount;
-    @Temporal(TemporalType.DATE)
-    private Date fromDate;
-    @Temporal(TemporalType.DATE)
-    private Date toDate;
-    
-    private Double openingBalance;
+    private BalanceView balanceView;
     
     @Inject
     private AccountMISRepository accountMISRepository;
@@ -105,30 +101,6 @@ public class StatementController extends AbstractMessageController{
     public void setSelectedAccount(Account selectedAccount) {
         this.selectedAccount = selectedAccount;
     }
-
-    public Date getFromDate() {
-        return fromDate;
-    }
-
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
-    }
-
-    public Date getToDate() {
-        return toDate;
-    }
-
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
-    }
-
-    public Double getOpeningBalance() {
-        return openingBalance;
-    }
-
-    public void setOpeningBalance(Double openingBalance) {
-        this.openingBalance = openingBalance;
-    }
     
     public List<AccountTransactionDetails> getTransactionDetails() {
         return transactionDetails;
@@ -137,10 +109,21 @@ public class StatementController extends AbstractMessageController{
     public void setTransactionDetails(List<AccountTransactionDetails> transactionDetails) {
         this.transactionDetails = transactionDetails;
     }
+
+    public BalanceView getBalanceView() {
+        return balanceView;
+    }
+
+    public void setBalanceView(BalanceView balanceView) {
+        this.balanceView = balanceView;
+    }
+    
     
      @PostConstruct
     public void init() {
-//        selectedAccount = new Account();
+        selectedUser = new User();
+        selectedAccount = new Account();
+        balanceView = new BalanceView();
         loadData();
     }
 
@@ -189,22 +172,20 @@ public class StatementController extends AbstractMessageController{
                     ? accountRepository.getAccountsByUser(selectedUser):null;
     }
     
-    public void loadTransactionDetails(){
-        
-        if(selectedAccount != null){
-            transactionDetails = transactionRepository.getTransactionsByAccount
-        (selectedAccount, fromDate, toDate);
-            
+    public void loadTransactionDetails() {
+        if (selectedAccount != null) {
+            balanceView.setAccount(selectedAccount);
+            transactionDetails = transactionRepository.
+                    getTransactionsByAccount(selectedAccount,
+                            balanceView.getFromDate(), 
+                            balanceView.getToDate());
+            loadOpeningBalance();
         }
     }
-    
-    public Double loadOpeningBalance(){
-       
+
+    public void loadOpeningBalance(){
         if(selectedAccount != null){
-            
-            return transactionRepository.
-                    getOpeningBalance(selectedAccount, fromDate);
+            balanceView = transactionRepository.getOpeningBalance(balanceView);
         }
-        return 0.0;
     }
 }

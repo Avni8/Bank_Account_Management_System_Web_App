@@ -32,7 +32,7 @@ import javax.faces.context.FacesContext;
  */
 @ViewScoped
 @Named("depositController")
-public class DepositController extends AbstractMessageController{
+public class DepositController extends AbstractMessageController {
 
     private List<User> userList;
     private List<Account> accountList;
@@ -40,9 +40,8 @@ public class DepositController extends AbstractMessageController{
     private Account account;
     private User selectedUser;
     private Account selectedAccount;
-    
-//    private Double depositAmount;
 
+//    private Double depositAmount;
     public User getUser() {
         return user;
     }
@@ -62,10 +61,9 @@ public class DepositController extends AbstractMessageController{
 
     @Inject
     private UserRepository userRepository;
-    
+
     @Inject
     private UserController userController;
-    
 
     public List<User> getUserList() {
         return userList;
@@ -113,7 +111,6 @@ public class DepositController extends AbstractMessageController{
         loadData();
     }
 
-    
     public void loadData() {
         accountList = accountRepository.findAll();
 
@@ -143,7 +140,7 @@ public class DepositController extends AbstractMessageController{
         accountRepository.delete(account.getId());
         loadData();
     }
-    
+
     public void onUserSelect() {
         if (selectedUser != null) {
             retrieveAccounts(); // Call the method to fetch accounts based on the selected user
@@ -168,11 +165,11 @@ public class DepositController extends AbstractMessageController{
         }
 
     }
-    
+
     public void beforeDeposit(User user) {
-            this.selectedUser = user != null ? user:null;
-            this.accountList = this.selectedUser != null
-                    ? accountRepository.getAccountsByUser(selectedUser):null;
+        this.selectedUser = user != null ? user : null;
+        this.accountList = this.selectedUser != null
+                ? accountRepository.getAccountsByUser(selectedUser) : null;
     }
 
     public void deposit() {
@@ -180,40 +177,37 @@ public class DepositController extends AbstractMessageController{
         if (selectedUser != null) {
 
 //            List<Account> userAccounts = accountRepository.getAccountsByUser(selectedUser);
-            
             for (Account account : accountList) {
 
-                if (account.getAmount() != null && account.getAmount() > 0) {
+                    if (account.getAmount() != null && account.getAmount() > 0) {
 
-                    AccountMIS accountMIS = new AccountMIS();
+                        AccountMIS accountMIS = new AccountMIS();
 
-                    accountMIS.setSourceAccount(account);
+                        accountMIS.setSourceAccount(account);
 
-                    accountMIS.setTransactionType(TransactionType.DEPOSIT);
+                        accountMIS.setTransactionType(TransactionType.DEPOSIT);
 
-                    AccountTransactionDetails accountTransactionDetails =
-                            new AccountTransactionDetails();
+                        AccountTransactionDetails accountTransactionDetails
+                                = new AccountTransactionDetails();
 
-                    accountTransactionDetails.setDate(new Date());
+                        accountTransactionDetails.setDate(new Date());
 
-                    accountTransactionDetails.setCreditAmount(account.getAmount());
+                        accountTransactionDetails.setCreditAmount(account.getAmount());
 
-                    accountTransactionDetails.setUser(selectedUser.getName());
+                        accountTransactionDetails.setUser(selectedUser.getName());
 
-                    accountTransactionDetails.setAccount(account);
+                        accountTransactionDetails.setAccount(account);
 
-                    Double currentBalance = account.getBalance();
-                    Double newBalance = currentBalance + account.getAmount();
-                    account.setBalance(newBalance);
+                        Double currentBalance = account.getBalance();
+                        Double newBalance = currentBalance + account.getAmount();
+                        account.setBalance(newBalance);
 
-                    accountMISRepository.save(accountMIS);
-                    transactionRepository.save(accountTransactionDetails);
-                    accountRepository.update(account);
-                    
-                    super.infoMessage("Deposit Successfull");
+                        accountMISRepository.save(accountMIS);
+                        transactionRepository.save(accountTransactionDetails);
+                        accountRepository.update(account);
 
+                        super.infoMessage("Deposit Successfull");
                 }
-
             }
 
         }

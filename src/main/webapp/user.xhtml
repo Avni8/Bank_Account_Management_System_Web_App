@@ -79,7 +79,8 @@
 
                         <p:outputLabel id="productLbl" for="productInp" value="Product Type:"/>
                         <p:selectOneMenu id="productInp" value="#{userController.user.product_type}" 
-                                         required="true" requiredMessage="Product Type is required!">
+                                         required="true" 
+                                         requiredMessage="Product Type is required!">
                             <f:selectItem itemLabel="Select Product Type" itemValue="" />
                             <f:selectItem itemLabel="Savings" itemValue="Savings" />
                             <f:selectItem itemLabel="Fixed Deposit" itemValue="Fixed Deposit" />

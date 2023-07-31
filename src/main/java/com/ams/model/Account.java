@@ -34,6 +34,9 @@ public class Account extends AbstractEntity {
     private String matureDate;
     @Column(name = "balance")
     private Double balance;
+    @Column(name = "initial_balance")
+    private Double initialBalance;
+   
 //    (cascade = CascadeType.ALL)
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -101,6 +104,15 @@ public class Account extends AbstractEntity {
         this.balance = balance;
     }
 
+    public Double getInitialBalance() {
+        return initialBalance;
+    }
+
+    public void setInitialBalance(Double initialBalance) {
+        this.initialBalance = initialBalance;
+        this.balance = initialBalance;
+    }
+    
     public User getUser() {
         return user;
     }

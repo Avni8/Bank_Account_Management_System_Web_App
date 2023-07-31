@@ -199,7 +199,7 @@ public class WithdrawController extends AbstractMessageController{
                     transactionRepository.save(accountTransactionDetails);
                     accountRepository.update(account);
                     
-                    super.infoMessage("Amount Successfully withdrawn");
+                    super.infoMessage("Amount successfully withdrawn");
 
                 }
 

@@ -126,22 +126,4 @@ public class AccountController extends AbstractController {
         this.depositController = depositController;
     }
     
-    
-    public List<User> getFilteredUserList() {
-        Set<String> uniqueNames = new HashSet<>();
-        List<User> filteredList = new ArrayList<>();
-
-        for (User user : userList) {
-            if (!uniqueNames.contains(user.getName())) {
-                filteredList.add(user);
-                uniqueNames.add(user.getName());
-            }
-          
-        }
-        if (depositController.getSelectedUser() != null && userList.contains(depositController.getSelectedUser())) {
-            filteredList.remove(depositController.getSelectedUser());
-        }
-
-        return filteredList;
-    }
 }
