@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
-
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -90,6 +90,6 @@ public class Staff extends AbstractEntity{
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 }

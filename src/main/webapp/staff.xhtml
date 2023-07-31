@@ -56,6 +56,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:outputLabel id="passwordLbl" for="passwordInp" value="Password:" />
                     <p:inputText id="passwordInp" value="#{staffController.staff.password}" 
                                  required="true" requiredMessage="Password is required!"/>
+                    
+                    
                 </h:panelGrid>
                 <p:commandButton value="Register staff" action="#{staffController.createUpdate()}"
                                  style="margin-top: 10px;" 
@@ -93,11 +95,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="#{staff.name}" />
                     </p:column>
 
-                    <p:column headerText="Age" width="1">
+                    <p:column headerText="Age" width="1" filterBy="#{staff.age}" sortBy="#{staff.age}">
                         <h:outputText value="#{staff.age}" />
                     </p:column>
 
-                    <p:column headerText="Gender" width="10">
+                    <p:column headerText="Gender" width="10" filterBy="#{staff.gender}">
                         <h:outputText value="#{staff.gender}" />
                     </p:column>
 
@@ -109,11 +111,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="#{staff.contact}" />
                     </p:column>
 
-                    <p:column headerText="Address" width="24">
+                    <p:column headerText="Address" width="24" filterBy="#{staff.address}">
                         <h:outputText value="#{staff.address}" />
                     </p:column>
 
-                    <p:column headerText="Username" width="15">
+                    <p:column headerText="Username" width="15" filterBy="#{staff.username}">
                         <h:outputText value="#{staff.username}" />
                     </p:column> 
 

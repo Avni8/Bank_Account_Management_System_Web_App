@@ -27,16 +27,13 @@
 
     </h:head>
     <body>    
-
         <h:form class="my-navbar">    
             <ui:include src="topmenu.xhtml" />  
         </h:form>
-
         <p:dialog header="Create a new user" widgetVar="userDialog" modal="true" resizable="true">
             <h:form id="userForm">
                 <!--<p:messages id="msgs"  />-->
                 <p:panel>
-
                     <h:panelGrid> 
                         <p:outputLabel id="nameLbl" for="nameInp" value="Name:"/>
                         <p:inputText id="nameInp" value="#{userController.user.name}" 
@@ -115,7 +112,6 @@
                                      update=":listForm"
                                      />
                 </p:panel>
-
             </h:form>
         </p:dialog>
 
@@ -127,8 +123,6 @@
                              id="userTable"
                              rowKey="#{user.id}"
                              selectionMode="single" selection="#{userController.user}">
-
-
                     <f:facet name="header">
                         User Details
                         <div class="button-container" style="position: absolute;
@@ -171,7 +165,7 @@
                         <h:outputText value="#{user.product_type}" />
                     </p:column>
 
-                    <p:column headerText="Username" width="16">
+                    <p:column headerText="Username" width="16" filterBy="#{user.username}">
                         <h:outputText value="#{user.username}" />
                     </p:column> 
 
@@ -228,9 +222,7 @@
                                          actionListener=
                                          "#{statementController.beforeViewStatement(userController.user)}"/>
                     </p:toolbarGroup>
-
                 </p:toolbar>
-
             </h:form>
 
             <ui:include src="depositDialog.xhtml" />

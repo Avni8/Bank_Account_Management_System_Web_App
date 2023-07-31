@@ -53,7 +53,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
             </h:panelGrid>
             <h:panelGroup id="transactionPG" >
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="4">
                         <h:outputLabel value="Latest Balance: " />
                         <h:outputText value="#{statementController.balanceView.account.getBalance()}" />
                     
@@ -63,7 +63,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="#{statementController.balanceView.balanceUptoFromDate}" />
                     
                 </h:panelGrid>
-                    
                 <p:dataTable value="#{statementController.transactionDetails}" var="transaction"
                              sortBy="#{transaction.date}" sortOrder="descending">
                     <p:column headerText="Date">
