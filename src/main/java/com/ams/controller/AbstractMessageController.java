@@ -17,6 +17,7 @@ public abstract class AbstractMessageController implements Serializable {
     public void addMessage(FacesMessage.Severity severity, String summary) {
         FacesMessage message = new FacesMessage(severity, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+        
     }
 
     public void infoMessage(String message) {

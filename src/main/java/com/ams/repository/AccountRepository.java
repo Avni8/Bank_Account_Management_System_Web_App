@@ -29,8 +29,7 @@ public class AccountRepository extends AbstractRepository<Account>{
     }
     
     public List<Account> getAccountsByUser(User user) {
-    // Use appropriate database query or ORM query to fetch accounts by user
-    // Return the list of accounts
+    
     return entityManager.createQuery("SELECT a FROM Account a WHERE a.user = :user", Account.class)
             .setParameter("user", user)
             .getResultList();

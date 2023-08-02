@@ -7,7 +7,6 @@ package com.ams.controller;
 import com.ams.model.AbstractEntity;
 import com.ams.model.Account;
 import com.ams.repository.UserRepository;
-import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;

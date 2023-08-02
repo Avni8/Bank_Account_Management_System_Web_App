@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -100,7 +101,7 @@ public class User extends AbstractEntity {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     @Override

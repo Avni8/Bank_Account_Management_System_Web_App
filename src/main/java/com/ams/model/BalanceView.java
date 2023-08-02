@@ -68,5 +68,4 @@ public class BalanceView {
         }
         return 0.0;
     }
-    
 }

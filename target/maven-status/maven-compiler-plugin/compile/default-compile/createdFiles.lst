@@ -2,6 +2,7 @@ com/ams/model/TransactionType.class
 com/ams/controller/WithdrawController.class
 com/ams/controller/AbstractController.class
 com/ams/controller/StatementController.class
+com/ams/controller/LoginController.class
 com/ams/model/Account.class
 com/ams/model/BalanceView.class
 com/ams/model/AccountTransactionDetails.class
@@ -16,7 +17,6 @@ com/ams/controller/DepositController.class
 com/ams/repository/CrudRepository.class
 com/ams/model/Staff.class
 com/ams/repository/UserRepository.class
-com/ams/controller/StaffLoginController.class
 com/ams/controller/AbstractMessageController.class
 com/ams/repository/AbstractRepository.class
 com/ams/repository/AccountRepository.class
@@ -33,4 +33,5 @@ com/ams/repository/ProductRepository.class
 com/ams/repository/AccountMISRepository.class
 com/ams/repository/AccountTransactionDetailsRepository.class
 com/ams/repository/AccountMISConverter.class
+com/ams/controller/LoginFilter.class
 com/ams/controller/AccountMISController.class
