@@ -13,30 +13,32 @@
         <h:form id="loginForm">
             <center>
                 <div style="margin-top: 15%; border: 2px solid #ccc; padding: 10px; width: 400px;
-                             padding: 14px;">
-                
-                <h3><p:outputLabel value="Login" /></h3>
+                     padding: 14px;">
 
-                <h:panelGrid columns="2" cellpadding="10">
+                    <h3><p:outputLabel value="Login" /></h3>
 
-                    <p:outputLabel for="username" value="Username:" />
-                    <p:inputText id="username" value="#{loginController.username}" required="true" >
-                        <p:ajax update="@this" process="@this" />
-                    </p:inputText>
+                    <h:panelGrid columns="2" cellpadding="10">
 
-                    <p:outputLabel for="password" value="Password:" />
-                    <p:password id="password" value="#{loginController.password}" required="true" >
-                        <p:ajax update="@this" process="@this" />
-                    </p:password>
+                        <p:outputLabel for="username" value="Username:" />
+                        <p:inputText id="username" value="#{loginController.username}" required="true" >
+                            <p:ajax update="@this" process="@this" />
+                        </p:inputText>
 
-                    <p:commandButton value="Login" actionListener="#{loginController.staffLogin()}"
-                                     update="loginForm growl_msg" process="@this"/>
+                        <p:outputLabel for="password" value="Password:" />
+                        <p:password id="password" value="#{loginController.password}" required="true" >
+                            <p:ajax update="@this" process="@this" />
+                        </p:password>
 
-                    <p:commandButton value="Login as Client" actionListener="#{loginController.clientLogin()}"
-                                     update="loginForm growl_msg" process="@this"/>
-                </h:panelGrid>
+                        <p:commandButton value="Login" actionListener="#{loginController.staffLogin()}"
+                                         update="loginForm growl_msg" process="@this"/>
+
+                        <p:commandButton value="Login as Client" actionListener="#{loginController.clientLogin()}"
+                                         update="loginForm growl_msg" process="@this"/>
+                    </h:panelGrid>
                 </div>
             </center>
+
+            
         </h:form>
     </h:body>
 </html>

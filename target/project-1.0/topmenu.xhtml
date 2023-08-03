@@ -17,7 +17,7 @@
         </style>
     </h:head>
     <body>
-        
+
         <h:form class="my-navbar">
             <p:growl id="growl" showDetail="false" sticky="true" autoUpdate="true" life="100" /> 
             <p:menubar>
@@ -28,6 +28,11 @@
                 <p:menuitem value="Account" icon="fa fa-coins" url="account.xhtml" />
                 <p:menuitem value="Account MIS" url="accountmis.xhtml" />
                 <p:menuitem value="Account Transaction Details"  url="accountTransactionDetails.xhtml" />
+                
+                <p:menuitem id="id"
+                            icon="fa fa-sign-out"
+                            actionListener="#{loginController.logout()}"
+                            style="margin-left: 490px;"/>
             </p:menubar>
         </h:form>
     </body>

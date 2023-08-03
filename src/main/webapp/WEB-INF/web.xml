@@ -13,11 +13,11 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-    <session-config>
+    <!--    <session-config>
         <session-timeout>
             30
         </session-timeout>
-    </session-config>
+    </session-config>-->
     <welcome-file-list>
         <welcome-file>./login.xhtml</welcome-file>
     </welcome-file-list>
@@ -63,5 +63,9 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>omega</param-value>
     </context-param>-->
+    
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
     
 </web-app>

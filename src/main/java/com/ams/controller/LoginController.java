@@ -9,6 +9,8 @@ import com.ams.model.User;
 import com.ams.repository.StaffRepository;
 import com.ams.repository.UserRepository;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -26,11 +28,10 @@ public class LoginController extends AbstractMessageController {
 
     private String username;
     private String password;
-    private boolean showClientLoginDialog = false;
 
     @Inject
     private StaffRepository staffRepository;
-    
+
     @Inject
     private UserRepository userRepository;
 
@@ -49,23 +50,7 @@ public class LoginController extends AbstractMessageController {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public boolean isShowClientLoginDialog() {
-        return showClientLoginDialog;
-    }
 
-    public void setShowClientLoginDialog(boolean showClientLoginDialog) {
-        this.showClientLoginDialog = showClientLoginDialog;
-    }
-
-    public void showClientLoginDialog() {
-        setShowClientLoginDialog(true);
-    }
-
-    public void hideClientLoginDialog() {
-        setShowClientLoginDialog(false);
-    }
-    
     public String staffLogin() {
 
         Staff staff = staffRepository.findByUsername(username);
@@ -96,8 +81,8 @@ public class LoginController extends AbstractMessageController {
 
         return null;
     }
-    
-     public String clientLogin() {
+
+    public String clientLogin() {
 
         User user = userRepository.findByUsername(username);
 
@@ -126,4 +111,5 @@ public class LoginController extends AbstractMessageController {
         }
         return null;
     }
+
 }
