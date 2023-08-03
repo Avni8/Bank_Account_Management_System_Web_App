@@ -26,6 +26,7 @@ com/ams/controller/UserController.class
 com/ams/model/User.class
 com/ams/model/AccountMIS.class
 com/ams/controller/FundTransferController.class
+com/ams/controller/SessionController.class
 com/ams/repository/ProductConverter.class
 com/ams/controller/AccountTransactionDetailsController.class
 com/ams/repository/GenericConverter.class

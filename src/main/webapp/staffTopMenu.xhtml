@@ -28,12 +28,21 @@
                 <p:menuitem value="Account MIS" url="accountmis.xhtml" />
                 <p:menuitem value="Account Transaction Details"  url="accountTransactionDetails.xhtml" />
 
-                <p:menuitem style="margin-left: 469px;">
-                    
+                
+                <p:menuitem style="pointer-events: none; cursor: default; margin-left: 310px; 
+                            margin-top:9px;" 
+                            value="Welcome! #{sessionController.loggedInUserName}" />
+                
+                
+                
+
+                <p:menuitem style="margin-left: 30px;">
+
                     <p:commandButton id="id"
+                                     style="margin-top: 5px;"
                                      icon="fa fa-sign-out"
                                      action="#{logoutController.logout}"
-                                     
+
                                      />
                 </p:menuitem>
             </p:menubar>

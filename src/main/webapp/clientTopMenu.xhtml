@@ -24,10 +24,17 @@
                 
                 <p:menuitem value="Account" icon="fa fa-coins" url="clientAccount.xhtml" />
                 
-                <p:menuitem style="margin-left: 1039px;">
+                
+                <p:menuitem style="pointer-events: none; cursor: default; margin-left: 845px; 
+                            margin-top:9px;" icon="fa fa-user"
+                            value="#{sessionController.loggedInUserName}" />
+                
+                <p:menuitem style="margin-left: 30px; ">
+                  
                     
                     <p:commandButton id="id"
                                      icon="fa fa-sign-out"
+                                     style="margin-top: 5px;"
                                      action="#{logoutController.logout}"
                                      
                                      />
