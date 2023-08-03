@@ -28,11 +28,18 @@
                 <p:menuitem value="Account" icon="fa fa-coins" url="account.xhtml" />
                 <p:menuitem value="Account MIS" url="accountmis.xhtml" />
                 <p:menuitem value="Account Transaction Details"  url="accountTransactionDetails.xhtml" />
+
+                <p:menuitem style="margin-left: 465px;">
+                    
+                    <p:commandButton id="id"
+                                     icon="fa fa-sign-out"
+                                     action="#{logoutController.logout}"
+                                     
+                                     />
+               
+                </p:menuitem>
                 
-                <p:menuitem id="id"
-                            icon="fa fa-sign-out"
-                            actionListener="#{loginController.logout()}"
-                            style="margin-left: 490px;"/>
+
             </p:menubar>
         </h:form>
     </body>

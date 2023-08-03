@@ -21,6 +21,7 @@ com/ams/controller/AbstractMessageController.class
 com/ams/repository/AbstractRepository.class
 com/ams/repository/AccountRepository.class
 com/ams/controller/StaffController.class
+com/ams/controller/LogoutController.class
 com/ams/controller/UserController.class
 com/ams/model/User.class
 com/ams/model/AccountMIS.class
