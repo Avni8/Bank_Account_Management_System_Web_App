@@ -96,7 +96,7 @@ public class LoginController extends AbstractMessageController {
                 httpServletRequest.getSession().setAttribute("loggedInClient", user);
 
                 try {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("clientHome.xhtml");
                 } catch (IOException e) {
 
                     e.printStackTrace();
