@@ -3,21 +3,18 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Staff-Details</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </h:head>
-    <body>
-        <h:form class="my-navbar">    
-            <ui:include src="topmenu.xhtml" />  
-        </h:form>
 
+<ui:composition template="staffTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                >
+
+    <ui:param name="pageTitle" value="Staff-Details" />
+
+    <ui:define name="content">
         <p:dialog header="Create a new staff" widgetVar="staffDialog" modal="true" 
                   resizable="true">
             <h:form id="staffForm" styleClass="no-border-input">
@@ -56,13 +53,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:outputLabel id="passwordLbl" for="passwordInp" value="Password:" />
                     <p:inputText id="passwordInp" value="#{staffController.staff.password}" 
                                  required="true" requiredMessage="Password is required!"/>
-                    
-                    
+
+
                 </h:panelGrid>
                 <p:commandButton value="Register staff" action="#{staffController.createUpdate()}"
                                  style="margin-top: 10px;" 
                                  oncomplete="if (args &amp;&amp; !args.validationFailed) 
-                                      PF('staffDialog').hide();"
+                                 PF('staffDialog').hide();"
                                  update=":listForm"/>
             </h:form>
         </p:dialog>
@@ -76,7 +73,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:facet name="header">
                         Staff Details
                         <div class="button-container" style="position: absolute;
-                             top: 45px;
+                             top: 62px;
                              left: 95.3%;
                              right: 0;
                              margin: 10px;">
@@ -136,5 +133,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:dataTable>
             </h:form>
         </center>    
-    </body>
-</html>
+    </ui:define>
+</ui:composition>
+
+

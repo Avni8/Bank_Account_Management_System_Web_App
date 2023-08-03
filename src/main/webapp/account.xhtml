@@ -3,22 +3,18 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
-    <h:head>
-        <title>Account-Details</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    </h:head>
-    <body>
-        <h:form class="my-navbar">    
-            <ui:include src="topmenu.xhtml" />  
-        </h:form>
+<ui:composition template="staffTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                >
 
+    <ui:param name="pageTitle" value="Account-Details" />
+
+    <ui:define name="content">
         <p:dialog header="Create a new account" widgetVar="accountDialog" modal="true"
                   resizable="true">
             <h:form id="accountForm" styleClass="no-border-input">
@@ -77,7 +73,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:facet name="header">
                         Account Details
                         <div class="button-container" style="position: absolute;
-                             top: 45px;
+                             top: 62px;
                              left: 95.3%;
                              right: 0;
                              margin: 10px;">
@@ -144,5 +140,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:dataTable>
             </h:form>
         </center> 
-    </body>
-</html>
+    </ui:define>
+</ui:composition>
+

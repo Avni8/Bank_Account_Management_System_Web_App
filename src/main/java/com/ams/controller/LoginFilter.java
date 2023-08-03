@@ -29,39 +29,39 @@ public class LoginFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
-   @Override
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        
+
         // Exclude PrimeFaces resource URLs
         if (httpRequest.getRequestURI().startsWith(httpRequest.getContextPath() + "/javax.faces.resource/")) {
             chain.doFilter(request, response);
             return;
         }
 
-        Staff loggedInStaff = (Staff) httpRequest.getSession().getAttribute("loggedInStaff");
-        User loggedInClient = (User) httpRequest.getSession().getAttribute("loggedInClient");
-
+        HttpSession session = httpRequest.getSession(false);
         String loginPage = httpRequest.getContextPath() + "/login.xhtml";
         boolean isLoginPage = httpRequest.getRequestURI().equals(loginPage);
 
-//        String staffLoginPage = httpRequest.getContextPath() + "/login.xhtml";
-//        boolean isStaffLoginPage = httpRequest.getRequestURI().equals(staffLoginPage);
-//        
-//        String clientLoginPage = httpRequest.getContextPath() + "/login.xhtml";
-//        boolean isClientLoginPage = httpRequest.getRequestURI().equals(clientLoginPage);
+        
+        Staff loggedInStaff = (Staff) (session != null ? session.getAttribute("loggedInStaff") 
+                : null);
+        User loggedInClient = (User) (session != null ? session.getAttribute("loggedInClient") 
+                : null);
+
         if (loggedInStaff != null || loggedInClient != null || isLoginPage) {
-
+            
             chain.doFilter(request, response);
-
         } else {
-
+            
             httpResponse.sendRedirect(loginPage);
         }
+        
     }
+
     @Override
     public void destroy() {
     }

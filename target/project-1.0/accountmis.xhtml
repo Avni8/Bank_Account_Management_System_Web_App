@@ -3,25 +3,21 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Account-MIS</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </h:head>
-    <body>
-        <h:form class="my-navbar">    
-            <ui:include src="topmenu.xhtml" />  
-        </h:form>
+<ui:composition template="staffTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                >
+
+    <ui:param name="pageTitle" value="Account-MIS" />
+    <ui:define name="content">
         <p:dialog header="Create a new transaction" widgetVar="accountMISDialog" modal="true" 
                   resizable="true" width="420">
             <h:form id="accountMISForm" styleClass="no-border-input">
                 <h:panelGrid columns="2"> 
-                    
+
                     <p:outputLabel value="Transaction Type:" />
                     <p:selectOneMenu value="#{accountMISController.accountMIS.transactionType}">
                         <f:selectItem itemLabel="Select Transaction Type" itemValue="" />
@@ -52,7 +48,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             </h:form>
         </p:dialog>
 
-
         <center>
             <h:form id="listForm" >
                 <p:dataTable value="#{accountMISController.accountMISList}" var="accountMIS" paginator="true" 
@@ -63,7 +58,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <f:facet name="header">
                         Account Management Information System
                         <div class="button-container" style="position: absolute;
-                             top: 45px;
+                             top: 62px;
                              left: 95.3%;
                              right: 0;
                              margin: 10px;">
@@ -108,5 +103,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:dataTable>
             </h:form>
         </center> 
-    </body>
-</html>
+    </ui:define>
+</ui:composition>
+
+
+
+
+
+
+
+
+

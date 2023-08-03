@@ -1,223 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<ui:composition template="staffTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                >
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>User-Details</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <style>
-            .center-align-group{
-                display: flex;
-                justify-content: center;
-            }
-            .required-label:after {
-                content: "*";
-                color: red; /* You can customize the color here */
-                margin-left: 4px; /* Adjust the space between the label and the asterisk */
-            }
-        </style>    
-    </h:head>
-    <body>    
-        <h:form class="my-navbar">    
-            <ui:include src="topmenu.xhtml" />  
-        </h:form>
+    <ui:param name="pageTitle" value="Client-Details" />
+
+    <ui:define name="content">
         <p:dialog header="Create a new user" widgetVar="userDialog" modal="true" resizable="true">
             <h:form id="userForm">
                 <h:panelGrid columns="2" cellpadding="5">
-                        <p:outputLabel id="nameLbl" for="nameInp" value="Name:"/>
-                        <p:inputText id="nameInp" value="#{userController.user.name}" 
-                                     required="true" requiredMessage="Name is required!">
-                            <f:validateLength minimum="2" />
-                            <p:ajax event="keyup"/>  
-                        </p:inputText>
+                    <p:outputLabel id="nameLbl" for="nameInp" value="Name:"/>
+                    <p:inputText id="nameInp" value="#{userController.user.name}" 
+                                 required="true" requiredMessage="Name is required!">
+                        <f:validateLength minimum="2" />
+                        <p:ajax event="keyup"/>  
+                    </p:inputText>
 
-                        <p:outputLabel  id="addressLbl" for="addressInp" value="Address:"/>
-                        <p:inputText id="addressInp" value="#{userController.user.address}" 
-                                     required="true" requiredMessage="Address is required!" >
-                            <f:validateLength minimum="2" />
-                            <p:ajax event="keyup"/>  
-                        </p:inputText>
+                    <p:outputLabel  id="addressLbl" for="addressInp" value="Address:"/>
+                    <p:inputText id="addressInp" value="#{userController.user.address}" 
+                                 required="true" requiredMessage="Address is required!" >
+                        <f:validateLength minimum="2" />
+                        <p:ajax event="keyup"/>  
+                    </p:inputText>
 
-                        <p:outputLabel id="contactLbl" for="contactInp" value="Contact:"/>
-                        <p:inputText id="contactInp" value="#{userController.user.contact}" 
-                                     required="true" requiredMessage="Contact Number is required!">
-                            <f:validateLength minimum="10" maximum="10" />
-                            <p:ajax event="keyup"/> 
-                        </p:inputText>
+                    <p:outputLabel id="contactLbl" for="contactInp" value="Contact:"/>
+                    <p:inputText id="contactInp" value="#{userController.user.contact}" 
+                                 required="true" requiredMessage="Contact Number is required!">
+                        <f:validateLength minimum="10" maximum="10" />
+                        <p:ajax event="keyup"/> 
+                    </p:inputText>
 
-                        <p:outputLabel id="dobLbl" for="dobInp" value="Date of Birth:"/>
-                        <p:inputText id="dobInp" value="#{userController.user.dob}" 
-                                     required="true" requiredMessage="Date of birth is required!">
-                            <f:convertDateTime pattern="MM-dd-yyyy"/>
-                            <p:ajax event="keyup"/> 
-                        </p:inputText>
-                        
-                        <p:outputLabel id="emailLbl" for="emailInp" value="Email Address:"/>
-                        <p:inputText id="emailInp" value="#{userController.user.email}" 
-                                     required="true" requiredMessage="Email Address is required!">
-                            <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$" />
-                            <p:ajax event="keyup"/> 
-                        </p:inputText>
+                    <p:outputLabel id="dobLbl" for="dobInp" value="Date of Birth:"/>
+                    <p:inputText id="dobInp" value="#{userController.user.dob}" 
+                                 required="true" requiredMessage="Date of birth is required!">
+                        <f:convertDateTime pattern="MM-dd-yyyy"/>
+                        <p:ajax event="keyup"/> 
+                    </p:inputText>
 
-                        <p:outputLabel id="productLbl" for="productInp" value="Product Type:"/>
-                        <p:selectOneMenu id="productInp" value="#{userController.user.product_type}" 
-                                         required="true" 
-                                         requiredMessage="Product Type is required!">
-                            <f:selectItem itemLabel="Select Product Type" itemValue="" />
-                            <f:selectItem itemLabel="Savings" itemValue="Savings" />
-                            <f:selectItem itemLabel="Fixed Deposit" itemValue="Fixed Deposit" />
-                            <p:ajax event="keyup"/> 
-                        </p:selectOneMenu>
-                        
-                        <p:outputLabel id="usernameLbl" for="usernameInp" value="Username:"/>
-                        <p:inputText id="usernameInp" value="#{userController.user.username}" 
-                                     required="true" requiredMessage="Username is required!">
-                            <f:validateLength minimum="5"/>
-                            <p:ajax event="keyup"/> 
-                        </p:inputText>
+                    <p:outputLabel id="emailLbl" for="emailInp" value="Email Address:"/>
+                    <p:inputText id="emailInp" value="#{userController.user.email}" 
+                                 required="true" requiredMessage="Email Address is required!">
+                        <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$" />
+                        <p:ajax event="keyup"/> 
+                    </p:inputText>
 
-                        <p:outputLabel id="passwordLbl" for="passwordInp" value="Password:"/>
-                        <p:inputText id="passwordInp" value="#{userController.user.password}" 
-                                     required="true" requiredMessage="Password is required!">
-                            <f:validateLength minimum="8" maximum="8"/>
-                            <p:ajax event="keyup"/> 
-                        </p:inputText>
+                    <p:outputLabel id="productLbl" for="productInp" value="Product Type:"/>
+                    <p:selectOneMenu id="productInp" value="#{userController.user.product_type}" 
+                                     required="true" 
+                                     requiredMessage="Product Type is required!">
+                        <f:selectItem itemLabel="Select Product Type" itemValue="" />
+                        <f:selectItem itemLabel="Savings" itemValue="Savings" />
+                        <f:selectItem itemLabel="Fixed Deposit" itemValue="Fixed Deposit" />
+                        <p:ajax event="keyup"/> 
+                    </p:selectOneMenu>
 
-                    </h:panelGrid>
-                    <p:commandButton value="Save User" action="#{userController.createUpdate()}"
-                                     style="margin-top: 10px;" 
-                                     oncomplete="if (args &amp;&amp; !args.validationFailed) 
-                                      PF('userDialog').hide();"
-                                     update=":listForm"
-                                     />
+                    <p:outputLabel id="usernameLbl" for="usernameInp" value="Username:"/>
+                    <p:inputText id="usernameInp" value="#{userController.user.username}" 
+                                 required="true" requiredMessage="Username is required!">
+                        <f:validateLength minimum="5"/>
+                        <p:ajax event="keyup"/> 
+                    </p:inputText>
+
+                    <p:outputLabel id="passwordLbl" for="passwordInp" value="Password:"/>
+                    <p:inputText id="passwordInp" value="#{userController.user.password}" 
+                                 required="true" requiredMessage="Password is required!">
+                        <f:validateLength minimum="8" maximum="8"/>
+                        <p:ajax event="keyup"/> 
+                    </p:inputText>
+
+                </h:panelGrid>
+                <p:commandButton value="Save User" action="#{userController.createUpdate()}"
+                                 style="margin-top: 10px;" 
+                                 oncomplete="if (args &amp;&amp; !args.validationFailed) 
+                                 PF('userDialog').hide();"
+                                 update=":listForm"
+                                 />
             </h:form>
         </p:dialog>
-            <h:form id="listForm" >
-                <p:dataTable value="#{userController.userModel}" var="user" paginator="true" rows="10"
-                             paginatorPosition="bottom"  emptyMessage="No records found" 
-                             id="userTable"
-                             rowKey="#{user.id}"
-                             selectionMode="single" selection="#{userController.user}">
-                    <f:facet name="header">
-                        User Details
-                        
-                        <div class="button-container" style="position: absolute;
-                             top: 45px;
-                             left: 95.3%;
-                             right: 0;
-                             margin: 10px;">
-                            <p:commandButton
-                                oncomplete="PF('userDialog').show()"
-                                icon="ui-icon-plusthick" title="Add User" update=":userForm" 
-                                actionListener="#{userController.beforeCreate()}" 
-                                style="height: 30px;"/>
-                        </div>
-                    </f:facet>
-                    <p:column headerText="Id" width="1" filterBy="#{user.id}" sortBy="#{user.id}">
-                        <h:outputText value="#{user.id}" />
+        <h:form id="listForm" >
+            <p:dataTable value="#{userController.userModel}" var="user" paginator="true" rows="10"
+                         paginatorPosition="bottom"  emptyMessage="No records found" 
+                         id="userTable"
+                         rowKey="#{user.id}"
+                         selectionMode="single" selection="#{userController.user}">
+                <f:facet name="header">
+                    User Details
+
+                    <div class="button-container" style="position: absolute;
+                         top: 62px;
+                         left: 95.3%;
+                         right: 0;
+                         margin: 10px;">
+                        <p:commandButton
+                            oncomplete="PF('userDialog').show()"
+                            icon="ui-icon-plusthick" title="Add User" update=":userForm" 
+                            actionListener="#{userController.beforeCreate()}" 
+                            style="height: 30px;"/>
+                    </div>
+                </f:facet>
+                <p:column headerText="Id" width="1" filterBy="#{user.id}" sortBy="#{user.id}">
+                    <h:outputText value="#{user.id}" />
+                </p:column>
+
+                <p:column headerText="Name" width="34" filterBy="#{user.name}" sortBy="#{user.name}">
+                    <h:outputText value="#{user.name}" />
+                </p:column>
+
+                <p:column headerText="Address" width="24">
+                    <h:outputText value="#{user.address}" />
+                </p:column>
+
+                <p:column headerText="Contact" width="16">
+                    <h:outputText value="#{user.contact}" />
+                </p:column>
+
+                <p:column headerText="DOB" width="15">
+                    <h:outputText value="#{user.dob}" />
+                </p:column>
+
+                <p:column headerText="Email" width="35">
+                    <h:outputText value="#{user.email}" />
+                </p:column>
+
+                <p:column headerText="Product Type" width="20">
+                    <h:outputText value="#{user.product_type}" />
+                </p:column>
+
+                <p:column headerText="Username" width="16" filterBy="#{user.username}">
+                    <h:outputText value="#{user.username}" />
+                </p:column> 
+
+                <p:column headerText="Action" width="12">
+
+                    <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                     icon="ui-icon-pencil" oncomplete="PF('userDialog').show()"
+                                     title="Edit User" update=":userForm" 
+                                     action="#{userController.beforeUpdate(user)}" />
+
+                    <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                     title="Delete User"
+                                     icon="ui-icon-trash"
+                                     actionListener="#{userController.delete(user)}"
+                                     update=":listForm"
+                                     />
+
+                </p:column>
+                <p:ajax event="rowSelect" update=":account" 
+                        listener="#{userController.retrieveAccounts()}" />
+            </p:dataTable>
+        </h:form>
+        <h:form>
+            <p:toolbar styleClass="center-align-group">
+                <p:toolbarGroup>
+                    <p:commandButton value="Deposit" onclick="PF('depositDialog').show()" 
+                                     update=":depositForm"
+                                     title="Initiate Deposit"
+                                     actionListener=
+                                     "#{depositController.beforeDeposit(userController.user)}"/>
+                </p:toolbarGroup>
+                <p:toolbarGroup>
+                    <p:commandButton value="Withdrawal" onclick="PF('withdrawDialog').show()"
+                                     update=":withdrawForm"
+                                     title="Initiate Withdrawal"
+                                     actionListener=
+                                     "#{withdrawController.beforeWithdrawal(userController.user)}"/>
+                </p:toolbarGroup>
+                <p:toolbarGroup>
+                    <p:commandButton value="Fund Transfer" onclick="PF('fundtransferDialog').show()"
+                                     update=":fundtransferForm" 
+                                     title="Transfer Amount"
+                                     actionListener=
+                                     "#{fundtransferController.beforeTransfer(userController.user)}"/>
+                </p:toolbarGroup>
+
+                <p:toolbarGroup>
+                    <p:commandButton value="Statement" onclick="PF('statementDialog').show()"
+                                     update=":statementForm" 
+                                     title="View Statement"
+                                     actionListener=
+                                     "#{statementController.beforeViewStatement(userController.user)}"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+        </h:form>
+
+        <ui:include src="depositDialog.xhtml" />
+        <ui:include src="withdrawDialog.xhtml" />
+        <ui:include src="fundtransferDialog.xhtml" />
+        <ui:include src="statementDialog.xhtml" />
+
+        <h:form id="account">
+            <h:panelGroup id="accountForm">
+                <p:dataTable value="#{userController.accountList}" var="account">
+                    <p:column headerText="Account">
+                        <h:outputText value="#{account.accNo}-#{account.product.product_type}" />
                     </p:column>
-
-                    <p:column headerText="Name" width="34" filterBy="#{user.name}" sortBy="#{user.name}">
-                        <h:outputText value="#{user.name}" />
+                    <p:column headerText="Balance">
+                        <h:outputText value="#{account.balance}" />
                     </p:column>
-
-                    <p:column headerText="Address" width="24">
-                        <h:outputText value="#{user.address}" />
-                    </p:column>
-
-                    <p:column headerText="Contact" width="16">
-                        <h:outputText value="#{user.contact}" />
-                    </p:column>
-
-                    <p:column headerText="DOB" width="15">
-                        <h:outputText value="#{user.dob}" />
-                    </p:column>
-
-                    <p:column headerText="Email" width="35">
-                        <h:outputText value="#{user.email}" />
-                    </p:column>
-
-                    <p:column headerText="Product Type" width="20">
-                        <h:outputText value="#{user.product_type}" />
-                    </p:column>
-
-                    <p:column headerText="Username" width="16" filterBy="#{user.username}">
-                        <h:outputText value="#{user.username}" />
-                    </p:column> 
-
-                    <p:column headerText="Action" width="12">
-
-                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
-                                         icon="ui-icon-pencil" oncomplete="PF('userDialog').show()"
-                                         title="Edit User" update=":userForm" 
-                                         action="#{userController.beforeUpdate(user)}" />
-
-                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
-                                         title="Delete User"
-                                         icon="ui-icon-trash"
-                                         actionListener="#{userController.delete(user)}"
-                                         update=":listForm"
-                                         />
-
-                    </p:column>
-                    <p:ajax event="rowSelect" update=":account" 
-                            listener="#{userController.retrieveAccounts()}" />
                 </p:dataTable>
-            </h:form>
-            <h:form>
-                <p:toolbar styleClass="center-align-group">
-                    <p:toolbarGroup>
-                        <p:commandButton value="Deposit" onclick="PF('depositDialog').show()" 
-                                         update=":depositForm"
-                                         title="Initiate Deposit"
-                                         actionListener=
-                                         "#{depositController.beforeDeposit(userController.user)}"/>
-                    </p:toolbarGroup>
-                    <p:toolbarGroup>
-                        <p:commandButton value="Withdrawal" onclick="PF('withdrawDialog').show()"
-                                         update=":withdrawForm"
-                                         title="Initiate Withdrawal"
-                                         actionListener=
-                                         "#{withdrawController.beforeWithdrawal(userController.user)}"/>
-                    </p:toolbarGroup>
-                    <p:toolbarGroup>
-                        <p:commandButton value="Fund Transfer" onclick="PF('fundtransferDialog').show()"
-                                         update=":fundtransferForm" 
-                                         title="Transfer Amount"
-                                         actionListener=
-                                         "#{fundtransferController.beforeTransfer(userController.user)}"/>
-                    </p:toolbarGroup>
+            </h:panelGroup>
+        </h:form>
 
-                    <p:toolbarGroup>
-                        <p:commandButton value="Statement" onclick="PF('statementDialog').show()"
-                                         update=":statementForm" 
-                                         title="View Statement"
-                                         actionListener=
-                                         "#{statementController.beforeViewStatement(userController.user)}"/>
-                    </p:toolbarGroup>
-                </p:toolbar>
-            </h:form>
+    </ui:define>
+</ui:composition>
 
-            <ui:include src="depositDialog.xhtml" />
-            <ui:include src="withdrawDialog.xhtml" />
-            <ui:include src="fundtransferDialog.xhtml" />
-            <ui:include src="statementDialog.xhtml" />
 
-            <h:form id="account">
-                <h:panelGroup id="accountForm">
-                    <p:dataTable value="#{userController.accountList}" var="account">
-                        <p:column headerText="Account">
-                            <h:outputText value="#{account.accNo}-#{account.product.product_type}" />
-                        </p:column>
-                        <p:column headerText="Balance">
-                            <h:outputText value="#{account.balance}" />
-                        </p:column>
-                    </p:dataTable>
-                </h:panelGroup>
-            </h:form>
-    </body>
-</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
