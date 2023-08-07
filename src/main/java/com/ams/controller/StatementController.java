@@ -28,8 +28,8 @@ import javax.persistence.TemporalType;
  */
 @ViewScoped
 @Named("statementController")
-public class StatementController extends AbstractMessageController{
-    
+public class StatementController extends AbstractMessageController {
+
     private List<User> userList;
     private List<Account> accountList;
     private List<AccountTransactionDetails> transactionDetails;
@@ -38,7 +38,7 @@ public class StatementController extends AbstractMessageController{
     private User selectedUser;
     private Account selectedAccount;
     private BalanceView balanceView;
-    
+
     @Inject
     private AccountMISRepository accountMISRepository;
 
@@ -50,10 +50,10 @@ public class StatementController extends AbstractMessageController{
 
     @Inject
     private UserRepository userRepository;
-    
+
     @Inject
     private UserController userController;
-    
+
     public List<User> getUserList() {
         return userList;
     }
@@ -101,7 +101,7 @@ public class StatementController extends AbstractMessageController{
     public void setSelectedAccount(Account selectedAccount) {
         this.selectedAccount = selectedAccount;
     }
-    
+
     public List<AccountTransactionDetails> getTransactionDetails() {
         return transactionDetails;
     }
@@ -117,12 +117,11 @@ public class StatementController extends AbstractMessageController{
     public void setBalanceView(BalanceView balanceView) {
         this.balanceView = balanceView;
     }
-    
-    
+
     @PostConstruct
     public void init() {
-        selectedUser = new User();
-        selectedAccount = new Account();
+//        selectedUser = new User();
+//        selectedAccount = new Account();
         balanceView = new BalanceView();
         loadData();
     }
@@ -156,7 +155,7 @@ public class StatementController extends AbstractMessageController{
         accountRepository.delete(account.getId());
         loadData();
     }
-    
+
     public void retrieveAccounts() {
         if (selectedUser != null) {
             // Call your repository or service to fetch the list of accounts based on the selected user
@@ -166,25 +165,38 @@ public class StatementController extends AbstractMessageController{
         }
 
     }
+
     public void beforeViewStatement(User user) {
-            this.selectedUser = user != null ? user:null;
-            this.accountList = this.selectedUser != null
-                    ? accountRepository.getAccountsByUser(selectedUser):null;
+        selectedUser = new User();
+        selectedAccount = new Account();
+        balanceView.setFromDate(null);
+        balanceView.setToDate(null);
+        this.selectedUser = user != null ? user : null;
+        this.accountList = this.selectedUser != null
+                ? accountRepository.getAccountsByUser(selectedUser) : null;
     }
-    
+
+    public void beforeClientViewStatement(User user) {
+        
+//        selectedAccount = new Account();
+        this.selectedAccount = account != null ? account : null;
+        balanceView.setFromDate(null);
+        balanceView.setToDate(null);
+    }
+
     public void loadTransactionDetails() {
         if (selectedAccount != null) {
             balanceView.setAccount(selectedAccount);
             transactionDetails = transactionRepository.
                     getTransactionsByAccount(selectedAccount,
-                            balanceView.getFromDate(), 
+                            balanceView.getFromDate(),
                             balanceView.getToDate());
             loadOpeningBalance();
         }
     }
 
-    public void loadOpeningBalance(){
-        if(selectedAccount != null){
+    public void loadOpeningBalance() {
+        if (selectedAccount != null) {
             balanceView = transactionRepository.getOpeningBalance(balanceView);
         }
     }

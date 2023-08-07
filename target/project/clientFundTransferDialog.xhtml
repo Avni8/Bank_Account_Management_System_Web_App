@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:dialog header="Fund Transfer" widgetVar="clientFundTransferDialog" modal="true" resizable="false">
+
+        <h:form id="clientFundTransferForm" >
+
+            <h:panelGrid columns="2" style="margin-bottom: 20px">
+
+                <p:outputLabel value="Source Account:" />
+
+                <p:selectOneMenu value="#{fundtransferController.sourceAccount}" 
+                                 converter="accountConverter" id="source">
+
+                    <f:selectItem itemLabel="#{clientAccountController.selectedAccount.accNo}-
+                                  #{clientAccountController.selectedAccount.product.product_type}
+                                  (Balance: #{clientAccountController.selectedAccount.balance})"
+                                  itemValue="#{clientAccountController.selectedAccount}" />
+
+                    <f:selectItems value="#{clientAccountController.userAccounts}" 
+                                   var="account" itemValue="#{account}" itemLabel="#{account.accNo}-
+                                   #{account.product.product_type} 
+                                   (Balance: #{account.balance})" />
+                </p:selectOneMenu> 
+
+                <p:outputLabel value="To User:" />
+                <p:selectOneMenu value="#{fundtransferController.toUser}" converter="userConverter"
+                                 id="toUserMenu">
+
+                    <f:selectItem itemLabel="Select User" itemValue="#{null}" />
+                    <f:selectItems value="#{accountController.userList}" 
+                                   var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                    <p:ajax listener="#{fundtransferController.retrieveDestinationAccounts()}" 
+                            update="toUserMenu destination" />
+
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Destination Account:" />
+                <p:selectOneMenu value="#{fundtransferController.destinationAccount}" 
+                                 converter="accountConverter" id="destination">
+
+                    <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
+                    <f:selectItems value="#{fundtransferController.destinationAccountList}" 
+                                   var="account"
+                                   itemValue="#{account}" 
+                                   itemLabel="#{account.accNo}
+                                   -#{account.product.product_type} 
+                                   (Balance: #{account.balance})" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Amount:" />
+                <p:inputNumber value="#{fundtransferController.transferAmount}"/>
+
+            </h:panelGrid>
+            <p:commandButton value="Transfer"
+                             oncomplete="PF('clientFundTransferDialog').hide()" 
+                             update=":userAccountForm"
+                             action="#{fundtransferController.clientTransferFunds()}"
+                             style="margin-top: 20px"/>
+        </h:form>  
+    </p:dialog>
+</ui:composition>
+

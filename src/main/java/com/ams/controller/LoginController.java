@@ -4,12 +4,16 @@
  */
 package com.ams.controller;
 
+import com.ams.model.Account;
 import com.ams.model.Staff;
 import com.ams.model.User;
+import com.ams.repository.AccountRepository;
 import com.ams.repository.StaffRepository;
 import com.ams.repository.UserRepository;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -28,15 +32,19 @@ public class LoginController extends AbstractMessageController {
 
     private String username;
     private String password;
+    private List<Account> userAccounts;
 
     @Inject
     private StaffRepository staffRepository;
 
     @Inject
     private UserRepository userRepository;
-    
+
     @Inject
     private SessionController sessionController;
+
+    @Inject
+    private AccountRepository accountRepository;
 
     public String getUsername() {
         return username;
@@ -52,6 +60,14 @@ public class LoginController extends AbstractMessageController {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Account> getUserAccounts() {
+        return userAccounts;
+    }
+
+    public void setUserAccounts(List<Account> userAccounts) {
+        this.userAccounts = userAccounts;
     }
 
     public String staffLogin() {
@@ -98,8 +114,8 @@ public class LoginController extends AbstractMessageController {
                         .getExternalContext().getRequest();
 
                 httpServletRequest.getSession().setAttribute("loggedInClient", user);
-                sessionController.setLoggedInUserName(user.getName());
-                
+               
+                    sessionController.setLoggedInUserName(user.getName());
 
                 try {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("clientHome.xhtml");

@@ -63,8 +63,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                  converter="accountConverter" id="destination">
 
                     <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
-                    <f:selectItems value="#{fundtransferController.destinationAccountList}" var="account"
-                                   itemValue="#{account}" itemLabel="#{account.accNo}
+                    <f:selectItems value="#{fundtransferController.destinationAccountList}" 
+                                   var="account"
+                                   itemValue="#{account}" 
+                                   itemLabel="#{account.accNo}
                                    -#{account.product.product_type} 
                                    (Balance: #{account.balance})" />
                 </p:selectOneMenu>

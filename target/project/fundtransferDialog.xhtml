@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:dialog header="Fund Transfer" widgetVar="fundtransferDialog" modal="true" resizable="false">
+
+        <h:form id="fundtransferForm" >
+
+            <h:panelGrid columns="2" style="margin-bottom: 20px">
+
+                <p:outputLabel value="From User:" />
+
+                <p:selectOneMenu value="#{fundtransferController.fromUser}" 
+                                 converter="userConverter" id="fromUserMenu">
+                    
+                    <f:selectItem itemLabel="#{userController.selectedUser.name}"
+                                  itemValue="#{userController.selectedUser}" />
+                    <f:selectItems value="#{accountController.userList}" 
+                                   var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+
+
+                    <p:ajax listener="#{fundtransferController.retrieveSourceAccounts()}" 
+                            update="fromUserMenu source" />
+
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Source Account:" />
+
+                <p:selectOneMenu value="#{fundtransferController.sourceAccount}" 
+                                 converter="accountConverter" id="source">
+
+                    <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
+                   
+                    <f:selectItems value="#{fundtransferController.sourceAccountList}" var="account"
+                                   itemValue="#{account}" itemLabel="#{account.accNo}
+                                   -#{account.product.product_type} 
+                                   (Balance: #{account.balance})" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="To User:" />
+
+                <p:selectOneMenu value="#{fundtransferController.toUser}" converter="userConverter"
+                                 id="toUserMenu">
+
+                    <f:selectItem itemLabel="Select User" itemValue="#{null}" />
+                    <f:selectItems value="#{accountController.userList}" 
+                                   var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                    <p:ajax listener="#{fundtransferController.retrieveDestinationAccounts()}" 
+                            update="toUserMenu destination" />
+
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Destination Account:" />
+
+                <p:selectOneMenu value="#{fundtransferController.destinationAccount}" 
+                                 converter="accountConverter" id="destination">
+
+                    <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
+                    <f:selectItems value="#{fundtransferController.destinationAccountList}" 
+                                   var="account"
+                                   itemValue="#{account}" 
+                                   itemLabel="#{account.accNo}
+                                   -#{account.product.product_type} 
+                                   (Balance: #{account.balance})" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Amount:" />
+                <p:inputNumber value="#{fundtransferController.transferAmount}"/>
+            </h:panelGrid>
+            <p:commandButton value="Transfer" action="#{fundtransferController.transferFunds()}"
+                             oncomplete="PF('fundtransferDialog').hide()"
+                             style="margin-top: 20px"/>
+        </h:form>  
+    </p:dialog>
+</ui:composition>
+

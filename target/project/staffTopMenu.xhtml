@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Navigation-Bar</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link rel="stylesheet" type="text/css" href="path/to/primefaces-6.1.css" />
+        <script type="text/javascript" src="path/to/primefaces-6.1.js"></script>
+        <style>
+            .my-navbar .ui-menuitem-text {
+                font-weight: normal;
+            }
+        </style>
+    </h:head>
+    <body>
+        <h:form class="my-navbar">
+            <p:growl id="growl" showDetail="false" sticky="true" autoUpdate="true" life="100" /> 
+            <p:menubar>
+                <p:menuitem value="Home" icon= "fa fa-home remove-bold" url="home.xhtml" />
+                <p:menuitem value="Client" icon="fa fa-user" url="user.xhtml" />
+                <p:menuitem value="Staff" icon="fa fa-user-tie" url="staff.xhtml" />
+                <p:menuitem value="Product" icon="fa fa-bank" url="product.xhtml" />
+                <p:menuitem value="Account" icon="fa fa-coins" url="account.xhtml" />
+                <p:menuitem value="Account MIS" url="accountmis.xhtml" />
+                <p:menuitem value="Account Transaction Details"  url="accountTransactionDetails.xhtml" />
+
+                
+                <p:menuitem style="pointer-events: none; cursor: default; margin-left: 310px;"
+                            value="Welcome! #{sessionController.loggedInUserName}" />
+                
+                
+                
+
+                <p:menuitem style="margin-left: 30px; " >
+
+                    <p:commandButton id="id"
+                                     style="height:25px; width:30px;"
+                                     icon="fa fa-sign-out"
+                                     action="#{logoutController.logout}"
+
+                                     />
+                </p:menuitem>
+            </p:menubar>
+        </h:form>
+    </body>
+</html>

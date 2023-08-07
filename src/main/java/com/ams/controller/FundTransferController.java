@@ -44,7 +44,10 @@ public class FundTransferController extends AbstractMessageController {
     private Account sourceAccount;
     private Account destinationAccount;
     private Double transferAmount;
-
+    private ClientAccountController clientAccountController;
+   
+    
+    
     @Inject
     private AccountMISRepository accountMISRepository;
 
@@ -56,7 +59,7 @@ public class FundTransferController extends AbstractMessageController {
 
     @Inject
     private UserRepository userRepository;
-
+    
     public User getFromUser() {
         return fromUser;
     }
@@ -137,11 +140,19 @@ public class FundTransferController extends AbstractMessageController {
         this.transferAmount = transferAmount;
     }
 
-//    @PostConstruct
-//    public void init() {
-//        account = new Account();
-//        loadData();
-//    }
+    public ClientAccountController getClientAccountController() {
+        return clientAccountController;
+    }
+
+    public void setClientAccountController(ClientAccountController clientAccountController) {
+        this.clientAccountController = clientAccountController;
+    }
+    
+ @PostConstruct
+    public void init() {
+        account = new Account();
+        
+    }
 //
 //    private void loadData() {
 //        accountList = accountRepository.findAll();
@@ -195,6 +206,13 @@ public class FundTransferController extends AbstractMessageController {
         this.fromUser = user != null ? user : null;
         this.sourceAccountList = this.fromUser != null
                 ? accountRepository.getAccountsByUser(fromUser) : null;
+    }
+    
+    public void beforeClientTransfer(User user){
+        this.sourceAccount = account != null ? account : null;
+        this.toUser = new User();
+        this.transferAmount = null;
+        this.destinationAccount = null;
     }
 
     public void transferFunds() {
@@ -259,6 +277,75 @@ public class FundTransferController extends AbstractMessageController {
 
         }
 
+    }
+    
+    
+    public void clientTransferFunds(){
+        
+         if (sourceAccount != null && destinationAccount != null && transferAmount != null
+                && transferAmount > 0) {
+
+            if (destinationAccount.getAccNo().equals(sourceAccount.getAccNo())) {
+
+                super.warningMessage("Source and Destination accounts should be different!");
+            
+            } 
+            
+            else {
+
+                if (sourceAccount.getBalance() > transferAmount) {
+
+                    AccountMIS sourceAccountMIS = new AccountMIS();
+                    AccountTransactionDetails sourceAccountTransactionDetails = new AccountTransactionDetails();
+
+                    sourceAccountMIS.setTransactionType(TransactionType.FUND_TRANSFER);
+                    sourceAccountMIS.setSourceAccount(sourceAccount);
+                    sourceAccountMIS.setDestinationAccount(destinationAccount);
+                    accountMISRepository.save(sourceAccountMIS);
+
+                    sourceAccountTransactionDetails.setDate(new Date());
+                    sourceAccountTransactionDetails.setDebitAmount(transferAmount);
+                    
+                    
+                    User fromUser = (User) FacesContext.getCurrentInstance()
+                          .getExternalContext().getSessionMap().get("loggedInClient");
+                    
+                    sourceAccountTransactionDetails.setUser(fromUser.getName());
+                    sourceAccountTransactionDetails.setAccount(sourceAccount);
+                    transactionRepository.save(sourceAccountTransactionDetails);
+
+                    Double currentSourceAccountBalance = sourceAccount.getBalance();
+                    Double newSourceAccountBalance = currentSourceAccountBalance - transferAmount;
+                    sourceAccount.setBalance(newSourceAccountBalance);
+                    accountRepository.update(sourceAccount);
+
+                    AccountMIS destinationAccountMIS = new AccountMIS();
+                    AccountTransactionDetails destinationAccountTransactionDetails = new AccountTransactionDetails();
+
+                    destinationAccountMIS.setTransactionType(TransactionType.FUND_TRANSFER);
+                    destinationAccountMIS.setSourceAccount(sourceAccount);
+                    destinationAccountMIS.setDestinationAccount(destinationAccount);
+                    accountMISRepository.save(destinationAccountMIS);
+
+                    destinationAccountTransactionDetails.setDate(new Date());
+                    destinationAccountTransactionDetails.setCreditAmount(transferAmount);
+                    destinationAccountTransactionDetails.setUser(toUser.getName());
+                    destinationAccountTransactionDetails.setAccount(destinationAccount);
+                    transactionRepository.save(destinationAccountTransactionDetails);
+
+                    Double currentDestinationAccountBalance = destinationAccount.getBalance();
+                    Double newDestinationAccountBalance = currentDestinationAccountBalance
+                            + transferAmount;
+                    destinationAccount.setBalance(newDestinationAccountBalance);
+                    accountRepository.update(destinationAccount);
+
+                    super.infoMessage("Fund Transfer Successful");
+
+                }
+
+            }
+
+        }
     }
 
 }

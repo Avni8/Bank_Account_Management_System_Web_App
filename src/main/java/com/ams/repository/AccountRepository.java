@@ -29,11 +29,12 @@ public class AccountRepository extends AbstractRepository<Account>{
     }
     
     public List<Account> getAccountsByUser(User user) {
-    
     return entityManager.createQuery("SELECT a FROM Account a WHERE a.user = :user", Account.class)
             .setParameter("user", user)
             .getResultList();
 }
+    
+   
 
     
 }

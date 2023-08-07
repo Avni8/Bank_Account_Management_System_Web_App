@@ -29,17 +29,16 @@
                 <p:menuitem value="Account Transaction Details"  url="accountTransactionDetails.xhtml" />
 
                 
-                <p:menuitem style="pointer-events: none; cursor: default; margin-left: 310px; 
-                            margin-top:9px;" 
+                <p:menuitem style="pointer-events: none; cursor: default; margin-left: 310px;"
                             value="Welcome! #{sessionController.loggedInUserName}" />
                 
                 
                 
 
-                <p:menuitem style="margin-left: 30px;">
+                <p:menuitem style="margin-left: 30px; " >
 
                     <p:commandButton id="id"
-                                     style="margin-top: 5px;"
+                                     style="height:25px; width:30px;"
                                      icon="fa fa-sign-out"
                                      action="#{logoutController.logout}"
 

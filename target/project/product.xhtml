@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+
+<ui:composition template="staffTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                >
+
+    <ui:param name="pageTitle" value="Product-Details" />
+
+    <ui:define name="content">
+
+        <p:dialog header="Create a new product" widgetVar="productDialog" modal="true" 
+                  resizable="true">
+            <h:form id="productForm" styleClass="no-border-input">
+                <h:panelGrid columns="3" cellpadding="5"> 
+
+                    <p:outputLabel id="productTypeLbl" value="Product Type:" for="productTypeInp" />
+                    <p:inputText id="productTypeInp" value="#{productController.product.product_type}" 
+                                 required="true" requiredMessage="Product Type is required!" />
+
+                </h:panelGrid>
+                <p:commandButton value="Save Product" action="#{productController.createUpdate()}"
+                                 style="margin-top: 10px;"
+                                 oncomplete="if (args &amp;&amp; !args.validationFailed) 
+                                 PF('productDialog').hide();"
+                                 update=":listForm"/>
+            </h:form>
+        </p:dialog>
+
+        <center>
+            <h:form id="listForm" >
+                <p:dataTable value="#{productController.productList}" var="product" paginator="true" 
+                             rows="10"
+                             paginatorPosition="bottom">
+
+
+                    <f:facet name="header">
+                        Product Details
+                        <div class="button-container" style="position: absolute;
+                             top: 62px;
+                             left: 95.3%;
+                             right: 0;
+                             margin: 10px;">
+                            <p:commandButton
+                                oncomplete="PF('productDialog').show()"
+                                icon="ui-icon-plusthick" title="Add Product" update=":productForm" 
+                                actionListener="#{productController.beforeCreate()}" 
+                                style="height: 30px;"/>
+                        </div>
+                    </f:facet>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{product.id}" />
+                    </p:column>
+
+                    <p:column headerText="Product Type">
+                        <h:outputText value="#{product.product_type}" />
+                    </p:column> 
+
+                    <p:column headerText="Action">
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         icon="ui-icon-pencil" oncomplete="PF('productDialog').show()"
+                                         title="Edit Product" update=":productForm" 
+                                         action="#{productController.beforeUpdate(product)}" />
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         title="Delete Product"
+                                         icon="ui-icon-trash"
+                                         actionListener="#{productController.delete(product)}"
+                                         update=":listForm"
+                                         />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </center> 
+    </ui:define>
+</ui:composition>
+
+
+
+
+
+
+
+
+
+
+
+

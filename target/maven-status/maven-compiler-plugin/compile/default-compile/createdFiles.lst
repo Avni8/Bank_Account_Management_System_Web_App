@@ -31,6 +31,7 @@ com/ams/repository/ProductConverter.class
 com/ams/controller/AccountTransactionDetailsController.class
 com/ams/repository/GenericConverter.class
 com/ams/repository/AccountConverter.class
+com/ams/controller/ClientAccountController.class
 com/ams/repository/ProductRepository.class
 com/ams/repository/AccountMISRepository.class
 com/ams/repository/AccountTransactionDetailsRepository.class

@@ -10,6 +10,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/BalanceView.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/CrudRepository.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/ClientAccountController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountTransactionDetailsRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/User.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountMISConverter.java

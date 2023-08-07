@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author avni
  */
+
 @WebFilter("/*")
 public class LoginFilter implements Filter {
 
@@ -59,7 +60,6 @@ public class LoginFilter implements Filter {
             
             httpResponse.sendRedirect(loginPage);
         }
-        
     }
 
     @Override

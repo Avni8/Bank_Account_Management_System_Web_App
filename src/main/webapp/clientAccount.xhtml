@@ -13,7 +13,61 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <ui:param name="pageTitle" value="My Account-Details" />
 
     <ui:define name="content">
-         
+
+        <h:form id="userAccountForm" >
+            <p:dataTable value="#{clientAccountController.userAccounts}" var="account"
+                         id="userAccountDataTable"
+                         selection="#{clientAccountController.selectedAccount}" 
+                         selectionMode="single" paginator="true" rows="10"
+                         paginatorPosition="bottom"  emptyMessage="No records found"
+                         rowKey="#{account.id}">
+                <f:facet name="header">
+                    Account Details
+                </f:facet>
+                <p:column headerText="Account No" width="34" filterBy="#{user.name}" sortBy="#{user.name}">
+                    <h:outputText value="#{account.accNo}" />
+                </p:column>
+
+                <p:column headerText="Product Type" width="24">
+                    <h:outputText value="#{account.product.product_type}" />
+                </p:column>
+
+                <p:column headerText="Opened Date" width="16">
+                    <h:outputText value="#{account.openedDate}" />
+                </p:column>
+
+                <p:column headerText="Mature Date" width="15">
+                    <h:outputText value="#{account.matureDate}" />
+                </p:column>
+
+                <p:column headerText="Balance" width="35">
+                    <h:outputText value="#{account.balance}" />
+                </p:column>
+            </p:dataTable>
+            <p:toolbar styleClass="center-align-group">
+                <p:toolbarGroup>
+                    <p:commandButton value="Fund Transfer" 
+                                     onclick="PF('clientFundTransferDialog').show()"
+                                     title="Transfer Amount"
+                                     update=":clientFundTransferForm"
+                                     actionListener=
+                                     "#{fundtransferController.beforeClientTransfer(userController.user)}"/>
+                                     
+                </p:toolbarGroup>
+                <p:toolbarGroup>
+                    <p:commandButton value="Statement" 
+                                     onclick="PF('clientStatementDialog').show()"
+                                     title="View Statement"
+                                     update=":clientStatementForm"
+                                     actionListener=
+                                     "#{statementController.beforeClientViewStatement(userController.user)}"
+                                     />
+                </p:toolbarGroup>
+
+            </p:toolbar>
+        </h:form>
+        <ui:include src="clientFundTransferDialog.xhtml" />
+        <ui:include src="clientStatementDialog.xhtml" />
     </ui:define>
 </ui:composition>
 
