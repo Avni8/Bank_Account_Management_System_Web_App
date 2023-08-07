@@ -52,9 +52,9 @@ public class UserResource implements Serializable {
 
     @PUT
     @Path("/{id}")
-    public User updateUser(@PathParam("id") long id, User user) {
-        user.setId(id);
-        return userRepository.save(user);
+    public void updateUser(@PathParam("id") long id, User user) {
+//        user.setId(id);
+        userRepository.update(user);
     }
 
     @DELETE
