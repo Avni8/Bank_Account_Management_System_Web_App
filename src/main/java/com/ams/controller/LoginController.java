@@ -46,6 +46,9 @@ public class LoginController extends AbstractMessageController {
     @Inject
     private AccountRepository accountRepository;
 
+    @Inject
+    private UserBean userBean;
+
     public String getUsername() {
         return username;
     }
@@ -82,7 +85,9 @@ public class LoginController extends AbstractMessageController {
                         .getExternalContext().getRequest();
 
                 httpServletRequest.getSession().setAttribute("loggedInStaff", staff);
-                sessionController.setLoggedInUserName(staff.getUsername());
+//                sessionController.setLoggedInUserName(staff.getUsername());
+
+                userBean.setCurrentStaff(staff);
 
                 try {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
@@ -114,8 +119,10 @@ public class LoginController extends AbstractMessageController {
                         .getExternalContext().getRequest();
 
                 httpServletRequest.getSession().setAttribute("loggedInClient", user);
-               
-                    sessionController.setLoggedInUserName(user.getName());
+
+//                sessionController.setLoggedInUserName(user.getName());
+                
+                userBean.setCurrentUser(user);
 
                 try {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("clientHome.xhtml");

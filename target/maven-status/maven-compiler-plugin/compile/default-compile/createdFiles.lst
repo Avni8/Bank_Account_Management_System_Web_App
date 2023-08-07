@@ -8,6 +8,7 @@ com/ams/model/BalanceView.class
 com/ams/model/AccountTransactionDetails.class
 com/ams/model/AbstractEntity.class
 com/ams/controller/AccountController.class
+com/ams/restresource/UserResource.class
 com/ams/repository/StaffRepository.class
 com/ams/model/Product.class
 com/ams/repository/UserConverter.class
@@ -16,11 +17,13 @@ com/ams/model/UserModel.class
 com/ams/controller/DepositController.class
 com/ams/repository/CrudRepository.class
 com/ams/model/Staff.class
+com/ams/security/LoginCheckListener.class
 com/ams/repository/UserRepository.class
 com/ams/controller/AbstractMessageController.class
 com/ams/repository/AbstractRepository.class
 com/ams/repository/AccountRepository.class
 com/ams/controller/StaffController.class
+com/ams/restresource/RestApplication.class
 com/ams/controller/LogoutController.class
 com/ams/controller/UserController.class
 com/ams/model/User.class
@@ -35,6 +38,7 @@ com/ams/controller/ClientAccountController.class
 com/ams/repository/ProductRepository.class
 com/ams/repository/AccountMISRepository.class
 com/ams/repository/AccountTransactionDetailsRepository.class
+com/ams/controller/UserResource.class
 com/ams/repository/AccountMISConverter.class
-com/ams/controller/LoginFilter.class
+com/ams/controller/UserBean.class
 com/ams/controller/AccountMISController.class
