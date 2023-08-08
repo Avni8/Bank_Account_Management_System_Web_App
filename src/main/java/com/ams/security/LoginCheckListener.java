@@ -50,11 +50,8 @@ public class LoginCheckListener implements PhaseListener {
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
 
             nh.handleNavigation(facesContext, null, "/login.xhtml?faces-redirect=true");
-
         }
-
     }
-
     @Override
     public PhaseId getPhaseId() {
         return PhaseId.RESTORE_VIEW;

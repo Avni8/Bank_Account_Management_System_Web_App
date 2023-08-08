@@ -89,6 +89,4 @@ public class AccountResource implements Serializable{
                        .entity(response)
                        .build();
     }
-    
-
 }

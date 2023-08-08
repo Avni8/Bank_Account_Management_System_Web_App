@@ -1,6 +1,8 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/StatementController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/WithdrawController.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/StaffResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/SessionController.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/ProductResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/LoginController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountTransactionDetailsController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/security/LoginCheckListener.java
