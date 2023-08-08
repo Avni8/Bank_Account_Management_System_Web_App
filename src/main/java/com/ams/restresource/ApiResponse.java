@@ -43,5 +43,4 @@ public class ApiResponse<T> {
     public void setResult(T result) {
         this.result = result;
     }
-
 }

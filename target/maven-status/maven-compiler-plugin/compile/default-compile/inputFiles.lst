@@ -19,7 +19,6 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountMISConverter.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/FundTransferController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/ProductController.java
-/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/UserResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/StaffController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/UserRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AccountMIS.java

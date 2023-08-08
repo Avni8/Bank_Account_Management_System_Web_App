@@ -40,7 +40,6 @@ com/ams/controller/ClientAccountController.class
 com/ams/repository/ProductRepository.class
 com/ams/repository/AccountMISRepository.class
 com/ams/repository/AccountTransactionDetailsRepository.class
-com/ams/controller/UserResource.class
 com/ams/repository/AccountMISConverter.class
 com/ams/controller/UserBean.class
 com/ams/controller/AccountMISController.class

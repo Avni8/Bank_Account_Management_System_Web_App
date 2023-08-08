@@ -20,6 +20,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -33,32 +34,61 @@ public class AccountResource implements Serializable{
     
     @Inject
     AccountRepository accountRepository;
-
+    
     @GET
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
+    public Response getAllAccounts() {
+        List<Account> accounts = accountRepository.findAll();
+        ApiResponse<List<Account>> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", accounts);
+        return Response.status(Response.Status.OK)
+                .entity(response)
+                .build();
     }
 
     @GET
     @Path("/{id}")
-    public Account getAccountById(@PathParam("id") long id) {
-        return accountRepository.findById(id);
+    public Response getAccountById(@PathParam("id") long id) {
+        Account account = accountRepository.findById(id);
+        if (account != null) {
+            ApiResponse<Account> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", account);
+            return Response.status(Response.Status.OK)
+                    .entity(response)
+                    .build();
+        } else {
+            ApiResponse<Account> response = new ApiResponse<>(Response.Status.NOT_FOUND.getStatusCode(), "Account not found", null);
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(response)
+                    .build();
+        }
     }
 
     @POST
-    public Account createAccount(Account account) {
-        return accountRepository.save(account);
+    public Response createAccount(Account account) {
+        Account createdAccount = accountRepository.save(account);
+        ApiResponse<Account> response = new ApiResponse<>(Response.Status.CREATED.getStatusCode(), "Account sucessfully created", createdAccount);
+        return Response.status(Response.Status.CREATED)
+                .entity(response)
+                .build();
     }
 
     @PUT
     @Path("/{id}")
-    public void updateAccount(@PathParam("id") long id, Account account) {
+    public Response updateAccount(@PathParam("id") long id, Account account) {
         accountRepository.update(account);
+        ApiResponse<Account> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Account sucessfully updated", account);
+        return Response.status(Response.Status.OK)
+                .entity(response)
+                .build();
     }
 
     @DELETE
     @Path("/{id}")
-    public void deleteAccount(@PathParam("id") long id) {
+    public Response deleteAccount(@PathParam("id") long id) {
         accountRepository.delete(id);
+        ApiResponse<Object> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Account successfully deleted", null);
+        return Response.status(Response.Status.OK)
+                       .entity(response)
+                       .build();
     }
+    
+
 }
