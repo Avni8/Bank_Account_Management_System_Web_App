@@ -63,7 +63,6 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>omega</param-value>
     </context-param>-->
-    
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

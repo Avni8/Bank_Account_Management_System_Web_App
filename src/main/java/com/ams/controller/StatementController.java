@@ -171,6 +171,8 @@ public class StatementController extends AbstractMessageController {
         selectedAccount = new Account();
         balanceView.setFromDate(null);
         balanceView.setToDate(null);
+        balanceView.setBalanceUptoFromDate(null);
+        transactionDetails = null;
         this.selectedUser = user != null ? user : null;
         this.accountList = this.selectedUser != null
                 ? accountRepository.getAccountsByUser(selectedUser) : null;
@@ -182,6 +184,9 @@ public class StatementController extends AbstractMessageController {
         this.selectedAccount = account != null ? account : null;
         balanceView.setFromDate(null);
         balanceView.setToDate(null);
+        balanceView.setBalanceUptoFromDate(null);
+        transactionDetails = null;
+        
     }
 
     public void loadTransactionDetails() {

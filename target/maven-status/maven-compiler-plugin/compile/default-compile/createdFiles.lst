@@ -1,4 +1,5 @@
 com/ams/model/TransactionType.class
+com/ams/restresource/ApiResponse.class
 com/ams/controller/WithdrawController.class
 com/ams/controller/AbstractController.class
 com/ams/controller/StatementController.class
@@ -13,6 +14,7 @@ com/ams/repository/StaffRepository.class
 com/ams/model/Product.class
 com/ams/repository/UserConverter.class
 com/ams/controller/ProductController.class
+com/ams/restresource/AccountResource.class
 com/ams/model/UserModel.class
 com/ams/controller/DepositController.class
 com/ams/repository/CrudRepository.class

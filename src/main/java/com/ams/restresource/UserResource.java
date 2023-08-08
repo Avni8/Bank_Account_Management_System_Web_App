@@ -20,6 +20,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import com.ams.restresource.ApiResponse;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -35,31 +37,57 @@ public class UserResource implements Serializable {
     UserRepository userRepository;
 
     @GET
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public Response getAllUsers() {
+        List<User> users = userRepository.findAll();
+        ApiResponse<List<User>> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", users);
+        return Response.status(Response.Status.OK)
+                .entity(response)
+                .build();
     }
 
     @GET
     @Path("/{id}")
-    public User getUserById(@PathParam("id") long id) {
-        return userRepository.findById(id);
+    public Response getUserById(@PathParam("id") long id) {
+        User user = userRepository.findById(id);
+        if (user != null) {
+            ApiResponse<User> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", user);
+            return Response.status(Response.Status.OK)
+                    .entity(response)
+                    .build();
+        } else {
+            ApiResponse<User> response = new ApiResponse<>(Response.Status.NOT_FOUND.getStatusCode(), "User not found", null);
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(response)
+                    .build();
+        }
     }
 
     @POST
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public Response createUser(User user) {
+        User createdUser = userRepository.save(user);
+        ApiResponse<User> response = new ApiResponse<>(Response.Status.CREATED.getStatusCode(), "User sucessfully created", createdUser);
+        return Response.status(Response.Status.CREATED)
+                .entity(response)
+                .build();
     }
 
     @PUT
     @Path("/{id}")
-    public void updateUser(@PathParam("id") long id, User user) {
-//        user.setId(id);
+    public Response updateUser(@PathParam("id") long id, User user) {
         userRepository.update(user);
+        ApiResponse<User> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "User sucessfully updated", user);
+        return Response.status(Response.Status.OK)
+                .entity(response)
+                .build();
     }
 
     @DELETE
     @Path("/{id}")
-    public void deleteUser(@PathParam("id") long id) {
+    public Response deleteUser(@PathParam("id") long id) {
         userRepository.delete(id);
+        ApiResponse<Object> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "User successfully deleted", null);
+        return Response.status(Response.Status.OK)
+                       .entity(response)
+                       .build();
     }
 }
