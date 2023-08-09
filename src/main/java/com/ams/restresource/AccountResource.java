@@ -7,6 +7,8 @@ package com.ams.restresource;
 import com.ams.model.Account;
 import com.ams.model.User;
 import com.ams.repository.AccountRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -30,63 +32,70 @@ import javax.ws.rs.core.Response;
 @Path("/account")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class AccountResource implements Serializable{
-    
+public class AccountResource implements Serializable {
+
     @Inject
     AccountRepository accountRepository;
-    
+
+    @POST
+    public Response createAccount(Account account) throws JsonProcessingException {
+        accountRepository.save(account);
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(account);
+
+        return RestResponse.responseBuilder("true", "201", "Account created successfully", str);
+    }
+
     @GET
-    public Response getAllAccounts() {
-        List<Account> accounts = accountRepository.findAll();
-        ApiResponse<List<Account>> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", accounts);
-        return Response.status(Response.Status.OK)
-                .entity(response)
-                .build();
+    public Response getAllAccounts() throws JsonProcessingException {
+        List<Account> accountList = accountRepository.findAll();
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(accountList);
+        return RestResponse.responseBuilder("true", "200", "List of accounts", str);
     }
 
     @GET
     @Path("/{id}")
-    public Response getAccountById(@PathParam("id") long id) {
+    public Response getAccountById(@PathParam("id") long id) throws JsonProcessingException {
         Account account = accountRepository.findById(id);
-        if (account != null) {
-            ApiResponse<Account> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", account);
-            return Response.status(Response.Status.OK)
-                    .entity(response)
-                    .build();
-        } else {
-            ApiResponse<Account> response = new ApiResponse<>(Response.Status.NOT_FOUND.getStatusCode(), "Account not found", null);
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity(response)
-                    .build();
-        }
-    }
+        if (account == null) {
 
-    @POST
-    public Response createAccount(Account account) {
-        Account createdAccount = accountRepository.save(account);
-        ApiResponse<Account> response = new ApiResponse<>(Response.Status.CREATED.getStatusCode(), "Account sucessfully created", createdAccount);
-        return Response.status(Response.Status.CREATED)
-                .entity(response)
-                .build();
+            return RestResponse.responseBuilder("false", "404", " Account with id " + id + " not found", null);
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(account);
+        return RestResponse.responseBuilder("true", "200", "Account with id " + id + " found", str);
+
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateAccount(@PathParam("id") long id, Account account) {
+    public Response updateAccount(@PathParam("id") long id, Account account) throws JsonProcessingException {
+
+        Account acc = accountRepository.findById(id);
+        if (acc == null) {
+            return RestResponse.responseBuilder("false", "404", " Account with id " + id + " not found", null);
+        }
+        if (!account.getId().equals(acc.getId())) {
+            return RestResponse.responseBuilder("false", "404", " Account id mismatch", null);
+        }
         accountRepository.update(account);
-        ApiResponse<Account> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Account sucessfully updated", account);
-        return Response.status(Response.Status.OK)
-                .entity(response)
-                .build();
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(account);
+
+        return RestResponse.responseBuilder("true", "200", " Account updated successfully", str);
+
     }
 
     @DELETE
     @Path("/{id}")
-    public Response deleteAccount(@PathParam("id") long id) {
+    public Response deleteAccount(@PathParam("id") long id) throws JsonProcessingException {
+        Account account = accountRepository.findById(id);
+        if (account == null) {
+            return RestResponse.responseBuilder("false", "404", " Account with id " + id + " not found", null);
+        }
         accountRepository.delete(id);
-        ApiResponse<Object> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Account successfully deleted", null);
-        return Response.status(Response.Status.OK)
-                       .entity(response)
-                       .build();
+        return RestResponse.responseBuilder("true", "200", "Account with id " + id + " deleted successfully", null);
     }
 }

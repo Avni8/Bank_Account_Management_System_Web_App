@@ -20,7 +20,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import com.ams.restresource.ApiResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.ws.rs.core.Response;
 
 /**
@@ -36,58 +37,62 @@ public class UserResource implements Serializable {
     @Inject
     UserRepository userRepository;
 
+    @POST
+    public Response createUser(User user) throws JsonProcessingException {
+        userRepository.save(user);
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(user);
+
+        return RestResponse.responseBuilder("true", "201", "User created successfully", str);
+    }
+
     @GET
-    public Response getAllUsers() {
-        List<User> users = userRepository.findAll();
-        ApiResponse<List<User>> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", users);
-        return Response.status(Response.Status.OK)
-                .entity(response)
-                .build();
+    public Response getAllUsers() throws JsonProcessingException {
+        List<User> userList = userRepository.findAll();
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(userList);
+        return RestResponse.responseBuilder("true", "200", "List of users", str);
     }
 
     @GET
     @Path("/{id}")
-    public Response getUserById(@PathParam("id") long id) {
+    public Response getUserById(@PathParam("id") long id) throws JsonProcessingException {
         User user = userRepository.findById(id);
-        if (user != null) {
-            ApiResponse<User> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", user);
-            return Response.status(Response.Status.OK)
-                    .entity(response)
-                    .build();
-        } else {
-            ApiResponse<User> response = new ApiResponse<>(Response.Status.NOT_FOUND.getStatusCode(), "User not found", null);
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity(response)
-                    .build();
-        }
-    }
+        if (user == null) {
 
-    @POST
-    public Response createUser(User user) {
-        User createdUser = userRepository.save(user);
-        ApiResponse<User> response = new ApiResponse<>(Response.Status.CREATED.getStatusCode(), "User sucessfully created", createdUser);
-        return Response.status(Response.Status.CREATED)
-                .entity(response)
-                .build();
+            return RestResponse.responseBuilder("false", "404", " User with id " + id + " not found", null);
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(user);
+        return RestResponse.responseBuilder("true", "200", "User with id " + id + " found", str);
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateUser(@PathParam("id") long id, User user) {
+    public Response updateUser(@PathParam("id") long id, User user) throws JsonProcessingException {
+        User usr = userRepository.findById(id);
+        if (usr == null) {
+            return RestResponse.responseBuilder("false", "404", " User with id " + id + " not found", null);
+        }
+        if (!user.getId().equals(usr.getId())) {
+            return RestResponse.responseBuilder("false", "404", " User id mismatch", null);
+        }
         userRepository.update(user);
-        ApiResponse<User> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "User sucessfully updated", user);
-        return Response.status(Response.Status.OK)
-                .entity(response)
-                .build();
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(user);
+
+        return RestResponse.responseBuilder("true", "200", "User updated successfully", str);
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteUser(@PathParam("id") long id) {
+        User user = userRepository.findById(id);
+        if (user == null) {
+            return RestResponse.responseBuilder("false", "404", " User with id " + id + " not found", null);
+        }
         userRepository.delete(id);
-        ApiResponse<Object> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "User successfully deleted", null);
-        return Response.status(Response.Status.OK)
-                       .entity(response)
-                       .build();
+        return RestResponse.responseBuilder("true", "200", "User with id " + id + " deleted successfully", null);
     }
 }

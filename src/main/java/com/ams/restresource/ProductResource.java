@@ -6,6 +6,8 @@ package com.ams.restresource;
 
 import com.ams.model.Product;
 import com.ams.repository.ProductRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -25,69 +27,76 @@ import javax.ws.rs.core.Response;
  *
  * @author avni
  */
-
 @RequestScoped
 @Path("/product")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ProductResource implements Serializable{
-    
+public class ProductResource implements Serializable {
+
     @Inject
     ProductRepository productRepository;
-    
+
+    @POST
+    public Response createProduct(Product product) throws JsonProcessingException {
+        productRepository.save(product);
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(product);
+
+        return RestResponse.responseBuilder("true", "201", "Product created successfully", str);
+
+    }
+
     @GET
-    public Response getAllProducts() {
-        List<Product> products = productRepository.findAll();
-        ApiResponse<List<Product>> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", products);
-        return Response.status(Response.Status.OK)
-                .entity(response)
-                .build();
+    public Response getAllProducts() throws JsonProcessingException {
+        List<Product> productList = productRepository.findAll();
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(productList);
+        return RestResponse.responseBuilder("true", "200", "List of products", str);
     }
 
     @GET
     @Path("/{id}")
-    public Response getProductById(@PathParam("id") long id) {
+    public Response getProductById(@PathParam("id") long id) throws JsonProcessingException {
         Product product = productRepository.findById(id);
-        if (product != null) {
-            ApiResponse<Product> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", product);
-            return Response.status(Response.Status.OK)
-                    .entity(response)
-                    .build();
-        } else {
-            ApiResponse<Product> response = new ApiResponse<>(Response.Status.NOT_FOUND.getStatusCode(), "Product not found", null);
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity(response)
-                    .build();
-        }
-    }
+        if (product == null) {
 
-    @POST
-    public Response createProduct(Product product) {
-        Product createdProduct = productRepository.save(product);
-        ApiResponse<Product> response = new ApiResponse<>(Response.Status.CREATED.getStatusCode(), "Product sucessfully created", createdProduct);
-        return Response.status(Response.Status.CREATED)
-                .entity(response)
-                .build();
+            return RestResponse.responseBuilder("false", "404", " User with id " + id + " not found", null);
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(product);
+        return RestResponse.responseBuilder("true", "200", "Product with id " + id + " found", str);
+
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateProduct(@PathParam("id") long id, Product product) {
+    public Response updateProduct(@PathParam("id") long id, Product product) throws JsonProcessingException {
+        Product pr = productRepository.findById(id);
+        if (pr == null) {
+            return RestResponse.responseBuilder("false", "404", " Product with id " + id + " not found", null);
+        }
+        if (!product.getId().equals(pr.getId())) {
+            return RestResponse.responseBuilder("false", "404", "Product id mismatch", null);
+        }
         productRepository.update(product);
-        ApiResponse<Product> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Product sucessfully updated", product);
-        return Response.status(Response.Status.OK)
-                .entity(response)
-                .build();
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(product);
+
+        return RestResponse.responseBuilder("true", "200", "Product updated successfully", str);
+
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteProduct(@PathParam("id") long id) {
+        Product product = productRepository.findById(id);
+        if (product == null) {
+            return RestResponse.responseBuilder("false", "404", " Product with id " + id + " not found", null);
+        }
         productRepository.delete(id);
-        ApiResponse<Product> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Product successfully deleted", null);
-        return Response.status(Response.Status.OK)
-                       .entity(response)
-                       .build();
+        return RestResponse.responseBuilder("true", "200", "Product with id " + id + " deleted successfully", null);
+
     }
-    
+
 }

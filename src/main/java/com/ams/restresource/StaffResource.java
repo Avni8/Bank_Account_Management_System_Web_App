@@ -6,6 +6,8 @@ package com.ams.restresource;
 
 import com.ams.model.Staff;
 import com.ams.repository.StaffRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -29,63 +31,69 @@ import javax.ws.rs.core.Response;
 @Path("/staff")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class StaffResource implements Serializable{
-    
+public class StaffResource implements Serializable {
+
     @Inject
     StaffRepository staffRepository;
 
+    @POST
+    public Response createStaff(Staff staff) throws JsonProcessingException {
+        staffRepository.save(staff);
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(staff);
+
+        return RestResponse.responseBuilder("true", "201", "Staff created successfully", str);
+    }
+
     @GET
-    public Response getAllStaffs() {
-        List<Staff> staffs = staffRepository.findAll();
-        ApiResponse<List<Staff>> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", staffs);
-        return Response.status(Response.Status.OK)
-                .entity(response)
-                .build();
+    public Response getAllStaffs() throws JsonProcessingException {
+        List<Staff> staffList = staffRepository.findAll();
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(staffList);
+        return RestResponse.responseBuilder("true", "200", "List of staffs", str);
     }
 
     @GET
     @Path("/{id}")
-    public Response getStaffById(@PathParam("id") long id) {
+    public Response getStaffById(@PathParam("id") long id) throws JsonProcessingException {
         Staff staff = staffRepository.findById(id);
-        if (staff != null) {
-            ApiResponse<Staff> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Success", staff);
-            return Response.status(Response.Status.OK)
-                    .entity(response)
-                    .build();
-        } else {
-            ApiResponse<Staff> response = new ApiResponse<>(Response.Status.NOT_FOUND.getStatusCode(), "Staff not found", null);
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity(response)
-                    .build();
-        }
-    }
+        if (staff == null) {
 
-    @POST
-    public Response createStaff(Staff staff) {
-        Staff createdStaff = staffRepository.save(staff);
-        ApiResponse<Staff> response = new ApiResponse<>(Response.Status.CREATED.getStatusCode(), "Staff sucessfully created", createdStaff);
-        return Response.status(Response.Status.CREATED)
-                .entity(response)
-                .build();
+            return RestResponse.responseBuilder("false", "404", " Staff with id " + id + " not found", null);
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(staff);
+        return RestResponse.responseBuilder("true", "200", "Staff with id " + id + " found", str);
+
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateStaff(@PathParam("id") long id, Staff staff) {
+    public Response updateStaff(@PathParam("id") long id, Staff staff) throws JsonProcessingException {
+        Staff sf = staffRepository.findById(id);
+        if (sf == null) {
+            return RestResponse.responseBuilder("false", "404", " Staff with id " + id + " not found", null);
+        }
+        if (!staff.getId().equals(sf.getId())) {
+            return RestResponse.responseBuilder("false", "404", " Staff id mismatch", null);
+        }
         staffRepository.update(staff);
-        ApiResponse<Staff> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Staff sucessfully updated", staff);
-        return Response.status(Response.Status.OK)
-                .entity(response)
-                .build();
+        ObjectMapper mapper = new ObjectMapper();
+        String str = mapper.writeValueAsString(staff);
+
+        return RestResponse.responseBuilder("true", "200", " Staff updated successfully", str);
     }
 
     @DELETE
     @Path("/{id}")
-    public Response deleteUser(@PathParam("id") long id) {
+    public Response deleteStaff(@PathParam("id") long id) throws JsonProcessingException {
+        Staff sf = staffRepository.findById(id);
+        if (sf == null) {
+            return RestResponse.responseBuilder("false", "404", " Staff with id " + id + " not found", null);
+        }
         staffRepository.delete(id);
-        ApiResponse<Object> response = new ApiResponse<>(Response.Status.OK.getStatusCode(), "Staff successfully deleted", null);
-        return Response.status(Response.Status.OK)
-                       .entity(response)
-                       .build();
+        return RestResponse.responseBuilder("true", "200", "Staff with id " + id + " deleted successfully", null);
+
     }
 }

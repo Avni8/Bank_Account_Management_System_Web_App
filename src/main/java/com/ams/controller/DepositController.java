@@ -15,6 +15,7 @@ import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
 import com.ams.repository.UserRepository;
+import com.ams.service.TransactionService;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -40,6 +41,7 @@ public class DepositController extends AbstractMessageController {
     private Account account;
     private User selectedUser;
     private Account selectedAccount;
+    private Double amount;
 
 //    private Double depositAmount;
     public User getUser() {
@@ -58,12 +60,9 @@ public class DepositController extends AbstractMessageController {
 
     @Inject
     private AccountRepository accountRepository;
-
+    
     @Inject
-    private UserRepository userRepository;
-
-    @Inject
-    private UserController userController;
+    private TransactionService transactionService;
 
     public List<User> getUserList() {
         return userList;
@@ -104,6 +103,15 @@ public class DepositController extends AbstractMessageController {
     public void setSelectedAccount(Account selectedAccount) {
         this.selectedAccount = selectedAccount;
     }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+    
 
     @PostConstruct
     public void init() {
@@ -173,45 +181,14 @@ public class DepositController extends AbstractMessageController {
     }
 
     public void deposit() {
-
-        if (selectedUser != null) {
-
-//            List<Account> userAccounts = accountRepository.getAccountsByUser(selectedUser);
-            for (Account account : accountList) {
-
-                    if (account.getAmount() != null && account.getAmount() > 0) {
-
-                        AccountMIS accountMIS = new AccountMIS();
-
-                        accountMIS.setSourceAccount(account);
-
-                        accountMIS.setTransactionType(TransactionType.DEPOSIT);
-
-                        AccountTransactionDetails accountTransactionDetails
-                                = new AccountTransactionDetails();
-
-                        accountTransactionDetails.setDate(new Date());
-
-                        accountTransactionDetails.setCreditAmount(account.getAmount());
-
-                        accountTransactionDetails.setUser(selectedUser.getName());
-
-                        accountTransactionDetails.setAccount(account);
-
-                        Double currentBalance = account.getBalance();
-                        Double newBalance = currentBalance + account.getAmount();
-                        account.setBalance(newBalance);
-
-                        accountMISRepository.save(accountMIS);
-                        transactionRepository.save(accountTransactionDetails);
-                        accountRepository.update(account);
-
-                        super.infoMessage("Deposit Successfull");
-                }
-            }
-
-        }
-
+        
+        transactionService.performDeposit(selectedUser, accountList, amount );
+        super.infoMessage("Deposit Successfull");
     }
-
 }
+
+
+
+    
+
+
