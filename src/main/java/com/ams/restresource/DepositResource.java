@@ -12,6 +12,7 @@ import com.ams.model.User;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import com.ams.service.TransactionService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -41,14 +42,32 @@ public class DepositResource {
     AccountRepository accountRepository;
 
     @POST
-    public Response deposit(
-            @QueryParam("userId") Long userId,
-            @QueryParam("accountIds") List<Long> accountIds,
-            @QueryParam("depositAmount") Double amount) {
+    public Response deposit(DepositRequest depositRequest) {
+
+        Long userId = depositRequest.getUserId();
+        List<AccountRequest> accountRequests = depositRequest.getAccountList();
 
         User selectedUser = userRepository.findById(userId);
-        List<Account> accountList = accountRepository.getAccountsByIds(accountIds);
-        transactionService.performDeposit(selectedUser, accountList, amount);
-        return Response.ok("Deposit successful").build();
+        List<Account> accountList = new ArrayList<>();
+
+        for (AccountRequest accountRequest : accountRequests) {
+            Long accountId = accountRequest.getAccountId();
+            Account account = accountRepository.findById(accountId);
+
+            if (account != null) {
+                account.setAmount(accountRequest.getAmount());
+                accountList.add(account);
+            }
+        }
+
+        boolean depositSuccessful = transactionService.performDeposit(selectedUser, accountList);
+
+        if (depositSuccessful) {
+            return Response.ok("Deposit successful").build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Deposit failed")
+                    .build();
+        }
     }
 }

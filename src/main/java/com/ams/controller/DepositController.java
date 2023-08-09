@@ -182,8 +182,14 @@ public class DepositController extends AbstractMessageController {
 
     public void deposit() {
         
-        transactionService.performDeposit(selectedUser, accountList, amount );
+        boolean depositSuccessful = transactionService.performDeposit(selectedUser, accountList);
+        
+        if(depositSuccessful){
         super.infoMessage("Deposit Successfull");
+        }
+        else{
+            super.errorMessage("Deposit Failed");
+        }
     }
 }
 

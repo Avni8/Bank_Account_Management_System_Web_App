@@ -33,17 +33,16 @@ public class TransactionService {
     @Inject
     private AccountRepository accountRepository;
 
-    public void performDeposit(User selectedUser, List<Account> accountList, Double amount) {
-        
-        
+    public boolean performDeposit(User selectedUser, List<Account> accountList) {
+
         if (selectedUser != null) {
+            
+            boolean depositSuccessful = true;
 
 //            List<Account> userAccounts = accountRepository.getAccountsByUser(selectedUser);
             for (Account account : accountList) {
 
-                amount = account.getAmount();
-                
-                if (amount != null && account.getAmount() > 0) {
+                if (account.getAmount() != null && account.getAmount() > 0) {
 
                     AccountMIS accountMIS = new AccountMIS();
 
@@ -56,24 +55,34 @@ public class TransactionService {
 
                     accountTransactionDetails.setDate(new Date());
 
-                    accountTransactionDetails.setCreditAmount(amount);
+                    accountTransactionDetails.setCreditAmount(account.getAmount());
 
                     accountTransactionDetails.setUser(selectedUser.getName());
 
                     accountTransactionDetails.setAccount(account);
 
                     Double currentBalance = account.getBalance();
-                    Double newBalance = currentBalance + amount;
+                    Double newBalance = currentBalance + account.getAmount();
                     account.setBalance(newBalance);
-
-                    accountMISRepository.save(accountMIS);
-                    transactionRepository.save(accountTransactionDetails);
-                    accountRepository.update(account);
+                   
+                    try{
+                        
+                        accountMISRepository.save(accountMIS);
+                        transactionRepository.save(accountTransactionDetails);
+                        accountRepository.update(account);
+                        
+                    }
+                    catch(Exception e){
+                        
+                        depositSuccessful = false;
+                    }
                 }
-                
+
             }
-            
+
+            return depositSuccessful;
         }
-        
+
+        return false;
     }
 }
