@@ -86,13 +86,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             </h:form>
         </p:dialog>
         <h:form id="listForm" >
-            <p:dataTable value="#{userController.userModel}" var="user" paginator="true" rows="10"
+            <p:dataTable value="#{userController.userModel}" var="user" paginator="true" rows="5"
                          paginatorPosition="bottom"  emptyMessage="No records found" 
                          id="userTable"
                          rowKey="#{user.id}"
                          selectionMode="single" selection="#{userController.user}">
                 <f:facet name="header">
-                    User Details
+                    Client Details 
 
                     <div class="button-container" style="position: absolute;
                          top: 55px;

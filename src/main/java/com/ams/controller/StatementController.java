@@ -12,6 +12,7 @@ import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
 import com.ams.repository.UserRepository;
+import com.ams.service.StatementService;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +54,9 @@ public class StatementController extends AbstractMessageController {
 
     @Inject
     private UserController userController;
+    
+    @Inject 
+    private StatementService statementService;
 
     public List<User> getUserList() {
         return userList;
@@ -190,19 +194,25 @@ public class StatementController extends AbstractMessageController {
     }
 
     public void loadTransactionDetails() {
-        if (selectedAccount != null) {
-            balanceView.setAccount(selectedAccount);
-            transactionDetails = transactionRepository.
-                    getTransactionsByAccount(selectedAccount,
-                            balanceView.getFromDate(),
-                            balanceView.getToDate());
-            loadOpeningBalance();
+//        if (selectedAccount != null) {
+//            balanceView.setAccount(selectedAccount);
+//            transactionDetails = transactionRepository.
+//                    getTransactionsByAccount(selectedAccount,
+//                            balanceView.getFromDate(),
+//                            balanceView.getToDate());
+//            loadOpeningBalance();
+//        }
+    
+       if (selectedAccount != null) {
+            transactionDetails = statementService.loadTransactionDetails(balanceView, selectedAccount);
+            balanceView = statementService.loadOpeningBalance(selectedAccount, balanceView);
         }
+        
     }
 
-    public void loadOpeningBalance() {
-        if (selectedAccount != null) {
-            balanceView = transactionRepository.getOpeningBalance(balanceView);
-        }
-    }
+//    public void loadOpeningBalance() {
+//        if (selectedAccount != null) {
+//            balanceView = transactionRepository.getOpeningBalance(balanceView);
+//        }
+//    }
 }

@@ -46,7 +46,7 @@ public class FundTransferResource {
         String sourceAccountNumber = transferRequest.getSourceAccountNumber();
         String destinationAccountNumber = transferRequest.getDestinationAccountNumber();
         Double transferAmount = transferRequest.getTransferAmount();
-
+        
         User fromUser = userRepository.findById(fromUserId);
         User toUser = userRepository.findById(toUserId);
         Account sourceAccount = accountRepository.findByAccNo(sourceAccountNumber);

@@ -177,13 +177,13 @@ public class TransactionService {
                     sourceAccount.setBalance(newSourceAccountBalance);
                     accountRepository.update(sourceAccount);
 
-                    AccountMIS destinationAccountMIS = new AccountMIS();
+//                    AccountMIS destinationAccountMIS = new AccountMIS();
                     AccountTransactionDetails destinationAccountTransactionDetails = new AccountTransactionDetails();
 
-                    destinationAccountMIS.setTransactionType(TransactionType.FUND_TRANSFER);
-                    destinationAccountMIS.setSourceAccount(sourceAccount);
-                    destinationAccountMIS.setDestinationAccount(destinationAccount);
-                    accountMISRepository.save(destinationAccountMIS);
+//                    destinationAccountMIS.setTransactionType(TransactionType.FUND_TRANSFER);
+//                    destinationAccountMIS.setSourceAccount(sourceAccount);
+//                    destinationAccountMIS.setDestinationAccount(destinationAccount);
+//                    accountMISRepository.save(destinationAccountMIS);
 
                     destinationAccountTransactionDetails.setDate(new Date());
                     destinationAccountTransactionDetails.setCreditAmount(transferAmount);
@@ -205,4 +205,5 @@ public class TransactionService {
         }
         return transferSuccessful;
     }
+    
 }

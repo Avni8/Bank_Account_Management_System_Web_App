@@ -49,6 +49,8 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AbstractEntity.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Staff.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AccountTransactionDetails.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/service/StatementService.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/ProductRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/UserConverter.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/StatementResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountConverter.java

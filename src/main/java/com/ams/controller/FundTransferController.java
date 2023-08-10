@@ -300,5 +300,4 @@ public class FundTransferController extends AbstractMessageController {
 
         }
     }
-
 }

@@ -20,6 +20,7 @@ com/ams/controller/ClientAccountController.class
 com/ams/repository/ProductRepository.class
 com/ams/repository/AccountMISRepository.class
 com/ams/repository/AccountTransactionDetailsRepository.class
+com/ams/service/StatementService.class
 com/ams/repository/AccountMISConverter.class
 com/ams/controller/UserBean.class
 com/ams/service/TransactionService.class
@@ -37,6 +38,7 @@ com/ams/controller/ProductController.class
 com/ams/restresource/AccountResource.class
 com/ams/model/Staff.class
 com/ams/restresource/DepositResource.class
+com/ams/restresource/StatementResource.class
 com/ams/security/LoginCheckListener.class
 com/ams/repository/UserRepository.class
 com/ams/controller/AbstractMessageController.class
