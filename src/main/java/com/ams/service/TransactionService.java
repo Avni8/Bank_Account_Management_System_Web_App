@@ -89,4 +89,64 @@ public class TransactionService {
         }
         return depositSuccessful;
     }
+    
+    
+    public boolean performWithdrawal(User selectedUser, List<Account> accountList){
+        
+        boolean withdrawSuccessful = false;
+
+        try {
+
+            if (selectedUser != null) {
+
+//            List<Account> userAccounts = accountRepository.getAccountsByUser(selectedUser);
+                for (Account account : accountList) {
+
+                    if (account.getAmount() != null && account.getAmount() > 0) {
+
+                        AccountMIS accountMIS = new AccountMIS();
+
+                        accountMIS.setSourceAccount(account);
+
+                        accountMIS.setTransactionType(TransactionType.WITHDRAWAL);
+
+                        AccountTransactionDetails accountTransactionDetails
+                                = new AccountTransactionDetails();
+
+                        accountTransactionDetails.setDate(new Date());
+
+                        accountTransactionDetails.setDebitAmount(account.getAmount());
+
+                        accountTransactionDetails.setUser(selectedUser.getName());
+
+                        accountTransactionDetails.setAccount(account);
+
+                        Double currentBalance = account.getBalance();
+                        Double newBalance = currentBalance - account.getAmount();
+                        account.setBalance(newBalance);
+
+                        try {
+
+                            accountMISRepository.save(accountMIS);
+                            transactionRepository.save(accountTransactionDetails);
+                            accountRepository.update(account);
+                            withdrawSuccessful = true;
+
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+                
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return withdrawSuccessful;
+        
+    }
+    
 }

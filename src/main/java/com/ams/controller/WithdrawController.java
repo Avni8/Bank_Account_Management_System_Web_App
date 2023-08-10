@@ -15,6 +15,7 @@ import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
 import com.ams.repository.UserRepository;
+import com.ams.service.TransactionService;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -32,7 +33,7 @@ import javax.faces.context.FacesContext;
  */
 @ViewScoped
 @Named("withdrawController")
-public class WithdrawController extends AbstractMessageController{
+public class WithdrawController extends AbstractMessageController {
 
     private List<User> userList;
     private List<Account> accountList;
@@ -61,9 +62,12 @@ public class WithdrawController extends AbstractMessageController{
 
     @Inject
     private UserRepository userRepository;
-    
+
     @Inject
     private UserController userController;
+    
+    @Inject 
+    private TransactionService transactionService;
 
     public List<User> getUserList() {
         return userList;
@@ -158,53 +162,21 @@ public class WithdrawController extends AbstractMessageController{
         }
 
     }
-    
+
     public void beforeWithdrawal(User user) {
-            this.selectedUser = user != null ? user:null;
-            this.accountList = this.selectedUser != null
-                    ? accountRepository.getAccountsByUser(selectedUser):null;
+        this.selectedUser = user != null ? user : null;
+        this.accountList = this.selectedUser != null
+                ? accountRepository.getAccountsByUser(selectedUser) : null;
     }
 
-
     public void withdraw() {
-        
-        if (selectedUser != null) {
 
-            for (Account account : accountList) {
+        boolean withdrawSuccessful = transactionService.performWithdrawal(selectedUser, accountList);
 
-                if (account.getAmount() != null && account.getAmount() > 0) {
-
-                    AccountMIS accountMIS = new AccountMIS();
-
-                    accountMIS.setSourceAccount(account);
-
-                    accountMIS.setTransactionType(TransactionType.WITHDRAWAL);
-
-                    AccountTransactionDetails accountTransactionDetails =
-                            new AccountTransactionDetails();
-
-                    accountTransactionDetails.setDate(new Date());
-
-                    accountTransactionDetails.setDebitAmount(account.getAmount());
-
-                    accountTransactionDetails.setUser(selectedUser.getName());
-
-                    accountTransactionDetails.setAccount(account);
-
-                    Double currentBalance = account.getBalance();
-                    Double newBalance = currentBalance - account.getAmount();
-                    account.setBalance(newBalance);
-
-                    accountMISRepository.save(accountMIS);
-                    transactionRepository.save(accountTransactionDetails);
-                    accountRepository.update(account);
-                    
-                    super.infoMessage("Amount successfully withdrawn");
-
-                }
-
-            }
-
+        if (withdrawSuccessful) {
+            super.infoMessage("Amount successfully withdrawn");
+        } else {
+            super.errorMessage("Withdrawal failed");
         }
     }
 

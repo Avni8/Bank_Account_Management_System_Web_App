@@ -9,8 +9,8 @@ com/ams/controller/DepositController.class
 com/ams/repository/CrudRepository.class
 com/ams/repository/AccountRepository.class
 com/ams/controller/UserController.class
+com/ams/request/TransactionRequest.class
 com/ams/model/User.class
-com/ams/request/DepositRequest.class
 com/ams/controller/SessionController.class
 com/ams/repository/ProductConverter.class
 com/ams/controller/AccountTransactionDetailsController.class
@@ -44,6 +44,7 @@ com/ams/restresource/RestResponse.class
 com/ams/restresource/RestApplication.class
 com/ams/controller/LogoutController.class
 com/ams/request/AccountRequest.class
+com/ams/restresource/WithdrawResource.class
 com/ams/model/AccountMIS.class
 com/ams/controller/FundTransferController.class
 com/ams/repository/GenericConverter.class

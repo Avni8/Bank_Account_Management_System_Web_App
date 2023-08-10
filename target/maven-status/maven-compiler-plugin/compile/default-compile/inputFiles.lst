@@ -25,9 +25,10 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/TransactionType.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/UserResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/StatementController.java
-/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/request/DepositRequest.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/SessionController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountTransactionDetailsController.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/request/TransactionRequest.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/WithdrawResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/UserController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/RestApplication.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/BalanceView.java

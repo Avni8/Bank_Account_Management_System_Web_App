@@ -10,7 +10,7 @@ import com.ams.repository.AccountRepository;
 import com.ams.service.TransactionService;
 import com.ams.model.User;
 import com.ams.request.AccountRequest;
-import com.ams.request.DepositRequest;
+import com.ams.request.TransactionRequest;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import com.ams.service.TransactionService;
@@ -44,7 +44,7 @@ public class DepositResource {
     AccountRepository accountRepository;
 
     @POST
-    public Response deposit(DepositRequest depositRequest) {
+    public Response deposit(TransactionRequest depositRequest) {
 
         Long userId = depositRequest.getUserId();
         List<AccountRequest> accountRequests = depositRequest.getAccountList();
@@ -59,6 +59,11 @@ public class DepositResource {
             if (account != null) {
                 account.setAmount(accountRequest.getAmount());
                 accountList.add(account);
+            }
+            else{
+                return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Account not found")
+                    .build();
             }
         }
 
