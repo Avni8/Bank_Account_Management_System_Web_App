@@ -9,6 +9,8 @@ import com.ams.repository.UserRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.service.TransactionService;
 import com.ams.model.User;
+import com.ams.request.AccountRequest;
+import com.ams.request.DepositRequest;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import com.ams.service.TransactionService;
@@ -51,8 +53,8 @@ public class DepositResource {
         List<Account> accountList = new ArrayList<>();
 
         for (AccountRequest accountRequest : accountRequests) {
-            Long accountId = accountRequest.getAccountId();
-            Account account = accountRepository.findById(accountId);
+            String accountNo = accountRequest.getAccountNo();
+            Account account = accountRepository.findByAccNo(accountNo);
 
             if (account != null) {
                 account.setAmount(accountRequest.getAmount());

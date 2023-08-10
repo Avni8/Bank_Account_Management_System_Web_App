@@ -10,11 +10,11 @@ com/ams/repository/CrudRepository.class
 com/ams/repository/AccountRepository.class
 com/ams/controller/UserController.class
 com/ams/model/User.class
+com/ams/request/DepositRequest.class
 com/ams/controller/SessionController.class
 com/ams/repository/ProductConverter.class
 com/ams/controller/AccountTransactionDetailsController.class
 com/ams/controller/ClientAccountController.class
-com/ams/restresource/DepositRequest.class
 com/ams/repository/ProductRepository.class
 com/ams/repository/AccountMISRepository.class
 com/ams/repository/AccountTransactionDetailsRepository.class
@@ -25,7 +25,6 @@ com/ams/controller/AbstractController.class
 com/ams/controller/StatementController.class
 com/ams/controller/LoginController.class
 com/ams/model/Account.class
-com/ams/restresource/AccountRequest.class
 com/ams/model/AccountTransactionDetails.class
 com/ams/model/AbstractEntity.class
 com/ams/controller/AccountController.class
@@ -44,6 +43,7 @@ com/ams/controller/StaffController.class
 com/ams/restresource/RestResponse.class
 com/ams/restresource/RestApplication.class
 com/ams/controller/LogoutController.class
+com/ams/request/AccountRequest.class
 com/ams/model/AccountMIS.class
 com/ams/controller/FundTransferController.class
 com/ams/repository/GenericConverter.class

@@ -9,7 +9,9 @@ import com.ams.model.User;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -41,6 +43,20 @@ public class AccountRepository extends AbstractRepository<Account> {
                 .setParameter("accountIds", accountIds)
                 .getResultList();
 
+    }
+    
+    public Account findByAccNo(String accNo){
+        
+        Query query = entityManager.createQuery(
+            "SELECT a FROM Account a WHERE a.accNo = :accNo"
+        );
+        query.setParameter("accNo", accNo);
+        try {
+            return (Account) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // No account found with the given account number
+        }
+        
     }
 
 }

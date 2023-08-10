@@ -35,54 +35,58 @@ public class TransactionService {
 
     public boolean performDeposit(User selectedUser, List<Account> accountList) {
 
-        if (selectedUser != null) {
-            
-            boolean depositSuccessful = true;
+        boolean depositSuccessful = false;
+
+        try {
+
+            if (selectedUser != null) {
 
 //            List<Account> userAccounts = accountRepository.getAccountsByUser(selectedUser);
-            for (Account account : accountList) {
+                for (Account account : accountList) {
 
-                if (account.getAmount() != null && account.getAmount() > 0) {
+                    if (account.getAmount() != null && account.getAmount() > 0) {
 
-                    AccountMIS accountMIS = new AccountMIS();
+                        AccountMIS accountMIS = new AccountMIS();
 
-                    accountMIS.setSourceAccount(account);
+                        accountMIS.setSourceAccount(account);
 
-                    accountMIS.setTransactionType(TransactionType.DEPOSIT);
+                        accountMIS.setTransactionType(TransactionType.DEPOSIT);
 
-                    AccountTransactionDetails accountTransactionDetails
-                            = new AccountTransactionDetails();
+                        AccountTransactionDetails accountTransactionDetails
+                                = new AccountTransactionDetails();
 
-                    accountTransactionDetails.setDate(new Date());
+                        accountTransactionDetails.setDate(new Date());
 
-                    accountTransactionDetails.setCreditAmount(account.getAmount());
+                        accountTransactionDetails.setCreditAmount(account.getAmount());
 
-                    accountTransactionDetails.setUser(selectedUser.getName());
+                        accountTransactionDetails.setUser(selectedUser.getName());
 
-                    accountTransactionDetails.setAccount(account);
+                        accountTransactionDetails.setAccount(account);
 
-                    Double currentBalance = account.getBalance();
-                    Double newBalance = currentBalance + account.getAmount();
-                    account.setBalance(newBalance);
-                   
-                    try{
-                        
-                        accountMISRepository.save(accountMIS);
-                        transactionRepository.save(accountTransactionDetails);
-                        accountRepository.update(account);
-                        
+                        Double currentBalance = account.getBalance();
+                        Double newBalance = currentBalance + account.getAmount();
+                        account.setBalance(newBalance);
+
+                        try {
+
+                            accountMISRepository.save(accountMIS);
+                            transactionRepository.save(accountTransactionDetails);
+                            accountRepository.update(account);
+                            depositSuccessful = true;
+
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+                        }
                     }
-                    catch(Exception e){
-                        
-                        depositSuccessful = false;
-                    }
+
                 }
-
+                
             }
 
-            return depositSuccessful;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        return false;
+        return depositSuccessful;
     }
 }
