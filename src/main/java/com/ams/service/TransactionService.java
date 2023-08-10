@@ -81,7 +81,7 @@ public class TransactionService {
                     }
 
                 }
-                
+
             }
 
         } catch (Exception e) {
@@ -89,10 +89,9 @@ public class TransactionService {
         }
         return depositSuccessful;
     }
-    
-    
-    public boolean performWithdrawal(User selectedUser, List<Account> accountList){
-        
+
+    public boolean performWithdrawal(User selectedUser, List<Account> accountList) {
+
         boolean withdrawSuccessful = false;
 
         try {
@@ -139,14 +138,71 @@ public class TransactionService {
                     }
 
                 }
-                
+
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return withdrawSuccessful;
-        
     }
-    
+
+    public boolean performFundTransfer(User fromUser, User toUser, Account sourceAccount, Account destinationAccount, Double transferAmount) {
+
+        boolean transferSuccessful = false;
+
+        try {
+
+            if (sourceAccount != null && destinationAccount != null && transferAmount != null
+                    && transferAmount > 0) {
+
+                if (sourceAccount.getBalance() > transferAmount) {
+
+                    AccountMIS sourceAccountMIS = new AccountMIS();
+                    AccountTransactionDetails sourceAccountTransactionDetails = new AccountTransactionDetails();
+
+                    sourceAccountMIS.setTransactionType(TransactionType.FUND_TRANSFER);
+                    sourceAccountMIS.setSourceAccount(sourceAccount);
+                    sourceAccountMIS.setDestinationAccount(destinationAccount);
+                    accountMISRepository.save(sourceAccountMIS);
+
+                    sourceAccountTransactionDetails.setDate(new Date());
+                    sourceAccountTransactionDetails.setDebitAmount(transferAmount);
+                    sourceAccountTransactionDetails.setUser(fromUser.getName());
+                    sourceAccountTransactionDetails.setAccount(sourceAccount);
+                    transactionRepository.save(sourceAccountTransactionDetails);
+
+                    Double currentSourceAccountBalance = sourceAccount.getBalance();
+                    Double newSourceAccountBalance = currentSourceAccountBalance - transferAmount;
+                    sourceAccount.setBalance(newSourceAccountBalance);
+                    accountRepository.update(sourceAccount);
+
+                    AccountMIS destinationAccountMIS = new AccountMIS();
+                    AccountTransactionDetails destinationAccountTransactionDetails = new AccountTransactionDetails();
+
+                    destinationAccountMIS.setTransactionType(TransactionType.FUND_TRANSFER);
+                    destinationAccountMIS.setSourceAccount(sourceAccount);
+                    destinationAccountMIS.setDestinationAccount(destinationAccount);
+                    accountMISRepository.save(destinationAccountMIS);
+
+                    destinationAccountTransactionDetails.setDate(new Date());
+                    destinationAccountTransactionDetails.setCreditAmount(transferAmount);
+                    destinationAccountTransactionDetails.setUser(toUser.getName());
+                    destinationAccountTransactionDetails.setAccount(destinationAccount);
+                    transactionRepository.save(destinationAccountTransactionDetails);
+
+                    Double currentDestinationAccountBalance = destinationAccount.getBalance();
+                    Double newDestinationAccountBalance = currentDestinationAccountBalance
+                            + transferAmount;
+                    destinationAccount.setBalance(newDestinationAccountBalance);
+                    accountRepository.update(destinationAccount);
+                    transferSuccessful = true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return transferSuccessful;
+    }
 }

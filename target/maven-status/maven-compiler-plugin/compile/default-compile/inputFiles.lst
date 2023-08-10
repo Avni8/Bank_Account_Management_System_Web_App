@@ -11,6 +11,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/CrudRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/ClientAccountController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/AccountResource.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/FundTransferResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/FundTransferController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/StaffController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/ProductConverter.java
@@ -20,6 +21,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/UserModel.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AbstractMessageController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/LogoutController.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/request/FundTransferRequest.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/GenericConverter.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/TransactionType.java

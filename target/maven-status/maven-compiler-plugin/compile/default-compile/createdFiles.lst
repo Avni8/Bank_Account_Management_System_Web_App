@@ -1,6 +1,8 @@
 com/ams/model/TransactionType.class
+com/ams/request/FundTransferRequest.class
 com/ams/controller/WithdrawController.class
 com/ams/model/BalanceView.class
+com/ams/restresource/FundTransferResource.class
 com/ams/model/Product.class
 com/ams/restresource/StaffResource.class
 com/ams/restresource/ProductResource.class
