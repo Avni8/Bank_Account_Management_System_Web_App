@@ -32,7 +32,7 @@ public class LoginController extends AbstractMessageController {
 
     private String username;
     private String password;
-    private List<Account> userAccounts;
+    
 
     @Inject
     private StaffRepository staffRepository;
@@ -65,14 +65,6 @@ public class LoginController extends AbstractMessageController {
         this.password = password;
     }
 
-    public List<Account> getUserAccounts() {
-        return userAccounts;
-    }
-
-    public void setUserAccounts(List<Account> userAccounts) {
-        this.userAccounts = userAccounts;
-    }
-
     public String staffLogin() {
 
         Staff staff = staffRepository.findByUsername(username);
@@ -85,7 +77,6 @@ public class LoginController extends AbstractMessageController {
                         .getExternalContext().getRequest();
 
                 httpServletRequest.getSession().setAttribute("loggedInStaff", staff);
-//                sessionController.setLoggedInUserName(staff.getUsername());
 
                 userBean.setCurrentStaff(staff);
 

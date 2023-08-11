@@ -86,26 +86,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             </h:form>
         </p:dialog>
         <h:form id="listForm" >
+
+            <p:panel style="border: 1px solid black; padding: 5px; width: 150px; margin-top: 20px;
+                     margin-left: 1%; margin-bottom: 20px;">
+                <h:outputText value="Client Details" style="font-weight: bold; margin-left: 10px"/>
+            </p:panel>
+
+            <div class="button-container" style="position: absolute;
+                 top: 15%;
+                 left: 95.3%;
+                 right: 30%;">
+                <p:commandButton
+                    oncomplete="PF('userDialog').show()"
+                    icon="ui-icon-plusthick" title="Add User" update=":userForm" 
+                    actionListener="#{userController.beforeCreate()}" 
+                    style="height: 30px;"/>
+            </div>
+
+
             <p:dataTable value="#{userController.userModel}" var="user" paginator="true" rows="5"
                          paginatorPosition="bottom"  emptyMessage="No records found" 
                          id="userTable"
                          rowKey="#{user.id}"
                          selectionMode="single" selection="#{userController.user}">
-                <f:facet name="header">
-                    Client Details 
 
-                    <div class="button-container" style="position: absolute;
-                         top: 55px;
-                         left: 95.3%;
-                         right: 0;
-                         margin: 10px;">
-                        <p:commandButton
-                            oncomplete="PF('userDialog').show()"
-                            icon="ui-icon-plusthick" title="Add User" update=":userForm" 
-                            actionListener="#{userController.beforeCreate()}" 
-                            style="height: 30px;"/>
-                    </div>
-                </f:facet>
+
+
+
                 <p:column headerText="Id" width="1" filterBy="#{user.id}" sortBy="#{user.id}">
                     <h:outputText value="#{user.id}" />
                 </p:column>

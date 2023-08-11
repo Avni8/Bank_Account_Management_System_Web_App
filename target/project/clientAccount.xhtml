@@ -15,15 +15,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <ui:define name="content">
 
         <h:form id="userAccountForm" >
+            
+            <p:panel style="border: 1px solid black; padding: 5px; width: 150px; margin-top: 20px;
+                         margin-right: 86%; margin-left: 10px; margin-bottom: 20px;">
+                    <h:outputText value="Account Details" style="font-weight: bold;"/>
+                </p:panel>            
+            
             <p:dataTable value="#{clientAccountController.userAccounts}" var="account"
                          id="userAccountDataTable"
                          selection="#{clientAccountController.selectedAccount}" 
                          selectionMode="single" paginator="true" rows="10"
                          paginatorPosition="bottom"  emptyMessage="No records found"
                          rowKey="#{account.id}">
-                <f:facet name="header">
-                    Account Details
-                </f:facet>
+                
                 <p:column headerText="Account No" width="34" filterBy="#{user.name}" sortBy="#{user.name}">
                     <h:outputText value="#{account.accNo}" />
                 </p:column>

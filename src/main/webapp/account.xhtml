@@ -34,7 +34,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                      converter="productConverter" required="true"
                                      requiredMessage="Product is required!">
                         <f:selectItem itemLabel="Select Product Type" itemValue="" />
-                        <f:selectItems value="#{accountController.productList}" var="product" itemValue="#{product}" itemLabel="#{product.product_type}" />
+                        <f:selectItems value="#{accountController.productList}" var="product" 
+                                       itemValue="#{product}" itemLabel="#{product.product_type}" />
                     </p:selectOneMenu>
 
                     <p:outputLabel id="accLbl" for="accInp" value="Account Number:"/>
@@ -60,30 +61,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:commandButton value="Save Account" action="#{accountController.createUpdate()}"
                                  style="margin-top: 10px;" 
                                  oncomplete="if (args &amp;&amp; !args.validationFailed) 
-                                      PF('accountDialog').hide();"
+                                 PF('accountDialog').hide();"
                                  update=":listForm"/>
             </h:form>
         </p:dialog>
         <center>
             <h:form id="listForm" >
+
+                <p:panel style="border: 1px solid black; padding: 5px; width: 150px; margin-top: 20px;
+                         margin-right: 86%; margin-bottom: 20px;">
+                    <h:outputText value="Account Details" style="font-weight: bold;"/>
+                </p:panel>
+
+                <div class="button-container" style="position: absolute;
+                     top: 15%;
+                     left: 95.3%;
+                     right: 30%;">
+                    <p:commandButton
+                        oncomplete="PF('accountDialog').show()"
+                        icon="ui-icon-plusthick" title="Add Account" update=":accountForm" 
+                        actionListener="#{accountController.beforeCreate()}" 
+                        style="height: 30px;"/>
+
+                </div>
+
+
                 <p:dataTable value="#{accountController.accountList}" var="account" paginator="true" 
                              rows="10"
                              paginatorPosition="bottom">
 
-                    <f:facet name="header">
-                        Account Details
-                        <div class="button-container" style="position: absolute;
-                             top: 55px;
-                             left: 95.3%;
-                             right: 0;
-                             margin: 10px;">
-                            <p:commandButton
-                                oncomplete="PF('accountDialog').show()"
-                                icon="ui-icon-plusthick" title="Add Account" update=":accountForm" 
-                                actionListener="#{accountController.beforeCreate()}" 
-                                style="height: 30px;"/>
-                        </div>
-                    </f:facet>
                     <p:column headerText="Id" width="1" filterBy="#{account.id}" sortBy="#{account.id}">
                         <h:outputText value="#{account.id}" />
                     </p:column>
@@ -114,7 +120,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:column headerText="Initial Balance" width="30">
                         <h:outputText value="#{account.initialBalance}" />
                     </p:column>
-                    
+
                     <p:column headerText="Balance" width="30">
                         <h:outputText value="#{account.balance}" />
                     </p:column> 

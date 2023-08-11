@@ -16,10 +16,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
             <h:panelGrid columns="2" style="margin-bottom: 20px">
 
-                <p:outputLabel value="Account:" />
+                <p:outputLabel value="Account:" id="accountLbl" for="accountInp" />
 
                 <p:selectOneMenu value="#{statementController.selectedAccount}" 
-                                 converter="accountConverter">
+                                 converter="accountConverter"
+                                 id="accountInp" required="true"
+                                 >
 
                     <f:selectItem itemLabel="#{clientAccountController.selectedAccount.accNo}-
                                   #{clientAccountController.selectedAccount.product.product_type}" 
@@ -30,15 +32,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                    #{account.product.product_type}" />
                 </p:selectOneMenu> 
 
-                <p:outputLabel value="From:" />
-                <p:calendar value="#{statementController.balanceView.fromDate}" showOn="button" pattern="MM/dd/yyyy" />
+                <p:outputLabel value="From:" id="fromDateLbl" for="fromDateInp" />
+                <p:calendar value="#{statementController.balanceView.fromDate}" 
+                            showOn="button" pattern="MM/dd/yyyy" id="fromDateInp" required="true" />
 
-                <p:outputLabel value="To:" />
-                <p:calendar value="#{statementController.balanceView.toDate}" showOn="button" pattern="MM/dd/yyyy" />
+                <p:outputLabel value="To:" id="toDateLbl" for="toDateInp" />
+                <p:calendar value="#{statementController.balanceView.toDate}"
+                            showOn="button" pattern="MM/dd/yyyy" id="toDateInp" required="true" />
 
                 <p:commandButton value="Show Details" 
                                  action="#{statementController.loadTransactionDetails()}" 
-                                 update="transactionPG" />
+                                 update="transactionPG"
+                                 style="margin-top: 7px;"/>
 
             </h:panelGrid>
             <h:panelGroup id="transactionPG" >

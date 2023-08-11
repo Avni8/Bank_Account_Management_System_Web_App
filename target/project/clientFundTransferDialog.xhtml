@@ -15,10 +15,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
             <h:panelGrid columns="2" style="margin-bottom: 20px">
 
-                <p:outputLabel value="Source Account:" />
+                <p:outputLabel value="Source Account:" id="sourceLbl" for="source"/>
 
                 <p:selectOneMenu value="#{fundtransferController.sourceAccount}" 
-                                 converter="accountConverter" id="source">
+                                 converter="accountConverter" id="source" required="true">
 
                     <f:selectItem itemLabel="#{clientAccountController.selectedAccount.accNo}-
                                   #{clientAccountController.selectedAccount.product.product_type}
@@ -31,9 +31,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                    (Balance: #{account.balance})" />
                 </p:selectOneMenu> 
 
-                <p:outputLabel value="To User:" />
+                <p:outputLabel value="To User:" id="toUserLbl" for="toUserMenu" />
                 <p:selectOneMenu value="#{fundtransferController.toUser}" converter="userConverter"
-                                 id="toUserMenu">
+                                 id="toUserMenu" required="true">
 
                     <f:selectItem itemLabel="Select User" itemValue="#{null}" />
                     <f:selectItems value="#{accountController.userList}" 
@@ -43,9 +43,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 </p:selectOneMenu>
 
-                <p:outputLabel value="Destination Account:" />
+                <p:outputLabel value="Destination Account:" id="destinationLbl" for="destination"/>
                 <p:selectOneMenu value="#{fundtransferController.destinationAccount}" 
-                                 converter="accountConverter" id="destination">
+                                 converter="accountConverter" id="destination" required="true">
 
                     <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
                     <f:selectItems value="#{fundtransferController.destinationAccountList}" 
@@ -56,15 +56,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                    (Balance: #{account.balance})" />
                 </p:selectOneMenu>
 
-                <p:outputLabel value="Amount:" />
-                <p:inputNumber value="#{fundtransferController.transferAmount}"/>
+                <p:outputLabel value="Amount:" id="amountLbl" for="amountInp"/>
+                <p:inputNumber value="#{fundtransferController.transferAmount}"
+                               id="amountInp" required="true"/>
 
             </h:panelGrid>
             <p:commandButton value="Transfer"
                              oncomplete="PF('clientFundTransferDialog').hide()" 
                              update=":userAccountForm"
                              action="#{fundtransferController.clientTransferFunds()}"
-                             style="margin-top: 20px"/>
+                             style="margin-top: 5px;"/>
         </h:form>  
     </p:dialog>
 </ui:composition>

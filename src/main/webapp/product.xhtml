@@ -36,25 +36,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
         <center>
             <h:form id="listForm" >
-                <p:dataTable value="#{productController.productList}" var="product" paginator="true" 
-                             rows="10"
-                             paginatorPosition="bottom">
 
+                <p:panel style="border: 1px solid black; padding: 5px; width: 150px; margin-top: 20px;
+                         margin-right: 86%; margin-bottom: 20px;">
+                    <h:outputText value="Product Details" style="font-weight: bold;"/>
+                </p:panel>
 
-                    <f:facet name="header">
-                        Product Details
-                        <div class="button-container" style="position: absolute;
-                             top: 55px;
-                             left: 95.3%;
-                             right: 0;
-                             margin: 10px;">
-                            <p:commandButton
+                <div class="button-container" style="position: absolute;
+                     top: 15%;
+                     left: 95.3%;
+                     right: 30%;">
+                    
+                    <p:commandButton
                                 oncomplete="PF('productDialog').show()"
                                 icon="ui-icon-plusthick" title="Add Product" update=":productForm" 
                                 actionListener="#{productController.beforeCreate()}" 
                                 style="height: 30px;"/>
-                        </div>
-                    </f:facet>
+                    
+                </div>
+
+                <p:dataTable value="#{productController.productList}" var="product" paginator="true" 
+                             rows="10"
+                             paginatorPosition="bottom">
+
                     <p:column headerText="Id">
                         <h:outputText value="#{product.id}" />
                     </p:column>

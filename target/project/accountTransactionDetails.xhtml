@@ -44,26 +44,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         </p:dialog>
         <center>
             <h:form id="listForm" >
+
+                <p:panel style="border: 1px solid black; padding: 5px; width: 180px; margin-top: 20px;
+                         margin-left: 5px; margin-right: 84%; margin-bottom: 20px;">
+                    <h:outputText value="Transaction Details" style="font-weight: bold;"/>
+                </p:panel>
+
+                <div class="button-container" style="position: absolute;
+                     top: 15%;
+                     left: 95.3%;
+                     right: 30%;">
+                    <p:commandButton
+                        oncomplete="PF('transactionDialog').show()"
+                        icon="ui-icon-plusthick" title="Add Transaction" 
+                        update=":transactionForm" 
+                        actionListener="#{transactionController.beforeCreate()}" 
+                        style="height: 30px;"/>
+
+                </div>
+
                 <p:dataTable value="#{transactionController.transactionList}" var="transaction" paginator="true" 
                              rows="10"
                              paginatorPosition="bottom">
 
-
-                    <f:facet name="header">
-                        Transaction Details
-                        <div class="button-container" style="position: absolute;
-                             top: 55px;
-                             left: 95.3%;
-                             right: 0;
-                             margin: 10px;">
-                            <p:commandButton
-                                oncomplete="PF('transactionDialog').show()"
-                                icon="ui-icon-plusthick" title="Add Transaction" 
-                                update=":transactionForm" 
-                                actionListener="#{transactionController.beforeCreate()}" 
-                                style="height: 30px;"/>
-                        </div>
-                    </f:facet>
                     <p:column headerText="Id">
                         <h:outputText value="#{transaction.id}" />
                     </p:column>

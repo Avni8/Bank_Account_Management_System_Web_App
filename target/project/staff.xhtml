@@ -65,25 +65,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         </p:dialog>
         <center>
             <h:form id="listForm" >
+
+                <p:panel style="border: 1px solid black; padding: 5px; width: 150px; margin-top: 20px;
+                         margin-right: 86%; margin-bottom: 20px;">
+                    <h:outputText value="Staff Details" style="font-weight: bold;"/>
+                </p:panel>
+
+                <div class="button-container" style="position: absolute;
+                     top: 15%;
+                     left: 95.3%;
+                     right: 30%;">
+
+                    <p:commandButton
+                        oncomplete="PF('staffDialog').show()"
+                        icon="ui-icon-plusthick" title="Add Staff" update=":staffForm" 
+                        actionListener="#{staffController.beforeCreate()}" 
+                        style="height: 30px;"/>
+                </div>
+                
                 <p:dataTable value="#{staffController.staffList}" var="staff" paginator="true" 
                              rows="10"
                              paginatorPosition="bottom" >
 
-
-                    <f:facet name="header">
-                        Staff Details
-                        <div class="button-container" style="position: absolute;
-                             top: 55px;
-                             left: 95.3%;
-                             right: 0;
-                             margin: 10px;">
-                            <p:commandButton
-                                oncomplete="PF('staffDialog').show()"
-                                icon="ui-icon-plusthick" title="Add Staff" update=":staffForm" 
-                                actionListener="#{staffController.beforeCreate()}" 
-                                style="height: 30px;"/>
-                        </div>
-                    </f:facet>
                     <p:column headerText="Id" width="1" filterBy="#{staff.id}" sortBy="#{staff.id}">
                         <h:outputText value="#{staff.id}" />
                     </p:column>
