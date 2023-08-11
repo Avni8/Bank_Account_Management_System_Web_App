@@ -120,8 +120,6 @@ public class LoginController extends AbstractMessageController {
 
                 httpServletRequest.getSession().setAttribute("loggedInClient", user);
 
-//                sessionController.setLoggedInUserName(user.getName());
-                
                 userBean.setCurrentUser(user);
 
                 try {
