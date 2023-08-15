@@ -6,6 +6,7 @@ package com.ams.controller;
 
 import com.ams.model.Account;
 import com.ams.model.Staff;
+import com.ams.service.LoginService;
 import com.ams.model.User;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.StaffRepository;
@@ -32,7 +33,6 @@ public class LoginController extends AbstractMessageController {
 
     private String username;
     private String password;
-    
 
     @Inject
     private StaffRepository staffRepository;
@@ -48,6 +48,9 @@ public class LoginController extends AbstractMessageController {
 
     @Inject
     private UserBean userBean;
+
+    @Inject
+    private LoginService loginService;
 
     public String getUsername() {
         return username;
@@ -65,39 +68,59 @@ public class LoginController extends AbstractMessageController {
         this.password = password;
     }
 
-    public String staffLogin() {
+    public void staffLogin() {
 
-        Staff staff = staffRepository.findByUsername(username);
+        Staff returnedStaff = loginService.login(username, password);
 
-        if (staff != null) {
+        if (returnedStaff != null) {
 
-            if (BCrypt.checkpw(password, staff.getPassword())) {
+            HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
+                    .getExternalContext().getRequest();
+            httpServletRequest.getSession().setAttribute("loggedInStaff", returnedStaff);
+            
 
-                HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
-                        .getExternalContext().getRequest();
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
 
-                httpServletRequest.getSession().setAttribute("loggedInStaff", staff);
-
-                userBean.setCurrentStaff(staff);
-
-                try {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
-                } catch (IOException e) {
-
-                    e.printStackTrace();
-                }
-
-            } else {
-
-                errorMessage("Invalid Credentials. Try Again!");
             }
         } else {
+
             errorMessage("Invalid Credentials. Try Again!");
         }
-
-        return null;
     }
 
+//        Staff staff = staffRepository.findByUsername(username);
+//
+//        if (staff != null) {
+//
+//            if (BCrypt.checkpw(password, staff.getPassword())) {
+//
+//                HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
+//                        .getExternalContext().getRequest();
+//
+//                httpServletRequest.getSession().setAttribute("loggedInStaff", staff);
+//
+//                userBean.setCurrentStaff(staff);
+//
+//                try {
+//                    FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
+//                } catch (IOException e) {
+//
+//                    e.printStackTrace();
+//                }
+//
+//            } else {
+//
+//                errorMessage("Invalid Credentials. Try Again!");
+//            }
+//        } else {
+//            errorMessage("Invalid Credentials. Try Again!");
+//        }
+//
+//        return null;
+    // }
     public String clientLogin() {
 
         User user = userRepository.findByUsername(username);
@@ -129,5 +152,4 @@ public class LoginController extends AbstractMessageController {
         }
         return null;
     }
-
 }

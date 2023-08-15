@@ -65,8 +65,8 @@ public class WithdrawController extends AbstractMessageController {
 
     @Inject
     private UserController userController;
-    
-    @Inject 
+
+    @Inject
     private TransactionService transactionService;
 
     public List<User> getUserList() {
@@ -171,13 +171,20 @@ public class WithdrawController extends AbstractMessageController {
 
     public void withdraw() {
 
-        boolean withdrawSuccessful = transactionService.performWithdrawal(selectedUser, accountList);
+        if (selectedAccount.getBalance() < selectedAccount.getAmount()) {
 
-        if (withdrawSuccessful) {
-            super.infoMessage("Amount successfully withdrawn");
+            super.warningMessage("Insufficient Funds: The withdraw amount "
+                    + "exceeds the available balance");
         } else {
-            super.errorMessage("Withdrawal failed");
+            boolean withdrawSuccessful = transactionService.performWithdrawal(selectedUser, accountList);
+
+            if (withdrawSuccessful) {
+                super.infoMessage("Amount successfully withdrawn");
+            } else {
+                super.errorMessage("Withdrawal failed");
+            }
         }
+
     }
 
 }

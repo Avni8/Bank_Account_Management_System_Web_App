@@ -60,7 +60,7 @@ public class DepositController extends AbstractMessageController {
 
     @Inject
     private AccountRepository accountRepository;
-    
+
     @Inject
     private TransactionService transactionService;
 
@@ -111,7 +111,6 @@ public class DepositController extends AbstractMessageController {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-    
 
     @PostConstruct
     public void init() {
@@ -181,20 +180,13 @@ public class DepositController extends AbstractMessageController {
     }
 
     public void deposit() {
-        
+
         boolean depositSuccessful = transactionService.performDeposit(selectedUser, accountList);
-        
-        if(depositSuccessful){
-        super.infoMessage("Deposit Successfull");
-        }
-        else{
+
+        if (depositSuccessful) {
+            super.infoMessage("Deposit Successfull");
+        } else {
             super.errorMessage("Deposit Failed");
         }
     }
 }
-
-
-
-    
-
-

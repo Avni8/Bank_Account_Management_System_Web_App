@@ -9,6 +9,7 @@ com/ams/restresource/ProductResource.class
 com/ams/model/UserModel.class
 com/ams/controller/DepositController.class
 com/ams/repository/CrudRepository.class
+com/ams/request/LoginRequest.class
 com/ams/repository/AccountRepository.class
 com/ams/controller/UserController.class
 com/ams/request/TransactionRequest.class
@@ -38,6 +39,8 @@ com/ams/repository/StaffRepository.class
 com/ams/repository/UserConverter.class
 com/ams/controller/ProductController.class
 com/ams/restresource/AccountResource.class
+com/ams/restresource/LoginResource.class
+com/ams/jwt/GenerateJWTToken.class
 com/ams/model/Staff.class
 com/ams/restresource/DepositResource.class
 com/ams/restresource/StatementResource.class
@@ -53,6 +56,7 @@ com/ams/request/AccountRequest.class
 com/ams/restresource/WithdrawResource.class
 com/ams/model/AccountMIS.class
 com/ams/controller/FundTransferController.class
+com/ams/service/LoginService.class
 com/ams/repository/GenericConverter.class
 com/ams/repository/AccountConverter.class
 com/ams/controller/AccountMISController.class
