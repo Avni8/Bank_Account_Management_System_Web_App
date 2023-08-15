@@ -4,31 +4,57 @@
  */
 package com.ams.jwt;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import java.io.IOException;
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.ext.Provider;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import java.util.Date;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 /**
  *
  * @author avni
  */
 @Provider
-@Priority(Priorities.AUTHENTICATION)
-public class JWTAuthorizationFilter implements ContainerRequestFilter{
+//@Priority(Priorities.AUTHENTICATION)
+@Priority(2)
+public class JWTAuthorizationFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
-        
-        
-        
-        
+
+        String requestPath = requestContext.getUriInfo().getPath();
+        String authHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
+
+        if (requestPath.equals("/login")) {
+            return;
+        } else {
+
+            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                String token = authHeader.substring("Bearer".length()).trim();
+                try {
+                    String userId = JwtUtils.verifyToken(token);
+                    if (userId != null) {
+                        return;
+                    } else {
+                        requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+                    }
+                } catch (Exception e) {
+                    requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+                    return;
+                }
+            }
+        }
+        requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
     }
-    
-    
-    
-    
-    
+
 }
+

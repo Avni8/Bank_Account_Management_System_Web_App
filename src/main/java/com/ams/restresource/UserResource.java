@@ -5,7 +5,6 @@
 package com.ams.restresource;
 
 import com.ams.repository.UserRepository;
-import com.ams.jwt.Protected;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -48,7 +47,6 @@ public class UserResource implements Serializable {
     }
 
     @GET
-    @Protected
     public Response getAllUsers() throws JsonProcessingException {
         List<User> userList = userRepository.findAll();
         ObjectMapper mapper = new ObjectMapper();

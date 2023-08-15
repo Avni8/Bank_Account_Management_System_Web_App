@@ -37,11 +37,6 @@ public class LoginService {
 
             if (BCrypt.checkpw(password, staff.getPassword())) {
 
-//                HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
-//                        .getExternalContext().getRequest();
-//
-//                httpServletRequest.getSession().setAttribute("loggedInStaff", staff);
-//
                 userBean.setCurrentStaff(staff);
 
                 loginStaff = staff;

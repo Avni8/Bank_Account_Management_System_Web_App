@@ -19,16 +19,23 @@
                 margin-top: 16%;
             }
 
-            .background-image {
+            .background-container {
+                background-image: url("#{resource['images/bankbackgroundimg.jpg']}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                margin: 0; 
+                padding: 0;
             }
 
-            </style>    
-        </h:head>
+        </style>    
+    </h:head>
 
-        <h:body>    
-            <h:form class="my-navbar">    
-                <ui:include src="staffTopMenu.xhtml" />  
-            </h:form>
+    <h:body>    
+        <h:form class="my-navbar">    
+            <ui:include src="staffTopMenu.xhtml" />  
+        </h:form>
+        <div>
             <ui:insert name="content"/>
-        </h:body>
-    </html>
+        </div>
+    </h:body>
+</html>

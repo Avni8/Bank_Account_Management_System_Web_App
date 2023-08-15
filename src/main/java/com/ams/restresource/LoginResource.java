@@ -7,7 +7,7 @@ package com.ams.restresource;
 import com.ams.model.Staff;
 import com.ams.request.LoginRequest;
 import com.ams.service.LoginService;
-import com.ams.jwt.GenerateJWTToken;
+import com.ams.jwt.JwtUtils;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -36,12 +36,10 @@ public class LoginResource {
     @Context
     private HttpServletRequest httpServletRequest;
     
-    private GenerateJWTToken generateJWTToken;
-    
     @POST
     public Response login(LoginRequest loginRequest) {
 
-        generateJWTToken = new GenerateJWTToken();
+        JwtUtils jwtUtils = new JwtUtils();
         
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
@@ -52,7 +50,7 @@ public class LoginResource {
 
             httpServletRequest.getSession().setAttribute("loggedInStaff", returnedStaff);
             String jwtToken;
-            jwtToken = generateJWTToken.generateToken(returnedStaff);
+            jwtToken = jwtUtils.generateJwtToken(returnedStaff.getUsername());
             return RestResponse.responseBuilder(
                     "true", "200", "Login Successful",jwtToken);
         } else {

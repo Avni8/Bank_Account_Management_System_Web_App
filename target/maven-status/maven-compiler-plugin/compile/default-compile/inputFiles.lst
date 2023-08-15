@@ -31,6 +31,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/UserResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/StatementController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/SessionController.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/jwt/JwtUtils.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountTransactionDetailsController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/request/TransactionRequest.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/WithdrawResource.java
@@ -54,9 +55,9 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/response/StatementResponse.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Staff.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AccountTransactionDetails.java
-/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/jwt/GenerateJWTToken.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/service/StatementService.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/ProductRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/UserConverter.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/StatementResource.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/jwt/JWTAuthorizationFilter.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountConverter.java

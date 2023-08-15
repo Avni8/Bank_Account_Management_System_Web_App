@@ -4,6 +4,7 @@ com/ams/controller/WithdrawController.class
 com/ams/model/BalanceView.class
 com/ams/restresource/FundTransferResource.class
 com/ams/model/Product.class
+com/ams/jwt/JwtUtils.class
 com/ams/restresource/StaffResource.class
 com/ams/restresource/ProductResource.class
 com/ams/model/UserModel.class
@@ -31,6 +32,7 @@ com/ams/controller/AbstractController.class
 com/ams/controller/StatementController.class
 com/ams/controller/LoginController.class
 com/ams/model/Account.class
+com/ams/jwt/JWTAuthorizationFilter.class
 com/ams/model/AccountTransactionDetails.class
 com/ams/model/AbstractEntity.class
 com/ams/controller/AccountController.class
@@ -40,7 +42,6 @@ com/ams/repository/UserConverter.class
 com/ams/controller/ProductController.class
 com/ams/restresource/AccountResource.class
 com/ams/restresource/LoginResource.class
-com/ams/jwt/GenerateJWTToken.class
 com/ams/model/Staff.class
 com/ams/restresource/DepositResource.class
 com/ams/restresource/StatementResource.class
