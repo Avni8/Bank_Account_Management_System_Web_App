@@ -12,6 +12,9 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.mindrot.jbcrypt.BCrypt;
@@ -33,8 +36,12 @@ public class User extends AbstractEntity {
     
     private String email;
     private String product_type;
-    private String username;
-    private String password;
+//    private String username;
+//    private String password;
+    
+    @OneToOne
+    @JoinColumn(name = "accountholder_id")
+    private AccountHolder accountHolder;
 
     public String getName() {
         return name;
@@ -60,17 +67,13 @@ public class User extends AbstractEntity {
         return product_type;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getTableName() {
-        return "user";
-    }
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public String getPassword() {
+//        return password;
+//    }
 
     public void setName(String name) {
         this.name = name;
@@ -96,14 +99,22 @@ public class User extends AbstractEntity {
         this.product_type = product_type;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+//    }
+
+    public AccountHolder getAccountHolder() {
+        return accountHolder;
     }
 
-    public void setPassword(String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+    public void setAccountHolder(AccountHolder accountHolder) {
+        this.accountHolder = accountHolder;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

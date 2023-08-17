@@ -16,7 +16,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 
                 <p:outputLabel value="User:" />
                 <p:selectOneMenu value="#{depositController.selectedUser}" 
-                                 converter="userConverter" id="userMenu">
+                                 converter="userConverter" id="userMenu" filter="true" 
+                                 filterMatchMode="startsWith">
                     <f:selectItem itemLabel="#{userController.selectedUser.name}"
                                   itemValue="#{userController.selectedUser}" />
                     <f:selectItems value="#{accountController.userList}" 

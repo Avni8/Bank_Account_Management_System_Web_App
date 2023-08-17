@@ -6,6 +6,7 @@ package com.ams.controller;
 
 import com.ams.model.AbstractEntity;
 import com.ams.model.Account;
+import com.ams.model.AccountHolder;
 import com.ams.repository.UserRepository;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import javax.inject.Named;
 import com.ams.model.User;
 import com.ams.model.UserModel;
 import com.ams.repository.AbstractRepository;
+import com.ams.repository.AccountHolderRepository;
 import com.ams.repository.AccountRepository;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,6 +37,8 @@ public class UserController extends AbstractController {
     private List<User> userList;
     private List<Account> accountList;
     private UserModel userModel;
+    private AccountHolder accountHolder;
+    private List<AccountHolder> accountHolderList;
 
     @Inject
     private UserRepository userRepository;
@@ -42,6 +46,8 @@ public class UserController extends AbstractController {
     @Inject
     private AccountRepository accountRepository;
 
+    @Inject
+    private AccountHolderRepository accountHolderRepository;
     
     public User getSelectedUser() {
         return selectedUser;
@@ -75,6 +81,26 @@ public class UserController extends AbstractController {
         this.user = user;
     }
 
+    public AccountHolder getAccountHolder() {
+        return accountHolder;
+    }
+
+    public void setAccountHolder(AccountHolder accountHolder) {
+        this.accountHolder = accountHolder;
+    }
+
+    public List<AccountHolder> getAccountHolderList() {
+        if (accountHolderList == null) {
+            accountHolderList = accountHolderRepository.getAccountHoldersByRoleName("Client");
+        }
+        return accountHolderList;
+    }
+
+    public void setAccountHolderList(List<AccountHolder> accountHolderList) {
+        this.accountHolderList = accountHolderList;
+    }
+
+    
     @PostConstruct
     public void init() {
         user = new User();

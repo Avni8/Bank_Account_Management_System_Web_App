@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+
+<ui:composition template="staffTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                >
+
+    <ui:param name="pageTitle" value="User Account Details" />
+
+    <ui:define name="content">
+        <p:dialog header="Create a new user account" widgetVar="accountHolderDialog" modal="true" 
+                  resizable="true">
+            <h:form id="accountHolderForm" styleClass="no-border-input">
+                <h:panelGrid  columns="2" cellpadding="5"> 
+
+                    <p:outputLabel id="usernameLbl" for="usernameInp"  value="Username:" />
+                    <p:inputText id="usernameInp" value="#{accountHolderController.accountHolder.username}" 
+                                 required="true" requiredMessage="Username is required!"/>
+
+                    <p:outputLabel id="passwordLbl" for="passwordInp" value="Password:" />
+                    <p:inputText id="passwordInp" value="#{accountHolderController.accountHolder.password}" 
+                                 required="true" requiredMessage="Password is required!"/>
+
+                    <p:outputLabel id="roleLbl" for="roleInp" value="Role:" />
+                    <p:selectOneMenu id="roleInp" value="#{accountHolderController.accountHolder.role}" 
+                                     converter="roleConverter" required="true" 
+                                     requiredMessage="Role is required!"
+                                     filter="true" filterMatchMode="startsWith">
+                        <f:selectItem itemLabel="Select Role" itemValue="" />
+                        <f:selectItems value="#{accountHolderController.roleList}" 
+                                       var="role" itemValue="#{role}" itemLabel="#{role.roleName}" />
+                    </p:selectOneMenu>
+
+                </h:panelGrid>
+                <p:commandButton value="Register user account" action="#{accountHolderController.
+                                                                         createUserAccount()}"
+                                 style="margin-top: 10px;" 
+                                 oncomplete="if (args &amp;&amp; !args.validationFailed) 
+                                 PF('accountHolderDialog').hide();"
+                                 update=":accountHolderListForm"/>
+            </h:form>
+        </p:dialog>
+        <center>
+            <h:form id="accountHolderListForm" >
+
+                <p:panel style="border: 1px solid black; padding: 5px; width: 180px; margin-top: 20px;
+                         margin-right: 83.7%; margin-bottom: 20px;">
+                    <h:outputText value="User Account Details" style="font-weight: bold;"/>
+                </p:panel>
+
+                <div class="button-container" style="position: absolute;
+                     top: 15%;
+                     left: 95.3%;
+                     right: 30%;">
+
+                    <p:commandButton
+                        oncomplete="PF('accountHolderDialog').show()"
+                        icon="ui-icon-plusthick" title="Add Staff" update=":accountHolderForm" 
+                        actionListener="#{accountHolderController.beforeCreate()}" 
+                        style="height: 30px;"/>
+                </div>
+
+                <p:dataTable value="#{accountHolderController.accountHolderList}" var="accountHolder" paginator="true" 
+                             rows="10"
+                             paginatorPosition="bottom" >
+
+                    <p:column headerText="Id" width="1" filterBy="#{accountHolder.id}" sortBy="#{accountHolder.id}">
+                        <h:outputText value="#{accountHolder.id}" />
+                    </p:column>
+
+                    <p:column headerText="Username" width="15" filterBy="#{accountHolder.username}">
+                        <h:outputText value="#{accountHolder.username}" />
+                    </p:column> 
+                    
+                    <p:column headerText="Role" width="15" filterBy="#{accountHolder.role}">
+                        <h:outputText value="#{accountHolder.role.roleName}" />
+                    </p:column> 
+
+                    <p:column headerText="Action" width="12">
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         icon="ui-icon-pencil" oncomplete="PF('accountHolderDialog').show()"
+                                         title="Edit User Account Details" update=":accountHolderForm" 
+                                         action="#{accountHolderController.beforeUpdate(accountHolder)}" />
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         title="Delete User Account"
+                                         icon="ui-icon-trash"
+                                         actionListener="#{accountHolderController.delete(accountHolder)}"
+                                         update=":accountHolderListForm"
+                                         />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </center>    
+    </ui:define>
+</ui:composition>
+
+

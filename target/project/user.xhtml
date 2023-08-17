@@ -17,6 +17,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <p:dialog header="Create a new user" widgetVar="userDialog" modal="true" resizable="true">
             <h:form id="userForm">
                 <h:panelGrid columns="2" cellpadding="5">
+                    
+                    
+                    <p:outputLabel id="accountHolderLbl" for="accountHolderInp" value="User Account:"/>
+                    <p:selectOneMenu id="accountHolderInp" value="#{userController.user.accountHolder}" 
+                                     converter="accountHolderConverter" required="true" 
+                                     requiredMessage="User Account is required!"
+                                     filter="true" filterMatchMode="startsWith">
+                        <f:selectItem itemLabel="Select User Account" itemValue="" />
+                        <f:selectItems value="#{userController.accountHolderList}" 
+                                       var="accountHolder" itemValue="#{accountHolder}" 
+                                       itemLabel="#{accountHolder.username}" />
+                    </p:selectOneMenu>
+
+                    
+                    
                     <p:outputLabel id="nameLbl" for="nameInp" value="Name:"/>
                     <p:inputText id="nameInp" value="#{userController.user.name}" 
                                  required="true" requiredMessage="Name is required!">
@@ -55,27 +70,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:outputLabel id="productLbl" for="productInp" value="Product Type:"/>
                     <p:selectOneMenu id="productInp" value="#{userController.user.product_type}" 
                                      required="true" 
-                                     requiredMessage="Product Type is required!">
+                                     requiredMessage="Product Type is required!"
+                                     filter="true" filterMatchMode="startsWith">
                         <f:selectItem itemLabel="Select Product Type" itemValue="" />
                         <f:selectItem itemLabel="Savings" itemValue="Savings" />
                         <f:selectItem itemLabel="Fixed Deposit" itemValue="Fixed Deposit" />
                         <p:ajax event="keyup"/> 
                     </p:selectOneMenu>
 
-                    <p:outputLabel id="usernameLbl" for="usernameInp" value="Username:"/>
-                    <p:inputText id="usernameInp" value="#{userController.user.username}" 
-                                 required="true" requiredMessage="Username is required!">
-                        <f:validateLength minimum="5"/>
-                        <p:ajax event="keyup"/> 
-                    </p:inputText>
-
-                    <p:outputLabel id="passwordLbl" for="passwordInp" value="Password:"/>
-                    <p:inputText id="passwordInp" value="#{userController.user.password}" 
-                                 required="true" requiredMessage="Password is required!">
-                        <f:validateLength minimum="8" maximum="8"/>
-                        <p:ajax event="keyup"/> 
-                    </p:inputText>
-
+                    
                 </h:panelGrid>
                 <p:commandButton value="Save User" action="#{userController.createUpdate()}"
                                  style="margin-top: 10px;" 
@@ -103,15 +106,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     style="height: 30px;"/>
             </div>
 
-
             <p:dataTable value="#{userController.userModel}" var="user" paginator="true" rows="5"
                          paginatorPosition="bottom"  emptyMessage="No records found" 
                          id="userTable"
                          rowKey="#{user.id}"
                          selectionMode="single" selection="#{userController.user}">
-
-
-
 
                 <p:column headerText="Id" width="1" filterBy="#{user.id}" sortBy="#{user.id}">
                     <h:outputText value="#{user.id}" />
@@ -141,8 +140,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <h:outputText value="#{user.product_type}" />
                 </p:column>
 
-                <p:column headerText="Username" width="16" filterBy="#{user.username}">
-                    <h:outputText value="#{user.username}" />
+                <p:column headerText="Username" width="16" filterBy="#{user}">
+                    <h:outputText value="#{user.accountHolder.username}" />
                 </p:column> 
 
                 <p:column headerText="Action" width="12">

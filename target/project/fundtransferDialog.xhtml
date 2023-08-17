@@ -18,7 +18,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:outputLabel value="From User:" />
 
                 <p:selectOneMenu value="#{fundtransferController.fromUser}" 
-                                 converter="userConverter" id="fromUserMenu">
+                                 converter="userConverter" id="fromUserMenu"
+                                 filter="true" filterMatchMode="startsWith">
                     
                     <f:selectItem itemLabel="#{userController.selectedUser.name}"
                                   itemValue="#{userController.selectedUser}" />
@@ -34,7 +35,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:outputLabel value="Source Account:" />
 
                 <p:selectOneMenu value="#{fundtransferController.sourceAccount}" 
-                                 converter="accountConverter" id="source">
+                                 converter="accountConverter" id="source" filter="true" 
+                                 filterMatchMode="startsWith">
 
                     <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
                    
@@ -47,7 +49,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:outputLabel value="To User:" />
 
                 <p:selectOneMenu value="#{fundtransferController.toUser}" converter="userConverter"
-                                 id="toUserMenu">
+                                 id="toUserMenu" filter="true" filterMatchMode="startsWith">
 
                     <f:selectItem itemLabel="Select User" itemValue="#{null}" />
                     <f:selectItems value="#{accountController.userList}" 
@@ -58,9 +60,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Destination Account:" />
-
                 <p:selectOneMenu value="#{fundtransferController.destinationAccount}" 
-                                 converter="accountConverter" id="destination">
+                                 converter="accountConverter" id="destination" filter="true" 
+                                 filterMatchMode="startsWith">
 
                     <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
                     <f:selectItems value="#{fundtransferController.destinationAccountList}" 

@@ -127,7 +127,7 @@ public class LoginController extends AbstractMessageController {
 
         if (user != null) {
 
-            if (BCrypt.checkpw(password, user.getPassword())) {
+            if (BCrypt.checkpw(password, user.getAccountHolder().getPassword())) {
 
                 HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
                         .getExternalContext().getRequest();

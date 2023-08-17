@@ -23,7 +23,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:outputLabel id="userLbl" for="userInp" value="User:"/>
                     <p:selectOneMenu id="userInp" value="#{accountController.account.user}" 
                                      converter="userConverter" required="true" 
-                                     requiredMessage="User is required!">
+                                     requiredMessage="User is required!"
+                                     filter="true" filterMatchMode="startsWith">
                         <f:selectItem itemLabel="Select User" itemValue="" />
                         <f:selectItems value="#{accountController.userList}" 
                                        var="user" itemValue="#{user}" itemLabel="#{user.name}" />
@@ -32,7 +33,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:outputLabel id="productLbl" for="productInp" value="Product:"/>
                     <p:selectOneMenu id="productInp" value="#{accountController.account.product}" 
                                      converter="productConverter" required="true"
-                                     requiredMessage="Product is required!">
+                                     requiredMessage="Product is required!"
+                                     filter="true" filterMatchMode="startsWith">
                         <f:selectItem itemLabel="Select Product Type" itemValue="" />
                         <f:selectItems value="#{accountController.productList}" var="product" 
                                        itemValue="#{product}" itemLabel="#{product.product_type}" />
@@ -68,9 +70,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <center>
             <h:form id="listForm" >
 
-                <p:panel style="border: 1px solid black; padding: 5px; width: 150px; margin-top: 20px;
-                         margin-right: 86%; margin-bottom: 20px;">
-                    <h:outputText value="Account Details" style="font-weight: bold;"/>
+                <p:panel style="border: 1px solid black; padding: 5px; width: 190px; margin-top: 20px;
+                         margin-right: 83%; margin-bottom: 20px;">
+                    <h:outputText value="Bank Account Details" style="font-weight: bold;"/>
                 </p:panel>
 
                 <div class="button-container" style="position: absolute;

@@ -44,6 +44,7 @@ public class DepositController extends AbstractMessageController {
     private Double amount;
 
 //    private Double depositAmount;
+    
     public User getUser() {
         return user;
     }

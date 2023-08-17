@@ -45,6 +45,5 @@ public class JwtUtils {
         } catch (ExpiredJwtException | MalformedJwtException | UnsupportedJwtException | SignatureException | IllegalArgumentException e) {
             return null;
         }
-
     }
 }
