@@ -15,16 +15,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
             <h:panelGrid columns="2" style="margin-bottom: 20px">
 
-                <p:outputLabel value="From User:" />
+                <p:outputLabel value="From Client:" />
 
                 <p:selectOneMenu value="#{fundtransferController.fromUser}" 
-                                 converter="userConverter" id="fromUserMenu"
+                                 converter="clientConverter" id="fromUserMenu"
                                  filter="true" filterMatchMode="startsWith">
                     
-                    <f:selectItem itemLabel="#{userController.selectedUser.name}"
-                                  itemValue="#{userController.selectedUser}" />
-                    <f:selectItems value="#{accountController.userList}" 
-                                   var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                    <f:selectItem itemLabel="#{clientController.selectedClient.name}"
+                                  itemValue="#{clientController.selectedClient}" />
+                    <f:selectItems value="#{accountController.clientList}" 
+                                   var="client" itemValue="#{client}" itemLabel="#{client.name}" />
 
 
                     <p:ajax listener="#{fundtransferController.retrieveSourceAccounts()}" 
@@ -46,14 +46,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                    (Balance: #{account.balance})" />
                 </p:selectOneMenu>
 
-                <p:outputLabel value="To User:" />
+                <p:outputLabel value="To Client:" />
 
-                <p:selectOneMenu value="#{fundtransferController.toUser}" converter="userConverter"
+                <p:selectOneMenu value="#{fundtransferController.toUser}" converter="clientConverter"
                                  id="toUserMenu" filter="true" filterMatchMode="startsWith">
 
-                    <f:selectItem itemLabel="Select User" itemValue="#{null}" />
-                    <f:selectItems value="#{accountController.userList}" 
-                                   var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                    <f:selectItem itemLabel="Select Client" itemValue="#{null}" />
+                    <f:selectItems value="#{accountController.clientList}" 
+                                   var="client" itemValue="#{client}" itemLabel="#{client.name}" />
                     <p:ajax listener="#{fundtransferController.retrieveDestinationAccounts()}" 
                             update="toUserMenu destination" />
 

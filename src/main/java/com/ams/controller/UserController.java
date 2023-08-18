@@ -5,24 +5,16 @@
 package com.ams.controller;
 
 import com.ams.model.AbstractEntity;
-import com.ams.model.Account;
-import com.ams.model.AccountHolder;
+import com.ams.model.User;
+import com.ams.model.UserRole;
+import com.ams.repository.AbstractRepository;
 import com.ams.repository.UserRepository;
+import com.ams.repository.UserRoleRepository;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import com.ams.model.User;
-import com.ams.model.UserModel;
-import com.ams.repository.AbstractRepository;
-import com.ams.repository.AccountHolderRepository;
-import com.ams.repository.AccountRepository;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -33,36 +25,21 @@ import org.primefaces.event.SelectEvent;
 public class UserController extends AbstractController {
 
     private User user;
-    private User selectedUser;
     private List<User> userList;
-    private List<Account> accountList;
-    private UserModel userModel;
-    private AccountHolder accountHolder;
-    private List<AccountHolder> accountHolderList;
+    private List<UserRole> roleList;
 
     @Inject
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Inject
-    private AccountRepository accountRepository;
+    UserRoleRepository roleRepository;
 
-    @Inject
-    private AccountHolderRepository accountHolderRepository;
-    
-    public User getSelectedUser() {
-        return selectedUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setSelectedUser(User selectedUser) {
-        this.selectedUser = selectedUser;
-    }
-    
-    public List<Account> getAccountList() {
-        return accountList;
-    }
-
-    public void setAccountList(List<Account> accountList) {
-        this.accountList = accountList;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<User> getUserList() {
@@ -73,45 +50,20 @@ public class UserController extends AbstractController {
         this.userList = userList;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public AccountHolder getAccountHolder() {
-        return accountHolder;
-    }
-
-    public void setAccountHolder(AccountHolder accountHolder) {
-        this.accountHolder = accountHolder;
-    }
-
-    public List<AccountHolder> getAccountHolderList() {
-        if (accountHolderList == null) {
-            accountHolderList = accountHolderRepository.getAccountHoldersByRoleName("Client");
-        }
-        return accountHolderList;
-    }
-
-    public void setAccountHolderList(List<AccountHolder> accountHolderList) {
-        this.accountHolderList = accountHolderList;
-    }
-
-    
     @PostConstruct
     public void init() {
-        user = new User();
         loadData();
-//        userModel = new UserModel(userList);
     }
 
-    @Override
-    public void loadData() {
-        userList = userRepository.findAll();
-        userModel = new UserModel(userList);
+    public List<UserRole> getRoleList() {
+        if (roleList == null) {
+            roleList = roleRepository.findAll();
+        }
+        return roleList;
+    }
+
+    public void setRoleList(List<UserRole> roleList) {
+        this.roleList = roleList;
     }
 
     public void beforeCreate() {
@@ -122,18 +74,34 @@ public class UserController extends AbstractController {
         this.user = user;
     }
 
-    public void retrieveAccounts() {
-        if (user != null) {
-            // Call your repository or service to fetch the list of accounts based on the selected user
-            selectedUser=user;
-            accountList = accountRepository.getAccountsByUser(selectedUser);
-        } else {
-            accountList = null;
-        }
+    @Override
+    public void loadData() {
+
+        userList = userRepository.findAll();
+
     }
 
-    public UserModel getUserModel() {
-        return userModel;
+//    public void createUserAccount() {
+//
+//        if (!isUsernameTaken()) {
+//            super.createUpdate();
+//            }
+//            //else {
+////            super.warningMessage("Username already taken");
+////
+////        }
+//
+//    }
+
+    public boolean isUsernameTaken() {
+
+        User accHolder = new User();
+        accHolder = userRepository.findByUsername(user.getUsername());
+        if (accHolder != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -145,7 +113,5 @@ public class UserController extends AbstractController {
     public AbstractEntity getEntity() {
         return user;
     }
-    
+
 }
-
-

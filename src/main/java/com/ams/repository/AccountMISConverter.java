@@ -16,7 +16,7 @@ import javax.inject.Inject;
 @FacesConverter(value = "accountMISConverter", forClass = AccountMIS.class)
 public class AccountMISConverter extends GenericConverter {
     @Inject
-    private UserRepository repo;
+    private ClientRepository repo;
 
     @Override
     protected AbstractRepository getRepo() {

@@ -7,11 +7,11 @@ package com.ams.controller;
 import com.ams.model.Account;
 import com.ams.model.AccountTransactionDetails;
 import com.ams.model.BalanceView;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
-import com.ams.repository.UserRepository;
+import com.ams.repository.ClientRepository;
 import com.ams.service.StatementService;
 import java.io.Serializable;
 import java.util.Date;
@@ -31,12 +31,12 @@ import javax.persistence.TemporalType;
 @Named("statementController")
 public class StatementController extends AbstractMessageController {
 
-    private List<User> userList;
+    private List<Client> clientList;
     private List<Account> accountList;
     private List<AccountTransactionDetails> transactionDetails;
-    private User user;
+    private Client client;
     private Account account;
-    private User selectedUser;
+    private Client selectedClient;
     private Account selectedAccount;
     private BalanceView balanceView;
 
@@ -50,20 +50,36 @@ public class StatementController extends AbstractMessageController {
     private AccountRepository accountRepository;
 
     @Inject
-    private UserRepository userRepository;
+    private ClientRepository userRepository;
 
     @Inject
-    private UserController userController;
-    
-    @Inject 
+    private ClientController userController;
+
+    @Inject
     private StatementService statementService;
 
-    public List<User> getUserList() {
-        return userList;
+    public List<Client> getClientList() {
+        return clientList;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setClientList(List<Client> clientList) {
+        this.clientList = clientList;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Client getSelectedClient() {
+        return selectedClient;
+    }
+
+    public void setSelectedClient(Client selectedClient) {
+        this.selectedClient = selectedClient;
     }
 
     public List<Account> getAccountList() {
@@ -74,28 +90,12 @@ public class StatementController extends AbstractMessageController {
         this.accountList = accountList;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Account getAccount() {
         return account;
     }
 
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    public User getSelectedUser() {
-        return selectedUser;
-    }
-
-    public void setSelectedUser(User selectedUser) {
-        this.selectedUser = selectedUser;
     }
 
     public Account getSelectedAccount() {
@@ -124,7 +124,7 @@ public class StatementController extends AbstractMessageController {
 
     @PostConstruct
     public void init() {
-//        selectedUser = new User();
+//        selectedClient = new Client();
 //        selectedAccount = new Account();
         balanceView = new BalanceView();
         loadData();
@@ -137,7 +137,7 @@ public class StatementController extends AbstractMessageController {
 
     public void beforeCreate() {
         selectedAccount = new Account();
-        selectedUser = new User();
+        selectedClient = new Client();
 
     }
 
@@ -161,36 +161,36 @@ public class StatementController extends AbstractMessageController {
     }
 
     public void retrieveAccounts() {
-        if (selectedUser != null) {
+        if (selectedClient != null) {
             // Call your repository or service to fetch the list of accounts based on the selected user
-            accountList = accountRepository.getAccountsByUser(selectedUser);
+            accountList = accountRepository.getAccountsByUser(selectedClient);
         } else {
             accountList = null;
         }
 
     }
 
-    public void beforeViewStatement(User user) {
-        selectedUser = new User();
+    public void beforeViewStatement(Client user) {
+        selectedClient = new Client();
         selectedAccount = new Account();
         balanceView.setFromDate(null);
         balanceView.setToDate(null);
         balanceView.setBalanceUptoFromDate(null);
         transactionDetails = null;
-        this.selectedUser = user != null ? user : null;
-        this.accountList = this.selectedUser != null
-                ? accountRepository.getAccountsByUser(selectedUser) : null;
+        this.selectedClient = user != null ? user : null;
+        this.accountList = this.selectedClient != null
+                ? accountRepository.getAccountsByUser(selectedClient) : null;
     }
 
-    public void beforeClientViewStatement(User user) {
-        
+    public void beforeClientViewStatement(Client user) {
+
 //        selectedAccount = new Account();
         this.selectedAccount = account != null ? account : null;
         balanceView.setFromDate(null);
         balanceView.setToDate(null);
         balanceView.setBalanceUptoFromDate(null);
         transactionDetails = null;
-        
+
     }
 
     public void loadTransactionDetails() {
@@ -202,12 +202,12 @@ public class StatementController extends AbstractMessageController {
 //                            balanceView.getToDate());
 //            loadOpeningBalance();
 //        }
-    
-       if (selectedAccount != null) {
+
+        if (selectedAccount != null) {
             transactionDetails = statementService.loadTransactionDetails(balanceView, selectedAccount);
             balanceView = statementService.loadOpeningBalance(selectedAccount, balanceView);
         }
-        
+
     }
 
 //    public void loadOpeningBalance() {

@@ -4,126 +4,81 @@
  */
 package com.ams.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Table;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
  * @author avni
  */
+
 @Entity
 @Table(name = "user")
 public class User extends AbstractEntity {
-
-    private String name;
-    private String address;
-    private String contact;
     
-    @Temporal(TemporalType.DATE)
-    private Date dob;
+    private String username;
+    private String password;
     
-    private String email;
-    private String product_type;
-//    private String username;
-//    private String password;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private UserRole role;
     
-    @OneToOne
-    @JoinColumn(name = "accountholder_id")
-    private AccountHolder accountHolder;
-
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public String getAddress() {
-        return address;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getContact() {
-        return contact;
+    public String getPassword() {
+        return password;
     }
 
-    public Date getDob() {
-        return dob;
+    public void setPassword(String password) {
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
-    public String getEmail() {
-        return email;
+    public UserRole getRole() {
+        return role;
     }
 
-    public String getProduct_type() {
-        return product_type;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }
-
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.username);
+        hash = 71 * hash + Objects.hashCode(this.password);
+        hash = 71 * hash + Objects.hashCode(this.role);
+        return hash;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setProduct_type(String product_type) {
-        this.product_type = product_type;
-    }
-
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-//    }
-
-    public AccountHolder getAccountHolder() {
-        return accountHolder;
-    }
-
-    public void setAccountHolder(AccountHolder accountHolder) {
-        this.accountHolder = accountHolder;
-    }
-    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (obj == null) {
             return false;
         }
-        User otherUser = (User) obj;
-        return Objects.equals(this.getId(), otherUser.getId());
-    } 
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.username, other.username)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        return Objects.equals(this.role, other.role);
+    }
+    
 }

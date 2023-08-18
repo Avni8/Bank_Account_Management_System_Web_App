@@ -8,24 +8,24 @@ import java.util.List;
 import org.primefaces.model.SelectableDataModel;
 import javax.faces.model.ListDataModel;
 
-public class UserModel extends ListDataModel<User> implements SelectableDataModel<User> {
+public class UserModel extends ListDataModel<Client> implements SelectableDataModel<Client> {
 
     public UserModel() {
     }
 
-    public UserModel(List<User> userList) {
+    public UserModel(List<Client> userList) {
         super(userList);
     }
 
     @Override
-    public Object getRowKey(User user) {
+    public Object getRowKey(Client user) {
         return user.getId();
     }
 
     @Override
-    public User getRowData(String rowKey) {
-        List<User> userList = (List<User>) getWrappedData();
-        for (User user : userList) {
+    public Client getRowData(String rowKey) {
+        List<Client> userList = (List<Client>) getWrappedData();
+        for (Client user : userList) {
             if (user.getId().equals(rowKey)) {
                 return user;
             }

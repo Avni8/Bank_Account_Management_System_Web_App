@@ -5,8 +5,8 @@
 package com.ams.repository;
 
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
 import com.ams.model.User;
+import javax.inject.Inject;
 
 /**
  *
@@ -17,9 +17,10 @@ public class UserConverter extends GenericConverter {
 
     @Inject
     private UserRepository repo;
-
+    
     @Override
     protected AbstractRepository getRepo() {
+        
         return repo;
     }
 }

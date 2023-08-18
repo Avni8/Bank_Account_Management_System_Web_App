@@ -5,9 +5,9 @@
 package com.ams.restresource;
 
 import com.ams.model.Account;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.repository.AccountRepository;
-import com.ams.repository.UserRepository;
+import com.ams.repository.ClientRepository;
 import com.ams.request.AccountRequest;
 import com.ams.request.TransactionRequest;
 import com.ams.service.TransactionService;
@@ -36,7 +36,7 @@ public class WithdrawResource {
     TransactionService transactionService;
 
     @Inject
-    UserRepository userRepository;
+    ClientRepository userRepository;
 
     @Inject
     AccountRepository accountRepository;
@@ -47,7 +47,7 @@ public class WithdrawResource {
         Long userId = withdrawRequest.getUserId();
         List<AccountRequest> accountRequests = withdrawRequest.getAccountList();
 
-        User selectedUser = userRepository.findById(userId);
+        Client selectedUser = userRepository.findById(userId);
         List<Account> accountList = new ArrayList<>();
 
         for (AccountRequest accountRequest : accountRequests) {

@@ -5,22 +5,21 @@
 package com.ams.repository;
 
 import javax.faces.convert.FacesConverter;
-import com.ams.model.AccountHolder;
 import javax.inject.Inject;
+import com.ams.model.Client;
 
 /**
  *
  * @author avni
  */
-@FacesConverter(value = "accountHolderConverter", forClass = AccountHolder.class)
-public class AccountHolderConverter extends GenericConverter {
+@FacesConverter(value = "clientConverter", forClass = Client.class)
+public class ClientConverter extends GenericConverter {
 
     @Inject
-    private AccountHolderRepository repo;
-    
+    private ClientRepository repo;
+
     @Override
     protected AbstractRepository getRepo() {
-        
         return repo;
     }
 }

@@ -5,7 +5,7 @@
 package com.ams.restresource;
 
 import com.ams.model.Account;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.repository.AccountRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -9,12 +9,12 @@ import com.ams.model.Account;
 import com.ams.model.AccountMIS;
 import com.ams.model.AccountTransactionDetails;
 import com.ams.model.TransactionType;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
-import com.ams.repository.UserRepository;
+import com.ams.repository.ClientRepository;
 import com.ams.service.TransactionService;
 import java.io.Serializable;
 import java.util.List;
@@ -35,22 +35,13 @@ import javax.faces.context.FacesContext;
 @Named("withdrawController")
 public class WithdrawController extends AbstractMessageController {
 
-    private List<User> userList;
+    private List<Client> clientList;
     private List<Account> accountList;
-    private User user;
+    private Client client;
     private Account account;
-    private User selectedUser;
+    private Client selectedClient;
     private Account selectedAccount;
     private Double withdrawAmount;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     @Inject
     private AccountMISRepository accountMISRepository;
 
@@ -61,20 +52,36 @@ public class WithdrawController extends AbstractMessageController {
     private AccountRepository accountRepository;
 
     @Inject
-    private UserRepository userRepository;
+    private ClientRepository userRepository;
 
     @Inject
-    private UserController userController;
+    private ClientController userController;
 
     @Inject
     private TransactionService transactionService;
 
-    public List<User> getUserList() {
-        return userList;
+    public List<Client> getClientList() {
+        return clientList;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setClientList(List<Client> clientList) {
+        this.clientList = clientList;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Client getSelectedClient() {
+        return selectedClient;
+    }
+
+    public void setSelectedClient(Client selectedClient) {
+        this.selectedClient = selectedClient;
     }
 
     public List<Account> getAccountList() {
@@ -83,14 +90,6 @@ public class WithdrawController extends AbstractMessageController {
 
     public void setAccountList(List<Account> accountList) {
         this.accountList = accountList;
-    }
-
-    public User getSelectedUser() {
-        return selectedUser;
-    }
-
-    public void setSelectedUser(User selectedUser) {
-        this.selectedUser = selectedUser;
     }
 
     public Account getAccount() {
@@ -130,7 +129,7 @@ public class WithdrawController extends AbstractMessageController {
 
     public void beforeCreate() {
         selectedAccount = new Account();
-        selectedUser = new User();
+        selectedClient = new Client();
 
     }
 
@@ -154,29 +153,30 @@ public class WithdrawController extends AbstractMessageController {
     }
 
     public void retrieveAccounts() {
-        if (selectedUser != null) {
+        if (selectedClient != null) {
             // Call your repository or service to fetch the list of accounts based on the selected user
-            accountList = accountRepository.getAccountsByUser(selectedUser);
+            accountList = accountRepository.getAccountsByUser(selectedClient);
         } else {
             accountList = null;
         }
 
     }
 
-    public void beforeWithdrawal(User user) {
-        this.selectedUser = user != null ? user : null;
-        this.accountList = this.selectedUser != null
-                ? accountRepository.getAccountsByUser(selectedUser) : null;
+    public void beforeWithdrawal(Client client) {
+        this.selectedClient = client != null ? client : null;
+        this.accountList = this.selectedClient != null
+                ? accountRepository.getAccountsByUser(selectedClient) : null;
     }
 
     public void withdraw() {
 
-        if (selectedAccount.getBalance() < selectedAccount.getAmount()) {
-
-            super.warningMessage("Insufficient Funds: The withdraw amount "
-                    + "exceeds the available balance");
-        } else {
-            boolean withdrawSuccessful = transactionService.performWithdrawal(selectedUser, accountList);
+//        boolean lowBalance = transactionService.checkBalance(accountList);
+//        if (lowBalance) {
+//
+//            super.warningMessage("Insufficient Funds: The withdraw amount "
+//                    + "exceeds the available balance");
+//        } else {
+            boolean withdrawSuccessful = transactionService.performWithdrawal(selectedClient, accountList);
 
             if (withdrawSuccessful) {
                 super.infoMessage("Amount successfully withdrawn");
@@ -185,6 +185,6 @@ public class WithdrawController extends AbstractMessageController {
             }
         }
 
-    }
+//    }
 
 }

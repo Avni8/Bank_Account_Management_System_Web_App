@@ -8,6 +8,7 @@ import com.ams.model.Staff;
 import com.ams.request.LoginRequest;
 import com.ams.service.LoginService;
 import com.ams.jwt.JwtUtils;
+import com.ams.model.User;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +45,7 @@ public class LoginResource {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
 
-        Staff returnedStaff = loginService.login(username, password);
+        User returnedStaff = loginService.login(username, password);
 
         if (returnedStaff != null) {
 

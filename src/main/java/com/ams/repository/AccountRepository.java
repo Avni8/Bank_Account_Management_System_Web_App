@@ -5,7 +5,7 @@
 package com.ams.repository;
 
 import com.ams.model.Account;
-import com.ams.model.User;
+import com.ams.model.Client;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -32,9 +32,9 @@ public class AccountRepository extends AbstractRepository<Account> {
         return entityManager;
     }
 
-    public List<Account> getAccountsByUser(User user) {
-        return entityManager.createQuery("SELECT a FROM Account a WHERE a.user = :user", Account.class)
-                .setParameter("user", user)
+    public List<Account> getAccountsByUser(Client client) {
+        return entityManager.createQuery("SELECT a FROM Account a WHERE a.client = :client", Account.class)
+                .setParameter("client", client)
                 .getResultList();
     }
 

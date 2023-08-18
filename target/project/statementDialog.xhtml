@@ -16,15 +16,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
 
             <h:panelGrid style="margin-bottom: 20px; margin-right: 59%;">
-                <p:outputLabel value="User:" />
+                <p:outputLabel value="Client:" />
 
-                <p:selectOneMenu value="#{statementController.selectedUser}" 
-                                 converter="userConverter" id="userMenu">
+                <p:selectOneMenu value="#{statementController.selectedClient}" 
+                                 converter="clientConverter" id="userMenu" 
+                                 filter="true" filterMatchMode="startsWith">
 
-                    <f:selectItem itemLabel="#{userController.selectedUser.name}"
-                                  itemValue="#{userController.selectedUser}" />
-                    <f:selectItems value="#{accountController.userList}" 
-                                   var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                    <f:selectItem itemLabel="#{clientController.selectedClient.name}"
+                                  itemValue="#{clientController.selectedClient}" />
+                    <f:selectItems value="#{accountController.clientList}" 
+                                   var="client" itemValue="#{client}" itemLabel="#{client.name}" />
 
                     <p:ajax listener="#{statementController.retrieveAccounts()}" 
                             update="userMenu account" />
@@ -33,7 +34,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:outputLabel value="Account:" />
 
                 <p:selectOneMenu value="#{statementController.selectedAccount}" 
-                                 converter="accountConverter" id="account">
+                                 converter="accountConverter" id="account"
+                                 filter="true" filterMatchMode="startsWith">
 
                     <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
 

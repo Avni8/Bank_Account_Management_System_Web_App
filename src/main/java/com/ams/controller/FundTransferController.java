@@ -9,12 +9,12 @@ import com.ams.model.Account;
 import com.ams.model.AccountMIS;
 import com.ams.model.AccountTransactionDetails;
 import com.ams.model.TransactionType;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
-import com.ams.repository.UserRepository;
+import com.ams.repository.ClientRepository;
 import com.ams.service.TransactionService;
 import java.io.Serializable;
 import java.util.Date;
@@ -35,13 +35,13 @@ import org.primefaces.component.messages.Messages;
 @Named("fundtransferController")
 public class FundTransferController extends AbstractMessageController {
 
-    private List<User> userList;
+    private List<Client> clientList;
     private List<Account> sourceAccountList;
     private List<Account> destinationAccountList;
     private Account account;
-    private User selectedUser;
-    private User fromUser;
-    private User toUser;
+    private Client selectedClient;
+    private Client fromUser;
+    private Client toUser;
     private Account sourceAccount;
     private Account destinationAccount;
     private Double transferAmount;
@@ -57,34 +57,43 @@ public class FundTransferController extends AbstractMessageController {
     private AccountRepository accountRepository;
 
     @Inject
-    private UserRepository userRepository;
+    private ClientRepository userRepository;
 
     @Inject
     private TransactionService transactionService;
 
-    public User getFromUser() {
+    public Client getFromUser() {
         return fromUser;
     }
 
-    public void setFromUser(User fromUser) {
+    public void setFromUser(Client fromUser) {
         this.fromUser = fromUser;
     }
 
-    public User getToUser() {
+    public Client getToUser() {
         return toUser;
     }
 
-    public void setToUser(User toUser) {
+    public void setToUser(Client toUser) {
         this.toUser = toUser;
     }
 
-    public List<User> getUserList() {
-        return userList;
+    public List<Client> getClientList() {
+        return clientList;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setClientList(List<Client> clientList) {
+        this.clientList = clientList;
     }
+
+    public Client getSelectedClient() {
+        return selectedClient;
+    }
+
+    public void setSelectedClient(Client selectedClient) {
+        this.selectedClient = selectedClient;
+    }
+
 
     public List<Account> getSourceAccountList() {
         return sourceAccountList;
@@ -100,14 +109,6 @@ public class FundTransferController extends AbstractMessageController {
 
     public void setDestinationAccountList(List<Account> destinationAccountList) {
         this.destinationAccountList = destinationAccountList;
-    }
-
-    public User getSelectedUser() {
-        return selectedUser;
-    }
-
-    public void setSelectedUser(User selectedUser) {
-        this.selectedUser = selectedUser;
     }
 
     public Account getAccount() {
@@ -162,7 +163,7 @@ public class FundTransferController extends AbstractMessageController {
 //    }
 //    public void beforeCreate() {
 //        selectedAccount = new Account();
-//        selectedUser = new User();
+//        selectedUser = new Client();
 //
 //    }
 //
@@ -201,9 +202,9 @@ public class FundTransferController extends AbstractMessageController {
         }
     }
 
-    public void beforeTransfer(User user) {
+    public void beforeTransfer(Client user) {
 
-        this.toUser = new User();
+        this.toUser = new Client();
         this.transferAmount = null;
         this.destinationAccount = null;
         this.fromUser = user != null ? user : null;
@@ -211,9 +212,9 @@ public class FundTransferController extends AbstractMessageController {
                 ? accountRepository.getAccountsByUser(fromUser) : null;
     }
 
-    public void beforeClientTransfer(User user) {
+    public void beforeClientTransfer(Client user) {
         this.sourceAccount = account != null ? account : null;
-        this.toUser = new User();
+        this.toUser = new Client();
         this.transferAmount = null;
         this.destinationAccount = null;
     }
@@ -243,7 +244,7 @@ public class FundTransferController extends AbstractMessageController {
             super.warningMessage("Source and Destination accounts should be different!");
         } else {
             
-            User fromUser = (User) FacesContext.getCurrentInstance()
+            Client fromUser = (Client) FacesContext.getCurrentInstance()
                             .getExternalContext().getSessionMap().get("loggedInClient");
 
             boolean transferSuccessful = transactionService.performFundTransfer(fromUser, toUser, sourceAccount, destinationAccount, transferAmount);

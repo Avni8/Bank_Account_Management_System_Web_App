@@ -39,8 +39,8 @@ public class Account extends AbstractEntity {
    
 //    (cascade = CascadeType.ALL)
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -112,15 +112,15 @@ public class Account extends AbstractEntity {
         this.initialBalance = initialBalance;
         this.balance = initialBalance;
     }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
     
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Product getProduct() {
         return product;
     }

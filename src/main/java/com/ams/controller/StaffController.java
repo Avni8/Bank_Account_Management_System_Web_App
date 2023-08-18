@@ -3,10 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.ams.controller;
+
 import com.ams.model.AbstractEntity;
 import com.ams.repository.StaffRepository;
 import com.ams.model.Staff;
+import com.ams.model.User;
 import com.ams.repository.AbstractRepository;
+import com.ams.repository.UserRepository;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -20,13 +23,18 @@ import javax.inject.Named;
  */
 @ViewScoped
 @Named("staffController")
-public class StaffController extends AbstractController{
-    
+public class StaffController extends AbstractController {
+
     private Staff staff;
     private List<Staff> staffList;
+    private User user;
+    private List<User> userList;
 
     @Inject
     private StaffRepository staffRepository;
+    
+    @Inject
+    private UserRepository userRepository;
 
     public Staff getStaff() {
         return staff;
@@ -43,7 +51,26 @@ public class StaffController extends AbstractController{
     public void setStaffList(List<Staff> staffList) {
         this.staffList = staffList;
     }
-    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<User> getUserList() {
+        if (userList == null) {
+            userList = userRepository.getUserWithNoStaffModel();
+        }
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
     @PostConstruct
     public void init() {
         staff = new Staff();
@@ -71,19 +98,17 @@ public class StaffController extends AbstractController{
 //        }
 //        loadData();
 //    }
-
 //    public void delete(Staff staff) {
 //        staffRepository.delete(staff.getId());
 //        loadData();
 //    } 
-    
     @Override
-    public AbstractRepository getRepository(){
+    public AbstractRepository getRepository() {
         return staffRepository;
     }
-    
+
     @Override
-    public AbstractEntity getEntity(){
+    public AbstractEntity getEntity() {
         return staff;
     }
 }

@@ -7,9 +7,9 @@ package com.ams.repository;
 import com.ams.model.User;
 import java.util.List;
 import javax.ejb.Stateless;
+import com.ams.model.UserRole;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -31,21 +31,6 @@ public class UserRepository extends AbstractRepository<User> {
         return entityManager;
     }
 
-//    public List<User> getUserById(Long id) {
-//        List<User> userList = null;
-//        try {
-//            Query query = entityManager().createQuery("Select u from User u where u.id=:id", User.class);
-//            query.setParameter("id", id);
-//            userList = query.getResultList();
-//            return userList;
-//
-//        } catch (Exception r) {
-//
-//        }
-//        return userList;
-//    }
-    
-    
     public User findByUsername(String username) {
         TypedQuery<User> query = entityManager.createQuery(
                 "SELECT u FROM User u WHERE u.username = :username", User.class
@@ -54,4 +39,36 @@ public class UserRepository extends AbstractRepository<User> {
         List<User> userList = query.getResultList();
         return userList.isEmpty() ? null : userList.get(0);
     }
+   
+
+    public List<User> getUserByRoleName(String roleName) {
+
+        String jpql = "SELECT ah FROM User ah WHERE ah.role.roleName = :roleName";
+        TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
+        query.setParameter("roleName", roleName);
+        return query.getResultList();
+    }
+
+    public List<User> getUserWithNoClientModel() {
+        String jpql = "SELECT u FROM User u "
+                + "WHERE u.role.roleName = :roleName "
+                + "AND NOT EXISTS (SELECT c FROM Client c WHERE c.user = u)";
+
+        TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
+        query.setParameter("roleName", "Client"); 
+
+        return query.getResultList();
+    }
+
+    public List<User> getUserWithNoStaffModel() {
+        String jpql = "SELECT u FROM User u "
+                + "WHERE u.role.roleName = :roleName "
+                + "AND NOT EXISTS (SELECT c FROM Staff c WHERE c.user = u)";
+
+        TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
+        query.setParameter("roleName", "Staff"); 
+
+        return query.getResultList();
+    }
+
 }

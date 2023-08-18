@@ -6,7 +6,9 @@ package com.ams.service;
 
 import com.ams.controller.UserBean;
 import com.ams.model.Staff;
+import com.ams.model.User;
 import com.ams.repository.StaffRepository;
+import com.ams.repository.UserRepository;
 import java.io.IOException;
 import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
@@ -21,28 +23,25 @@ import org.mindrot.jbcrypt.BCrypt;
 @Stateless
 public class LoginService {
     
-    @Inject 
-    StaffRepository staffRepository;
-    
     @Inject
-    UserBean userBean;
+    UserRepository userRepository;
     
-    public Staff login(String username, String password){
+    public User login(String username, String password){
         
         
-        Staff staff = staffRepository.findByUsername(username);
-        Staff loginStaff = null;
+        User user = userRepository.findByUsername(username);
+        User loginUser = null;
 
-        if (staff != null) {
+        if (user != null) {
 
-            if (BCrypt.checkpw(password, staff.getPassword())) {
+            if (BCrypt.checkpw(password, user.getPassword())) {
 
-                userBean.setCurrentStaff(staff);
+//                userBean.setCurrentUser(user);
 
-                loginStaff = staff;
+                loginUser = user;
             } 
         }
-        return loginStaff;
+        return loginUser;
     }
 }
     

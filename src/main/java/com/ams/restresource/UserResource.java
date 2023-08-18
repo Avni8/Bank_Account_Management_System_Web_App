@@ -4,13 +4,13 @@
  */
 package com.ams.restresource;
 
-import com.ams.repository.UserRepository;
+import com.ams.repository.ClientRepository;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import com.ams.model.User;
+import com.ams.model.Client;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -35,10 +35,10 @@ import javax.ws.rs.core.Response;
 public class UserResource implements Serializable {
 
     @Inject
-    UserRepository userRepository;
+    ClientRepository userRepository;
 
     @POST
-    public Response createUser(User user) throws JsonProcessingException {
+    public Response createUser(Client user) throws JsonProcessingException {
         userRepository.save(user);
         ObjectMapper mapper = new ObjectMapper();
         String str = mapper.writeValueAsString(user);
@@ -48,7 +48,7 @@ public class UserResource implements Serializable {
 
     @GET
     public Response getAllUsers() throws JsonProcessingException {
-        List<User> userList = userRepository.findAll();
+        List<Client> userList = userRepository.findAll();
         ObjectMapper mapper = new ObjectMapper();
         String str = mapper.writeValueAsString(userList);
         return RestResponse.responseBuilder("true", "200", "List of users", str);
@@ -57,7 +57,7 @@ public class UserResource implements Serializable {
     @GET
     @Path("/{id}")
     public Response getUserById(@PathParam("id") long id) throws JsonProcessingException {
-        User user = userRepository.findById(id);
+        Client user = userRepository.findById(id);
         if (user == null) {
 
             return RestResponse.responseBuilder("false", "404", " User with id " + id + " not found", null);
@@ -70,8 +70,8 @@ public class UserResource implements Serializable {
 
     @PUT
     @Path("/{id}")
-    public Response updateUser(@PathParam("id") long id, User user) throws JsonProcessingException {
-        User usr = userRepository.findById(id);
+    public Response updateUser(@PathParam("id") long id, Client user) throws JsonProcessingException {
+        Client usr = userRepository.findById(id);
         if (usr == null) {
             return RestResponse.responseBuilder("false", "404", " User with id " + id + " not found", null);
         }
@@ -88,7 +88,7 @@ public class UserResource implements Serializable {
     @DELETE
     @Path("/{id}")
     public Response deleteUser(@PathParam("id") long id) {
-        User user = userRepository.findById(id);
+        Client user = userRepository.findById(id);
         if (user == null) {
             return RestResponse.responseBuilder("false", "404", " User with id " + id + " not found", null);
         }

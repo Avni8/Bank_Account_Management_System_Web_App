@@ -8,7 +8,7 @@ import com.ams.model.Account;
 import com.ams.model.AccountMIS;
 import com.ams.model.AccountTransactionDetails;
 import com.ams.model.TransactionType;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
@@ -33,7 +33,7 @@ public class TransactionService {
     @Inject
     private AccountRepository accountRepository;
 
-    public boolean performDeposit(User selectedUser, List<Account> accountList) {
+    public boolean performDeposit(Client selectedUser, List<Account> accountList) {
 
         boolean depositSuccessful = false;
 
@@ -90,13 +90,13 @@ public class TransactionService {
         return depositSuccessful;
     }
 
-    public boolean performWithdrawal(User selectedUser, List<Account> accountList) {
+    public boolean performWithdrawal(Client selectedClient, List<Account> accountList) {
 
         boolean withdrawSuccessful = false;
 
         try {
 
-            if (selectedUser != null) {
+            if (selectedClient != null) {
 
 //            List<Account> userAccounts = accountRepository.getAccountsByUser(selectedUser);
                 for (Account account : accountList) {
@@ -116,7 +116,7 @@ public class TransactionService {
 
                         accountTransactionDetails.setDebitAmount(account.getAmount());
 
-                        accountTransactionDetails.setUser(selectedUser.getName());
+                        accountTransactionDetails.setUser(selectedClient.getName());
 
                         accountTransactionDetails.setAccount(account);
 
@@ -147,7 +147,22 @@ public class TransactionService {
         return withdrawSuccessful;
     }
 
-    public boolean performFundTransfer(User fromUser, User toUser, Account sourceAccount, Account destinationAccount, Double transferAmount) {
+//    public boolean checkBalance(List<Account> accountList) {
+//
+//        boolean balanceLow = false;
+//        for (Account account : accountList) {
+//
+//            if (account.getBalance() < account.getAmount()) {
+//
+//                return balanceLow = true;
+//            }
+//        }
+//
+//        return balanceLow;
+//
+//    }
+
+    public boolean performFundTransfer(Client fromUser, Client toUser, Account sourceAccount, Account destinationAccount, Double transferAmount) {
 
         boolean transferSuccessful = false;
 
@@ -184,7 +199,6 @@ public class TransactionService {
 //                    destinationAccountMIS.setSourceAccount(sourceAccount);
 //                    destinationAccountMIS.setDestinationAccount(destinationAccount);
 //                    accountMISRepository.save(destinationAccountMIS);
-
                     destinationAccountTransactionDetails.setDate(new Date());
                     destinationAccountTransactionDetails.setCreditAmount(transferAmount);
                     destinationAccountTransactionDetails.setUser(toUser.getName());
@@ -205,5 +219,5 @@ public class TransactionService {
         }
         return transferSuccessful;
     }
-    
+
 }

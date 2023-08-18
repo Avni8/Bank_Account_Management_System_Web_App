@@ -5,10 +5,10 @@
 package com.ams.restresource;
 
 import com.ams.model.Account;
-import com.ams.repository.UserRepository;
+import com.ams.repository.ClientRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.service.TransactionService;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.request.AccountRequest;
 import com.ams.request.TransactionRequest;
 import javax.ws.rs.POST;
@@ -38,7 +38,7 @@ public class DepositResource {
     TransactionService transactionService;
 
     @Inject
-    UserRepository userRepository;
+    ClientRepository userRepository;
 
     @Inject
     AccountRepository accountRepository;
@@ -49,7 +49,7 @@ public class DepositResource {
         Long userId = depositRequest.getUserId();
         List<AccountRequest> accountRequests = depositRequest.getAccountList();
 
-        User selectedUser = userRepository.findById(userId);
+        Client selectedUser = userRepository.findById(userId);
         List<Account> accountList = new ArrayList<>();
 
         for (AccountRequest accountRequest : accountRequests) {

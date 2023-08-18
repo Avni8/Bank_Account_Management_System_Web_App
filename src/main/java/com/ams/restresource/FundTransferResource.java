@@ -5,11 +5,11 @@
 package com.ams.restresource;
 
 import com.ams.model.Account;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.service.TransactionService;
 import com.ams.request.FundTransferRequest;
 import com.ams.repository.AccountRepository;
-import com.ams.repository.UserRepository;
+import com.ams.repository.ClientRepository;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -33,7 +33,7 @@ public class FundTransferResource {
     TransactionService transactionService;
 
     @Inject
-    UserRepository userRepository;
+    ClientRepository userRepository;
 
     @Inject
     AccountRepository accountRepository;
@@ -47,8 +47,8 @@ public class FundTransferResource {
         String destinationAccountNumber = transferRequest.getDestinationAccountNumber();
         Double transferAmount = transferRequest.getTransferAmount();
         
-        User fromUser = userRepository.findById(fromUserId);
-        User toUser = userRepository.findById(toUserId);
+        Client fromUser = userRepository.findById(fromUserId);
+        Client toUser = userRepository.findById(toUserId);
         Account sourceAccount = accountRepository.findByAccNo(sourceAccountNumber);
         Account destinationAccount = accountRepository.findByAccNo(destinationAccountNumber);
 

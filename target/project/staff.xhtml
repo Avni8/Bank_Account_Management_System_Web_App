@@ -19,6 +19,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                   resizable="true">
             <h:form id="staffForm" styleClass="no-border-input">
                 <h:panelGrid  columns="2" cellpadding="5"> 
+                    
+                    
+                    <p:outputLabel id="userLbl" for="userInp" value="User:"/>
+                    <p:selectOneMenu id="userInp" value="#{staffController.staff.user}" 
+                                     converter="userConverter" required="true" 
+                                     requiredMessage="User Account is required!"
+                                     filter="true" filterMatchMode="startsWith">
+                        <f:selectItem itemLabel="Select User Account" itemValue="" />
+                        <f:selectItems value="#{staffController.userList}" 
+                                       var="user" itemValue="#{user}" 
+                                       itemLabel="#{user.username}" />
+                    </p:selectOneMenu>
 
                     <p:outputLabel  id="nameLbl" for="nameInp" value="Name:"/>
                     <p:inputText id="nameInp" value="#{staffController.staff.name}" 
@@ -45,15 +57,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:outputLabel id="addressLbl" for="addressInp" value="Address:" />
                     <p:inputText id="addressInp" value="#{staffController.staff.address}" 
                                  required="true" requiredMessage="Address is required!"/>
-
-                    <p:outputLabel id="usernameLbl" for="usernameInp"  value="Username:" />
-                    <p:inputText id="usernameInp" value="#{staffController.staff.username}" 
-                                 required="true" requiredMessage="Username is required!"/>
-
-                    <p:outputLabel id="passwordLbl" for="passwordInp" value="Password:" />
-                    <p:inputText id="passwordInp" value="#{staffController.staff.password}" 
-                                 required="true" requiredMessage="Password is required!"/>
-
 
                 </h:panelGrid>
                 <p:commandButton value="Register staff" action="#{staffController.createUpdate()}"
@@ -116,7 +119,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     </p:column>
 
                     <p:column headerText="Username" width="15" filterBy="#{staff.username}">
-                        <h:outputText value="#{staff.username}" />
+                        <h:outputText value="#{staff.user.username}" />
                     </p:column> 
 
                     <p:column headerText="Action" width="12">

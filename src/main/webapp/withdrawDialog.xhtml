@@ -14,14 +14,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <h:form id="withdrawForm">
             <p:panelGrid columns="2" style="margin-bottom: 20px">
 
-                <p:outputLabel value="User:" />
-                <p:selectOneMenu value="#{withdrawController.selectedUser}" 
-                                 converter="userConverter" id="userMenu" filter="true" 
+                <p:outputLabel value="Client:" />
+                <p:selectOneMenu value="#{withdrawController.selectedClient}" 
+                                 converter="clientConverter" id="userMenu" filter="true" 
                                  filterMatchMode="startsWith">
-                    <f:selectItem itemLabel="#{userController.selectedUser.name}"
-                                  itemValue="#{userController.selectedUser}" />
-                    <f:selectItems value="#{accountController.userList}" 
-                                   var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                    <f:selectItem itemLabel="#{clientController.selectedClient.name}"
+                                  itemValue="#{clientController.selectedClient}" />
+                    <f:selectItems value="#{accountController.clientList}" 
+                                   var="client" itemValue="#{client}" itemLabel="#{client.name}" />
                     <p:ajax listener="#{withdrawController.retrieveAccounts()}" update="accountForm" />
                     
                 </p:selectOneMenu>

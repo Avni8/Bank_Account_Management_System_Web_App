@@ -5,12 +5,12 @@
 package com.ams.restresource;
 
 import com.ams.model.Account;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.request.StatementRequest;
 import com.ams.repository.AccountRepository;
 import com.ams.model.AccountTransactionDetails;
 import com.ams.model.BalanceView;
-import com.ams.repository.UserRepository;
+import com.ams.repository.ClientRepository;
 import com.ams.service.StatementService;
 import com.ams.response.StatementResponse;
 import java.util.Date;
@@ -38,7 +38,7 @@ public class StatementResource {
     StatementService statementService;
 
     @Inject
-    UserRepository userRepository;
+    ClientRepository userRepository;
 
     @Inject
     AccountRepository accountRepository;
@@ -51,7 +51,7 @@ public class StatementResource {
         Date toDate = statementRequest.getToDate();
         String accNo = statementRequest.getAccNo();
 
-        User user = userRepository.findById(userId);
+        Client user = userRepository.findById(userId);
         Account account = accountRepository.findByAccNo(accNo);
 
         if (account != null) {

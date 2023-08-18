@@ -9,10 +9,10 @@ import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import com.ams.model.AccountTransactionDetails;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
-import com.ams.repository.UserRepository;
+import com.ams.repository.ClientRepository;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -27,16 +27,16 @@ public class AccountTransactionDetailsController implements Serializable {
     
     private AccountTransactionDetails transaction;
     private List<AccountTransactionDetails> transactionList;
-    private List<User> userList;
+    private List<Client> userList;
     private List<Account> accountList;
-    private User user;
+    private Client user;
     private Account account;
 
-    public User getUser() {
+    public Client getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Client user) {
         this.user = user;
     }
 
@@ -55,7 +55,7 @@ public class AccountTransactionDetailsController implements Serializable {
     private AccountRepository accountRepository;
 
     @Inject
-    private UserRepository userRepository;
+    private ClientRepository userRepository;
 
     public AccountTransactionDetails getTransaction() {
         return transaction;
@@ -105,7 +105,7 @@ public class AccountTransactionDetailsController implements Serializable {
         loadData();
     }
     
-     public List<User> getUserList() {
+     public List<Client> getUserList() {
         if (userList == null) {
             userList = userRepository.findAll();
         }

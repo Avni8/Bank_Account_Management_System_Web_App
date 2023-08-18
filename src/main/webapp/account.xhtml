@@ -20,14 +20,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <h:form id="accountForm" styleClass="no-border-input">
                 <h:panelGrid columns="2" cellpadding="5"> 
 
-                    <p:outputLabel id="userLbl" for="userInp" value="User:"/>
-                    <p:selectOneMenu id="userInp" value="#{accountController.account.user}" 
-                                     converter="userConverter" required="true" 
-                                     requiredMessage="User is required!"
+                    <p:outputLabel id="clientLbl" for="clientInp" value="Client:"/>
+                    <p:selectOneMenu id="clientInp" value="#{accountController.account.client}" 
+                                     converter="clientConverter" required="true" 
+                                     requiredMessage="Client is required!"
                                      filter="true" filterMatchMode="startsWith">
-                        <f:selectItem itemLabel="Select User" itemValue="" />
-                        <f:selectItems value="#{accountController.userList}" 
-                                       var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                        <f:selectItem itemLabel="Select Client" itemValue="" />
+                        <f:selectItems value="#{accountController.clientList}" 
+                                       var="client" itemValue="#{client}" itemLabel="#{client.name}" />
                     </p:selectOneMenu>
 
                     <p:outputLabel id="productLbl" for="productInp" value="Product:"/>
@@ -96,9 +96,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="#{account.id}" />
                     </p:column>
 
-                    <p:column headerText="User Name" width="34" filterBy="#{account.user.name}"
-                              sortBy="#{account.user.name}">
-                        <h:outputText value="#{account.user.name}" />
+                    <p:column headerText="User Name" width="34" filterBy="#{account.client.name}"
+                              sortBy="#{account.client.name}">
+                        <h:outputText value="#{account.client.name}" />
                     </p:column>
 
                     <p:column headerText="Account Number" width="30" >

@@ -7,10 +7,11 @@ package com.ams.controller;
 import com.ams.model.Account;
 import com.ams.model.Staff;
 import com.ams.service.LoginService;
+import com.ams.model.Client;
 import com.ams.model.User;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.StaffRepository;
-import com.ams.repository.UserRepository;
+import com.ams.repository.ClientRepository;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,7 +39,7 @@ public class LoginController extends AbstractMessageController {
     private StaffRepository staffRepository;
 
     @Inject
-    private UserRepository userRepository;
+    private ClientRepository clientRepository;
 
     @Inject
     private SessionController sessionController;
@@ -68,88 +69,46 @@ public class LoginController extends AbstractMessageController {
         this.password = password;
     }
 
-    public void staffLogin() {
+    public void login() {
 
-        Staff returnedStaff = loginService.login(username, password);
+        User returnedUser = loginService.login(username, password);
 
-        if (returnedStaff != null) {
+        if (returnedUser != null) {
+            if (returnedUser.getRole().getRoleName().equals("Client")) {
+                Client client = clientRepository.getClientByUser(returnedUser);
 
-            HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
-                    .getExternalContext().getRequest();
-            httpServletRequest.getSession().setAttribute("loggedInStaff", returnedStaff);
-            
+                if (client != null) {
+                    HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
+                            .getExternalContext().getRequest();
+                    httpServletRequest.getSession().setAttribute("loggedInClient", client);
+                    userBean.setCurrentClient(client);
+                    try {
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("clientHome.xhtml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
 
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            }
-        } else {
-
-            errorMessage("Invalid Credentials. Try Again!");
-        }
-    }
-
-//        Staff staff = staffRepository.findByUsername(username);
-//
-//        if (staff != null) {
-//
-//            if (BCrypt.checkpw(password, staff.getPassword())) {
-//
-//                HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
-//                        .getExternalContext().getRequest();
-//
-//                httpServletRequest.getSession().setAttribute("loggedInStaff", staff);
-//
-//                userBean.setCurrentStaff(staff);
-//
-//                try {
-//                    FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
-//                } catch (IOException e) {
-//
-//                    e.printStackTrace();
-//                }
-//
-//            } else {
-//
-//                errorMessage("Invalid Credentials. Try Again!");
-//            }
-//        } else {
-//            errorMessage("Invalid Credentials. Try Again!");
-//        }
-//
-//        return null;
-    // }
-    public String clientLogin() {
-
-        User user = userRepository.findByUsername(username);
-
-        if (user != null) {
-
-            if (BCrypt.checkpw(password, user.getAccountHolder().getPassword())) {
-
-                HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
-                        .getExternalContext().getRequest();
-
-                httpServletRequest.getSession().setAttribute("loggedInClient", user);
-
-                userBean.setCurrentUser(user);
-
-                try {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("clientHome.xhtml");
-                } catch (IOException e) {
-
-                    e.printStackTrace();
+                    }
                 }
+            } else if (returnedUser.getRole().getRoleName().equals("Staff")) {
+                Staff staff = staffRepository.getStaffByUser(returnedUser);
 
-            } else {
+                if (staff != null) {
+                    HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
+                            .getExternalContext().getRequest();
+                    httpServletRequest.getSession().setAttribute("loggedInStaff", staff);
+                    userBean.setCurrentStaff(staff);
+                    try {
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
 
-                errorMessage("Invalid Credentials. Try Again!");
+                    }
+                }
             }
-        } else {
-            errorMessage("Invalid Credentials. Try Again!");
         }
-        return null;
+
+        errorMessage("Invalid Credentials. Try Again!");
+
     }
+
 }

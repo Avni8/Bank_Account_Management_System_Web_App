@@ -5,6 +5,7 @@
 package com.ams.controller;
 
 import com.ams.model.Staff;
+import com.ams.model.Client;
 import com.ams.model.User;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
@@ -16,23 +17,13 @@ import javax.inject.Named;
  */
 @Named("userBean")
 @SessionScoped
-public class UserBean implements Serializable{
-    
-//    private static final long serialVersionUID = 1L;
+public class UserBean implements Serializable {
 
-    private User currentUser; 
     private Staff currentStaff;
+    private Client currentClient;
 
     public UserBean() {
-        
-    }
 
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
     }
 
     public Staff getCurrentStaff() {
@@ -42,5 +33,14 @@ public class UserBean implements Serializable{
     public void setCurrentStaff(Staff currentStaff) {
         this.currentStaff = currentStaff;
     }
+
+    public Client getCurrentClient() {
+        return currentClient;
+    }
+
+    public void setCurrentClient(Client currentClient) {
+        this.currentClient = currentClient;
+    }
+
     
 }

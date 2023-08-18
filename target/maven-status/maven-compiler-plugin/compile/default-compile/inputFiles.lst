@@ -1,6 +1,6 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/WithdrawController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/StaffResource.java
-/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AccountHolder.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/ClientRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/ProductResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/DepositResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/LoginResource.java
@@ -21,12 +21,12 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/request/StatementRequest.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountMISRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Product.java
-/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountHolderController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/RestResponse.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/UserModel.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AbstractMessageController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/LogoutController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/request/FundTransferRequest.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/ClientConverter.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/GenericConverter.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/TransactionType.java
@@ -45,7 +45,9 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountTransactionDetailsRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/service/LoginService.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/User.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/ClientController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountMISConverter.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Client.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/ProductController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/service/TransactionService.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/UserRepository.java
@@ -58,9 +60,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AbstractController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AbstractRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AbstractEntity.java
-/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountHolderConverter.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/response/StatementResponse.java
-/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountHolderRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Staff.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AccountTransactionDetails.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/service/StatementService.java

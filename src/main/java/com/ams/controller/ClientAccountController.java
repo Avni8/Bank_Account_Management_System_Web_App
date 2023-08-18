@@ -5,7 +5,7 @@
 package com.ams.controller;
 
 import com.ams.model.Account;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.repository.AccountRepository;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -22,7 +22,7 @@ import javax.inject.Named;
 @Named("clientAccountController")
 public class ClientAccountController extends AbstractMessageController{
     
-    private User loggedInUser;
+    private Client loggedInUser;
     
     @Inject
     private AccountRepository accountRepository;
@@ -47,11 +47,11 @@ public class ClientAccountController extends AbstractMessageController{
         this.selectedAccount = selectedAccount;
     }
 
-    public User getLoggedInUser() {
+    public Client getLoggedInUser() {
         return loggedInUser;
     }
 
-    public void setLoggedInUser(User loggedInUser) {
+    public void setLoggedInUser(Client loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
     
@@ -62,7 +62,7 @@ public class ClientAccountController extends AbstractMessageController{
     }
     
     public void loadUserAccounts() {
-    loggedInUser = (User) FacesContext.getCurrentInstance()
+    loggedInUser = (Client) FacesContext.getCurrentInstance()
                           .getExternalContext().getSessionMap().get("loggedInClient");
     if (loggedInUser != null) {
         userAccounts = accountRepository.getAccountsByUser(loggedInUser);

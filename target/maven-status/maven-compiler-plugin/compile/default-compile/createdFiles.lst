@@ -1,5 +1,6 @@
 com/ams/model/TransactionType.class
 com/ams/request/FundTransferRequest.class
+com/ams/controller/ClientController.class
 com/ams/controller/WithdrawController.class
 com/ams/model/BalanceView.class
 com/ams/restresource/FundTransferResource.class
@@ -26,16 +27,17 @@ com/ams/repository/ProductRepository.class
 com/ams/repository/AccountMISRepository.class
 com/ams/repository/AccountTransactionDetailsRepository.class
 com/ams/service/StatementService.class
+com/ams/model/Client.class
 com/ams/repository/AccountMISConverter.class
+com/ams/repository/ClientConverter.class
 com/ams/controller/UserBean.class
 com/ams/service/TransactionService.class
 com/ams/response/StatementResponse.class
+com/ams/repository/ClientRepository.class
 com/ams/controller/AbstractController.class
 com/ams/controller/StatementController.class
 com/ams/controller/LoginController.class
 com/ams/model/Account.class
-com/ams/repository/AccountHolderConverter.class
-com/ams/controller/AccountHolderController.class
 com/ams/jwt/JWTAuthorizationFilter.class
 com/ams/model/AccountTransactionDetails.class
 com/ams/model/AbstractEntity.class
@@ -65,7 +67,5 @@ com/ams/controller/FundTransferController.class
 com/ams/service/LoginService.class
 com/ams/repository/GenericConverter.class
 com/ams/repository/AccountConverter.class
-com/ams/model/AccountHolder.class
-com/ams/repository/AccountHolderRepository.class
 com/ams/model/UserRole.class
 com/ams/controller/AccountMISController.class

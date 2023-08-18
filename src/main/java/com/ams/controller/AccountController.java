@@ -12,12 +12,12 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import com.ams.model.User;
+import com.ams.model.Client;
 import com.ams.model.Product;
 import com.ams.model.Account;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.ProductRepository;
-import com.ams.repository.UserRepository;
+import com.ams.repository.ClientRepository;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,9 +32,9 @@ public class AccountController extends AbstractController {
 
     private Account account;
     private List<Account> accountList;
-    private List<User> userList;
+    private List<Client> clientList;
     private List<Product> productList;
-    private User user;
+    private Client client;
     private Product product;
     private DepositController depositController;
 
@@ -42,7 +42,7 @@ public class AccountController extends AbstractController {
     private AccountRepository accountRepository;
 
     @Inject
-    private UserRepository userRepository;
+    private ClientRepository clientRepository;
 
     @Inject
     private ProductRepository productRepository;
@@ -78,7 +78,7 @@ public class AccountController extends AbstractController {
 
     public void beforeCreate() {
         account = new Account();
-        user = new User();
+        client = new Client();
         product = new Product();
     }
 
@@ -96,19 +96,19 @@ public class AccountController extends AbstractController {
         return account;
     }
 
-    public User getSelectedUser() {
-        return user;
+    public Client getSelectedClient() {
+        return client;
     }
 
-    public void setSelectedUser(User user) {
-        this.user = user;
+    public void setSelectedClient(Client client) {
+        this.client = client;
     }
 
-    public List<User> getUserList() {
-        if (userList == null) {
-            userList = userRepository.findAll();
+    public List<Client> getClientList() {
+        if (clientList == null) {
+            clientList = clientRepository.findAll();
         }
-        return userList;
+        return clientList;
     }
 
     public List<Product> getProductList() {

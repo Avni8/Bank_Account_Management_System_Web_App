@@ -18,7 +18,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:outputLabel value="Source Account:" id="sourceLbl" for="source"/>
 
                 <p:selectOneMenu value="#{fundtransferController.sourceAccount}" 
-                                 converter="accountConverter" id="source" required="true">
+                                 converter="accountConverter" id="source" required="true"
+                                 filter="true" filterMatchMode="startsWith">
 
                     <f:selectItem itemLabel="#{clientAccountController.selectedAccount.accNo}-
                                   #{clientAccountController.selectedAccount.product.product_type}
@@ -31,13 +32,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                    (Balance: #{account.balance})" />
                 </p:selectOneMenu> 
 
-                <p:outputLabel value="To User:" id="toUserLbl" for="toUserMenu" />
-                <p:selectOneMenu value="#{fundtransferController.toUser}" converter="userConverter"
-                                 id="toUserMenu" required="true">
+                <p:outputLabel value="To Client:" id="toUserLbl" for="toUserMenu" />
+                <p:selectOneMenu value="#{fundtransferController.toUser}" converter="clientConverter"
+                                 id="toUserMenu" required="true" filter="true" filterMatchMode="startsWith">
 
-                    <f:selectItem itemLabel="Select User" itemValue="#{null}" />
-                    <f:selectItems value="#{accountController.userList}" 
-                                   var="user" itemValue="#{user}" itemLabel="#{user.name}" />
+                    <f:selectItem itemLabel="Select Client" itemValue="#{null}" />
+                    <f:selectItems value="#{accountController.clientList}" 
+                                   var="client" itemValue="#{cleint}" itemLabel="#{client.name}" />
                     <p:ajax listener="#{fundtransferController.retrieveDestinationAccounts()}" 
                             update="toUserMenu destination" />
 
@@ -45,7 +46,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 <p:outputLabel value="Destination Account:" id="destinationLbl" for="destination"/>
                 <p:selectOneMenu value="#{fundtransferController.destinationAccount}" 
-                                 converter="accountConverter" id="destination" required="true">
+                                 converter="accountConverter" id="destination" required="true"
+                                 filter="true" filterMatchMode="startsWith">
 
                     <f:selectItem itemLabel="Select Account" itemValue="#{null}" />
                     <f:selectItems value="#{fundtransferController.destinationAccountList}" 

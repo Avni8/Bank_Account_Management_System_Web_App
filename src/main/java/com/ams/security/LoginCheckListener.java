@@ -23,8 +23,8 @@ public class LoginCheckListener implements PhaseListener {
     @Inject
     UserBean userBean;
 
-    private Boolean isUserLoggedIn() {
-        return null != userBean.getCurrentUser();
+    private Boolean isClientLoggedIn() {
+        return null != userBean.getCurrentClient();
     }
     
     private Boolean isStaffLoggedIn() {
@@ -45,7 +45,7 @@ public class LoginCheckListener implements PhaseListener {
 
         boolean isLoginPage = (currentPage.lastIndexOf("login.xhtml") > -1);
 
-        if (!isLoginPage && !isUserLoggedIn() && !isStaffLoggedIn()) {
+        if (!isLoginPage && !isClientLoggedIn() && !isStaffLoggedIn()) {
 
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
 
