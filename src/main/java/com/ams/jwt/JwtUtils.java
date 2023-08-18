@@ -23,7 +23,7 @@ import javax.crypto.SecretKey;
 public class JwtUtils {
 
     private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-    private static final long EXPIRATION_TIME = 60000; //1 minute = 60000 ms
+    private static final long EXPIRATION_TIME = 300000; //1 minute = 60000 ms
 
     public static String generateJwtToken(String username) {
         return Jwts.builder()

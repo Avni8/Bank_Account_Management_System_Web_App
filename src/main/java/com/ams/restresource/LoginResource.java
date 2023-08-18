@@ -36,28 +36,35 @@ public class LoginResource {
 
     @Context
     private HttpServletRequest httpServletRequest;
-    
+
     @POST
     public Response login(LoginRequest loginRequest) {
 
         JwtUtils jwtUtils = new JwtUtils();
-        
+
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
 
-        User returnedStaff = loginService.login(username, password);
+        User returnedUser = loginService.login(username, password);
 
-        if (returnedStaff != null) {
+        if (returnedUser != null) {
 
-            httpServletRequest.getSession().setAttribute("loggedInStaff", returnedStaff);
-            String jwtToken;
-            jwtToken = jwtUtils.generateJwtToken(returnedStaff.getUsername());
-            return RestResponse.responseBuilder(
-                    "true", "200", "Login Successful",jwtToken);
-        } else {
+            httpServletRequest.getSession().setAttribute("loggedInUser", returnedUser);
+            String jwtToken = jwtUtils.generateJwtToken(returnedUser.getUsername());
+
+            if (returnedUser.getRole().getRoleName().equals("Client")) {
+                return RestResponse.responseBuilder(
+                        "true", "200", "Client login Successful", null);
+            } else if (returnedUser.getRole().getRoleName().equals("Staff")) {
+                return RestResponse.responseBuilder(
+                        "true", "200", "Staff Login Successful", jwtToken);
+            }
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Login failed. Invalid credentials.")
                     .build();
         }
+        return Response.status(Response.Status.BAD_REQUEST)
+                .entity("Login failed. Invalid credentials.")
+                .build();
     }
 }

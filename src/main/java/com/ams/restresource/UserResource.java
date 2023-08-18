@@ -4,24 +4,23 @@
  */
 package com.ams.restresource;
 
-import com.ams.repository.ClientRepository;
-import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import com.ams.model.Client;
+import com.ams.model.User;
+import com.ams.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.Serializable;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.ws.rs.core.Response;
 
 /**
@@ -32,13 +31,13 @@ import javax.ws.rs.core.Response;
 @Path("/user")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class UserResource implements Serializable {
-
-    @Inject
-    ClientRepository userRepository;
+public class UserResource implements Serializable{
+    
+     @Inject
+    UserRepository userRepository;
 
     @POST
-    public Response createUser(Client user) throws JsonProcessingException {
+    public Response createUser(User user) throws JsonProcessingException {
         userRepository.save(user);
         ObjectMapper mapper = new ObjectMapper();
         String str = mapper.writeValueAsString(user);
@@ -48,7 +47,7 @@ public class UserResource implements Serializable {
 
     @GET
     public Response getAllUsers() throws JsonProcessingException {
-        List<Client> userList = userRepository.findAll();
+        List<User> userList = userRepository.findAll();
         ObjectMapper mapper = new ObjectMapper();
         String str = mapper.writeValueAsString(userList);
         return RestResponse.responseBuilder("true", "200", "List of users", str);
@@ -57,42 +56,43 @@ public class UserResource implements Serializable {
     @GET
     @Path("/{id}")
     public Response getUserById(@PathParam("id") long id) throws JsonProcessingException {
-        Client user = userRepository.findById(id);
+        User user = userRepository.findById(id);
         if (user == null) {
 
-            return RestResponse.responseBuilder("false", "404", " User with id " + id + " not found", null);
+            return RestResponse.responseBuilder("false", "404", " user with id " + id + " not found", null);
         }
 
         ObjectMapper mapper = new ObjectMapper();
         String str = mapper.writeValueAsString(user);
-        return RestResponse.responseBuilder("true", "200", "User with id " + id + " found", str);
+        return RestResponse.responseBuilder("true", "200", "user with id " + id + " found", str);
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateUser(@PathParam("id") long id, Client user) throws JsonProcessingException {
-        Client usr = userRepository.findById(id);
+    public Response updateUser(@PathParam("id") long id, User user) throws JsonProcessingException {
+        User usr = userRepository.findById(id);
         if (usr == null) {
-            return RestResponse.responseBuilder("false", "404", " User with id " + id + " not found", null);
+            return RestResponse.responseBuilder("false", "404", " user with id " + id + " not found", null);
         }
         if (!user.getId().equals(usr.getId())) {
-            return RestResponse.responseBuilder("false", "404", " User id mismatch", null);
+            return RestResponse.responseBuilder("false", "404", " user id mismatch", null);
         }
         userRepository.update(user);
         ObjectMapper mapper = new ObjectMapper();
         String str = mapper.writeValueAsString(user);
 
-        return RestResponse.responseBuilder("true", "200", "User updated successfully", str);
+        return RestResponse.responseBuilder("true", "200", "user updated successfully", str);
     }
 
     @DELETE
     @Path("/{id}")
-    public Response deleteUser(@PathParam("id") long id) {
-        Client user = userRepository.findById(id);
+    public Response deleteCLient(@PathParam("id") long id) {
+        User user = userRepository.findById(id);
         if (user == null) {
-            return RestResponse.responseBuilder("false", "404", " User with id " + id + " not found", null);
+            return RestResponse.responseBuilder("false", "404", " user with id " + id + " not found", null);
         }
         userRepository.delete(id);
-        return RestResponse.responseBuilder("true", "200", "User with id " + id + " deleted successfully", null);
+        return RestResponse.responseBuilder("true", "200", "user with id " + id + " deleted successfully", null);
     }
+    
 }

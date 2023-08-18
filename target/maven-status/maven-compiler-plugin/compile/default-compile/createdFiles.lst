@@ -3,6 +3,7 @@ com/ams/request/FundTransferRequest.class
 com/ams/controller/ClientController.class
 com/ams/controller/WithdrawController.class
 com/ams/model/BalanceView.class
+com/ams/restresource/ClientResource.class
 com/ams/restresource/FundTransferResource.class
 com/ams/model/Product.class
 com/ams/jwt/JwtUtils.class

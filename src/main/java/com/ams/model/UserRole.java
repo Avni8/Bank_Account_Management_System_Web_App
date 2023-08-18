@@ -28,8 +28,6 @@ public class UserRole extends AbstractEntity {
         this.roleName = roleName;
     }
 
-    
-
     @Override
     public int hashCode() {
         int hash = 5;
