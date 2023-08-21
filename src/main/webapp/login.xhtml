@@ -4,19 +4,30 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    
 
     <h:head>
         <title>Login-Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            .center-align {
+                text-align: center;
+                margin-top: 13%;
+                color: #000000;
+            }
+        </style>
+
     </h:head>
     <h:body>
         <p:growl id="growl_msg" showDetail="false" sticky="true" autoUpdate="true" life="100"  />
-        
+
         <h:form id="loginForm">
-          
+
+            <div class="center-align">
+               
+                <h2> Bank Account Management System</h2>
+            </div>
             <center>
-                <div style="margin-top: 15%; border: 2px solid #ccc; padding: 10px; width: 400px;
+                <div style="margin-top: 3%; border: 2px solid #ccc; padding: 10px; width: 400px;
                      padding: 14px;">
 
                     <h3><p:outputLabel value="Login" /></h3>
@@ -39,7 +50,7 @@
                 </div>
             </center>
         </h:form>
-        
+
     </h:body>
 </html>
 

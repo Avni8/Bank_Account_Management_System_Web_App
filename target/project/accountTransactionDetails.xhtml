@@ -21,9 +21,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:panelGrid columns="2"> 
 
                     <p:outputLabel value="Date:" />
-                    <p:calendar value="#{transactionController.transaction.date}" showOn="button"
-                                pattern="yyyy-MM-dd"/>
 
+                    <p:calendar id="cal" value="#{transactionController.transaction.date}" 
+                                navigator="true" showOn="button" pattern="MM-dd-yyyy"/> 
+                    
                     <p:outputLabel value="Account Number:" />
                     <p:selectOneMenu value="#{transactionController.transaction.account}" converter="accountConverter">
                         <f:selectItem itemLabel="Select Account Number" itemValue="" />

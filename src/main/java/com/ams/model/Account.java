@@ -4,6 +4,7 @@
  */
 package com.ams.model;
 
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-
 /**
  *
  * @author avni
@@ -28,10 +30,15 @@ public class Account extends AbstractEntity {
     private String accNo;
     @Column(name = "interest_rate")
     private Double interestRate;
+    
     @Column(name = "opened_date")
-    private String openedDate;
+    @Temporal(TemporalType.DATE)
+    private Date openedDate;
+    
     @Column(name = "mature_date")
-    private String matureDate;
+    @Temporal(TemporalType.DATE)
+    private Date matureDate;
+    
     @Column(name = "balance")
     private Double balance;
     @Column(name = "initial_balance")
@@ -80,19 +87,19 @@ public class Account extends AbstractEntity {
         this.interestRate = interestRate;
     }
 
-    public String getOpenedDate() {
+    public Date getOpenedDate() {
         return openedDate;
     }
 
-    public void setOpenedDate(String openedDate) {
+    public void setOpenedDate(Date openedDate) {
         this.openedDate = openedDate;
     }
 
-    public String getMatureDate() {
+    public Date getMatureDate() {
         return matureDate;
     }
 
-    public void setMatureDate(String matureDate) {
+    public void setMatureDate(Date matureDate) {
         this.matureDate = matureDate;
     }
 

@@ -52,13 +52,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <p:ajax event="keyup"/> 
                     </p:inputText>
 
-                    <p:outputLabel id="dobLbl" for="dobInp" value="Date of Birth:"/>
-                    <p:inputText id="dobInp" value="#{clientController.client.dob}" 
-                                 required="true" requiredMessage="Date of birth is required!">
-                        <f:convertDateTime pattern="MM-dd-yyyy"/>
-                        <p:ajax event="keyup"/> 
-                    </p:inputText>
-
+                    <p:outputLabel id="dobLbl" for="dobInp" value="Date of Birth(mm-dd-yyyy):"/>
+                    
+                    <p:calendar id="dobInp" value="#{clientController.client.dob}" 
+                                navigator="true" showOn="button" pattern="MM-dd-yyyy" required="true"
+                                requiredMessage="Date of birth is required!"/> 
+                    
+                    
                     <p:outputLabel id="emailLbl" for="emailInp" value="Email Address:"/>
                     <p:inputText id="emailInp" value="#{clientController.client.email}" 
                                  required="true" requiredMessage="Email Address is required!">
