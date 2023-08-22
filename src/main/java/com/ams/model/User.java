@@ -6,6 +6,8 @@ package com.ams.model;
 
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -23,8 +25,7 @@ public class User extends AbstractEntity {
     private String username;
     private String password;
     
-    @ManyToOne
-    @JoinColumn(name = "role_id")
+    @Enumerated(EnumType.STRING)
     private UserRole role;
     
     public String getUsername() {
@@ -54,9 +55,9 @@ public class User extends AbstractEntity {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.username);
-        hash = 71 * hash + Objects.hashCode(this.password);
-        hash = 71 * hash + Objects.hashCode(this.role);
+        hash = 97 * hash + Objects.hashCode(this.username);
+        hash = 97 * hash + Objects.hashCode(this.password);
+        hash = 97 * hash + Objects.hashCode(this.role);
         return hash;
     }
 
@@ -78,7 +79,7 @@ public class User extends AbstractEntity {
         if (!Objects.equals(this.password, other.password)) {
             return false;
         }
-        return Objects.equals(this.role, other.role);
+        return this.role == other.role;
     }
-    
+
 }

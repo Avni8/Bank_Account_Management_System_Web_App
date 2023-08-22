@@ -9,7 +9,6 @@ import com.ams.model.User;
 import com.ams.model.UserRole;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.UserRepository;
-import com.ams.repository.UserRoleRepository;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -26,13 +25,9 @@ public class UserController extends AbstractController {
 
     private User user;
     private List<User> userList;
-    private List<UserRole> roleList;
 
     @Inject
     UserRepository userRepository;
-
-    @Inject
-    UserRoleRepository roleRepository;
 
     public User getUser() {
         return user;
@@ -53,17 +48,7 @@ public class UserController extends AbstractController {
     @PostConstruct
     public void init() {
         loadData();
-    }
-
-    public List<UserRole> getRoleList() {
-        if (roleList == null) {
-            roleList = roleRepository.findAll();
-        }
-        return roleList;
-    }
-
-    public void setRoleList(List<UserRole> roleList) {
-        this.roleList = roleList;
+        user = new User();
     }
 
     public void beforeCreate() {
@@ -80,18 +65,25 @@ public class UserController extends AbstractController {
         userList = userRepository.findAll();
 
     }
+    
+    public UserRole[] getUserRole() {
+        return UserRole.values();
+    }
 
-//    public void createUserAccount() {
-//
-//        if (!isUsernameTaken()) {
-//            super.createUpdate();
-//            }
-//            //else {
-////            super.warningMessage("Username already taken");
-////
-////        }
-//
-//    }
+    @Override
+    public void createUpdate() {
+        if (getEntity().getId() == null && !isUsernameTaken()) {
+            getRepository().save(getEntity());
+            super.infoMessage("Created Successfully");
+        } else if (getEntity().getId() == null && isUsernameTaken()) {
+            super.warningMessage("Username already taken");
+        } else {
+            getRepository().update(getEntity());
+            super.infoMessage("Updated Successfully");
+        }
+        loadData();
+    }
+
 
     public boolean isUsernameTaken() {
 

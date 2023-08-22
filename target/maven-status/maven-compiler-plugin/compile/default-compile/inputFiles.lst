@@ -1,3 +1,4 @@
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Resource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/WithdrawController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/StaffResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/ClientRepository.java
@@ -31,14 +32,14 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/GenericConverter.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/TransactionType.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/UserResource.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccessControlInterceptor.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/StatementController.java
-/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/UserRoleRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/SessionController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/jwt/JwtUtils.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountTransactionDetailsController.java
-/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/UserRoleController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/request/TransactionRequest.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/WithdrawResource.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/config/ResourceMappingConfig.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/UserController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/RestApplication.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/BalanceView.java
@@ -49,6 +50,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountMISConverter.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Client.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/ProductController.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/RequiredPermission.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/service/TransactionService.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/UserRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AccountMIS.java

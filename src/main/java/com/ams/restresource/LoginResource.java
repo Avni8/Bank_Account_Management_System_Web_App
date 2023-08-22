@@ -9,6 +9,7 @@ import com.ams.request.LoginRequest;
 import com.ams.service.LoginService;
 import com.ams.jwt.JwtUtils;
 import com.ams.model.User;
+import com.ams.model.UserRole;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -52,10 +53,10 @@ public class LoginResource {
             httpServletRequest.getSession().setAttribute("loggedInUser", returnedUser);
             String jwtToken = jwtUtils.generateJwtToken(returnedUser.getUsername());
 
-            if (returnedUser.getRole().getRoleName().equals("Client")) {
+            if (returnedUser.getRole() == UserRole.CLIENT) {
                 return RestResponse.responseBuilder(
                         "true", "200", "Client login Successful", null);
-            } else if (returnedUser.getRole().getRoleName().equals("Staff")) {
+            } else if (returnedUser.getRole() == UserRole.STAFF) {
                 return RestResponse.responseBuilder(
                         "true", "200", "Staff Login Successful", jwtToken);
             }

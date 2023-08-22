@@ -9,6 +9,7 @@ import com.ams.model.Staff;
 import com.ams.service.LoginService;
 import com.ams.model.Client;
 import com.ams.model.User;
+import com.ams.model.UserRole;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.StaffRepository;
 import com.ams.repository.ClientRepository;
@@ -74,13 +75,17 @@ public class LoginController extends AbstractMessageController {
         User returnedUser = loginService.login(username, password);
 
         if (returnedUser != null) {
-            if (returnedUser.getRole().getRoleName().equals("Client")) {
+            
+            UserRole userRole = returnedUser.getRole();
+            
+            if (userRole == UserRole.CLIENT) {
+                
                 Client client = clientRepository.getClientByUser(returnedUser);
 
                 if (client != null) {
                     HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
                             .getExternalContext().getRequest();
-                    httpServletRequest.getSession().setAttribute("loggedInClient", client);
+                    httpServletRequest.getSession().setAttribute("userRole", userRole);
                     userBean.setCurrentClient(client);
                     try {
                         FacesContext.getCurrentInstance().getExternalContext().redirect("clientHome.xhtml");
@@ -89,13 +94,14 @@ public class LoginController extends AbstractMessageController {
 
                     }
                 }
-            } else if (returnedUser.getRole().getRoleName().equals("Staff")) {
+            } else if (userRole == UserRole.STAFF) {
+                
                 Staff staff = staffRepository.getStaffByUser(returnedUser);
 
                 if (staff != null) {
                     HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
                             .getExternalContext().getRequest();
-                    httpServletRequest.getSession().setAttribute("loggedInStaff", staff);
+                    httpServletRequest.getSession().setAttribute("userRole", userRole);
                     userBean.setCurrentStaff(staff);
                     try {
                         FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
@@ -106,9 +112,6 @@ public class LoginController extends AbstractMessageController {
                 }
             }
         }
-
         errorMessage("Invalid Credentials. Try Again!");
-
     }
-
 }

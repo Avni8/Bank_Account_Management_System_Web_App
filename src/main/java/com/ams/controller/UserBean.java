@@ -41,6 +41,4 @@ public class UserBean implements Serializable {
     public void setCurrentClient(Client currentClient) {
         this.currentClient = currentClient;
     }
-
-    
 }

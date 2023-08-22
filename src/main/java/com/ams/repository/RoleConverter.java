@@ -5,6 +5,9 @@
 package com.ams.repository;
 
 import com.ams.model.UserRole;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
@@ -12,15 +15,18 @@ import javax.inject.Inject;
  *
  * @author avni
  */
-@FacesConverter(value = "roleConverter", forClass = UserRole.class)
-public class RoleConverter extends GenericConverter{
-    
-     @Inject
-    private UserRoleRepository repo;
+@FacesConverter("roleConverter")
+public class RoleConverter implements Converter{
 
     @Override
-    protected AbstractRepository getRepo() {
-        return repo;
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        
+        return UserRole.valueOf(value);
+    }
+
+    @Override
+    public String getAsString(FacesContext fc, UIComponent uic, Object value) {
+        return value.toString(); 
     }
     
 }

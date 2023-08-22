@@ -17,7 +17,6 @@ com/ams/repository/AccountRepository.class
 com/ams/controller/UserController.class
 com/ams/request/TransactionRequest.class
 com/ams/model/User.class
-com/ams/controller/UserRoleController.class
 com/ams/controller/SessionController.class
 com/ams/request/StatementRequest.class
 com/ams/repository/ProductConverter.class
@@ -37,6 +36,7 @@ com/ams/response/StatementResponse.class
 com/ams/repository/ClientRepository.class
 com/ams/controller/AbstractController.class
 com/ams/controller/StatementController.class
+com/ams/config/ResourceMappingConfig.class
 com/ams/controller/LoginController.class
 com/ams/model/Account.class
 com/ams/jwt/JWTAuthorizationFilter.class
@@ -44,11 +44,11 @@ com/ams/model/AccountTransactionDetails.class
 com/ams/model/AbstractEntity.class
 com/ams/controller/AccountController.class
 com/ams/restresource/UserResource.class
+com/ams/controller/AccessControlInterceptor.class
 com/ams/repository/StaffRepository.class
 com/ams/repository/UserConverter.class
 com/ams/controller/ProductController.class
 com/ams/restresource/AccountResource.class
-com/ams/repository/UserRoleRepository.class
 com/ams/restresource/LoginResource.class
 com/ams/model/Staff.class
 com/ams/restresource/DepositResource.class
@@ -64,6 +64,7 @@ com/ams/controller/LogoutController.class
 com/ams/request/AccountRequest.class
 com/ams/restresource/WithdrawResource.class
 com/ams/model/AccountMIS.class
+com/ams/controller/RequiredPermission.class
 com/ams/controller/FundTransferController.class
 com/ams/service/LoginService.class
 com/ams/repository/GenericConverter.class

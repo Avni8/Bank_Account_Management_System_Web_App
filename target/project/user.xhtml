@@ -38,12 +38,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                     <p:outputLabel id="roleLbl" for="roleInp" value="Role:" />
                     <p:selectOneMenu id="roleInp" value="#{userController.user.role}" 
-                                     converter="roleConverter" required="true" 
+                                      required="true" 
                                      requiredMessage="Role is required!"
                                      filter="true" filterMatchMode="startsWith">
                         <f:selectItem itemLabel="Select Role" itemValue="" />
-                        <f:selectItems value="#{userController.roleList}" 
-                                       var="role" itemValue="#{role}" itemLabel="#{role.roleName}" />
+                        <f:selectItems value="#{userController.getUserRole()}" 
+                                       var="role" itemValue="#{role}" itemLabel="#{role}" />
                     </p:selectOneMenu>
 
                 </h:panelGrid>
@@ -88,7 +88,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     </p:column> 
 
                     <p:column headerText="Role" width="15" filterBy="#{user.role}">
-                        <h:outputText value="#{user.role.roleName}" />
+                        <h:outputText value="#{user.role}" />
                     </p:column> 
 
                     <p:column headerText="Action" width="12">

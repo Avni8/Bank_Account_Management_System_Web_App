@@ -45,6 +45,7 @@ public class ClientRepository extends AbstractRepository<Client> {
 //        }
 //        return userList;
 //    }
+    
     public Client findByUsername(String username) {
         TypedQuery<Client> query = entityManager.createQuery("SELECT u FROM Client u WHERE u.username = :username", Client.class
         ).setParameter("username", username);

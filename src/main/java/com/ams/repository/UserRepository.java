@@ -41,32 +41,32 @@ public class UserRepository extends AbstractRepository<User> {
     }
    
 
-    public List<User> getUserByRoleName(String roleName) {
+    public List<User> getUserByRoleName(String role) {
 
-        String jpql = "SELECT ah FROM User ah WHERE ah.role.roleName = :roleName";
+        String jpql = "SELECT ah FROM User ah WHERE ah.role = :role";
         TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
-        query.setParameter("roleName", roleName);
+        query.setParameter("roleName", role);
         return query.getResultList();
     }
 
     public List<User> getUserWithNoClientModel() {
         String jpql = "SELECT u FROM User u "
-                + "WHERE u.role.roleName = :roleName "
+                + "WHERE u.role = :role "
                 + "AND NOT EXISTS (SELECT c FROM Client c WHERE c.user = u)";
 
         TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
-        query.setParameter("roleName", "Client"); 
+        query.setParameter("role", UserRole.CLIENT); 
 
         return query.getResultList();
     }
 
     public List<User> getUserWithNoStaffModel() {
         String jpql = "SELECT u FROM User u "
-                + "WHERE u.role.roleName = :roleName "
+                + "WHERE u.role = :role "
                 + "AND NOT EXISTS (SELECT c FROM Staff c WHERE c.user = u)";
 
         TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
-        query.setParameter("roleName", "Staff"); 
+        query.setParameter("role", UserRole.STAFF); 
 
         return query.getResultList();
     }

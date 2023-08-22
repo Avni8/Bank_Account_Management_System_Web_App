@@ -15,10 +15,6 @@ import javax.faces.convert.Converter;
  */
 public abstract class GenericConverter implements Converter {
 
-//    private final Class<T> entityClass;
-//    public GenericConverter(Class<T> entityClass) {
-//        this.entityClass = entityClass;
-//    }
     protected abstract AbstractRepository getRepo();
 
     @Override
@@ -26,11 +22,8 @@ public abstract class GenericConverter implements Converter {
         if (value == null || value.isEmpty()) {
             return null;
         }
-//        T selectedEntity = null;
         try {
-//            selectedEntity = entityClass.newInstance();
             Long id = Long.valueOf(value);
-//            selectedEntity = (T) getRepo().findById(id);
             return getRepo().findById(id);
         } catch (Exception e) {
         }
