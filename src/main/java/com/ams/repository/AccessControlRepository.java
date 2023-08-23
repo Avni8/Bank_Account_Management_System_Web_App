@@ -38,18 +38,14 @@ public class AccessControlRepository extends AbstractRepository<Permission> {
 
         String jpql = "SELECT p.allow FROM Permission p WHERE p.role = :role "
                 + "AND p.resource = :resource AND p.action = :action";
-
-        try {
             Boolean allow = entityManager.createQuery(jpql, Boolean.class)
                     .setParameter("role", role)
                     .setParameter("resource", resource)
                     .setParameter("action", action)
                     .getSingleResult();
 
-            return allow != null && allow;
-        } catch (NoResultException e) {
-            return false;
-        }
+            return allow;
     }
+    
 
 }

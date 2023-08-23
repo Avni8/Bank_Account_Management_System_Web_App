@@ -6,6 +6,7 @@ package com.ams.controller;
 
 import com.ams.model.AbstractEntity;
 import com.ams.model.Account;
+import com.ams.model.ActionType;
 import com.ams.model.User;
 import com.ams.repository.ClientRepository;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import com.ams.model.Client;
+import com.ams.model.ResourceType;
 import com.ams.model.UserModel;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.UserRepository;
@@ -130,7 +132,19 @@ public class ClientController extends AbstractController {
             accountList = null;
         }
     }
-
+    
+    @Override
+    @RequiredPermission(action = ActionType.WRITE, resource = ResourceType.CLIENT)
+    public void createUpdate(){
+        super.createUpdate();
+        
+    }
+    
+    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.CLIENT)
+    public void delete(){
+        super.delete(client);
+    }
+    
     public UserModel getUserModel() {
         return userModel;
     }

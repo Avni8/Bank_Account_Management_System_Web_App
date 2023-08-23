@@ -6,8 +6,10 @@ package com.ams.controller;
 
 import com.ams.model.Account;
 import com.ams.model.AccountTransactionDetails;
+import com.ams.model.ActionType;
 import com.ams.model.BalanceView;
 import com.ams.model.Client;
+import com.ams.model.ResourceType;
 import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
 import com.ams.repository.AccountTransactionDetailsRepository;
@@ -193,6 +195,7 @@ public class StatementController extends AbstractMessageController {
 
     }
 
+    @RequiredPermission(action = ActionType.VIEWSTATEMENT, resource = ResourceType.ACCOUNT)
     public void loadTransactionDetails() {
 //        if (selectedAccount != null) {
 //            balanceView.setAccount(selectedAccount);

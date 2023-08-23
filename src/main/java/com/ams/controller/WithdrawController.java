@@ -8,8 +8,10 @@ import com.ams.model.AbstractEntity;
 import com.ams.model.Account;
 import com.ams.model.AccountMIS;
 import com.ams.model.AccountTransactionDetails;
+import com.ams.model.ActionType;
 import com.ams.model.TransactionType;
 import com.ams.model.Client;
+import com.ams.model.ResourceType;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
@@ -168,6 +170,7 @@ public class WithdrawController extends AbstractMessageController {
                 ? accountRepository.getAccountsByUser(selectedClient) : null;
     }
 
+    @RequiredPermission(action = ActionType.WITHDRAW, resource = ResourceType.ACCOUNT)
     public void withdraw() {
 
 //        boolean lowBalance = transactionService.checkBalance(accountList);

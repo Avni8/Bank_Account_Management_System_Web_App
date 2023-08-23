@@ -15,6 +15,8 @@ import javax.inject.Named;
 import com.ams.model.Client;
 import com.ams.model.Product;
 import com.ams.model.Account;
+import com.ams.model.ActionType;
+import com.ams.model.ResourceType;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.ProductRepository;
 import com.ams.repository.ClientRepository;
@@ -117,7 +119,19 @@ public class AccountController extends AbstractController {
         }
         return productList;
     }
-
+    
+    @Override
+    @RequiredPermission(action = ActionType.WRITE, resource = ResourceType.ACCOUNT)
+    public void createUpdate(){
+        super.createUpdate();
+        
+    }
+    
+    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.ACCOUNT)
+    public void delete(){
+        super.delete(account);
+    }
+    
     public DepositController getDepositController() {
         return depositController;
     }

@@ -23,8 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     
                     <p:outputLabel id="userLbl" for="userInp" value="User:"/>
                     <p:selectOneMenu id="userInp" value="#{staffController.staff.user}" 
-                                     converter="userConverter" required="true" 
-                                     requiredMessage="User Account is required!"
+                                     converter="userConverter"
                                      filter="true" filterMatchMode="startsWith">
                         <f:selectItem itemLabel="Select User Account" itemValue="" />
                         <f:selectItems value="#{staffController.userList}" 
@@ -132,7 +131,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <p:commandButton styleClass="ui-button-raised ui-button-success" 
                                          title="Delete Staff"
                                          icon="ui-icon-trash"
-                                         actionListener="#{staffController.delete(staff)}"
+                                         actionListener="#{staffController.delete()}"
                                          update=":listForm"
                                          />
                     </p:column>

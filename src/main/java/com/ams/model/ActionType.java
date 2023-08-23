@@ -13,6 +13,10 @@ public enum ActionType {
     READ,
     WRITE,
     UPDATE,
-    DELETE
+    DELETE,
+    DEPOSIT,
+    WITHDRAW,
+    TRANSFER,
+    VIEWSTATEMENT,
     
 }

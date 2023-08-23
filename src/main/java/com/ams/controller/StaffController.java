@@ -5,6 +5,8 @@
 package com.ams.controller;
 
 import com.ams.model.AbstractEntity;
+import com.ams.model.ActionType;
+import com.ams.model.ResourceType;
 import com.ams.repository.StaffRepository;
 import com.ams.model.Staff;
 import com.ams.model.User;
@@ -81,6 +83,19 @@ public class StaffController extends AbstractController {
     public void loadData() {
         staffList = staffRepository.findAll();
     }
+    
+    @Override
+    @RequiredPermission(action = ActionType.WRITE, resource = ResourceType.STAFF)
+    public void createUpdate(){
+        super.createUpdate();
+        
+    }
+    
+    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.STAFF)
+    public void delete(){
+        super.delete(staff);
+    }
+    
 
     public void beforeCreate() {
         staff = new Staff();

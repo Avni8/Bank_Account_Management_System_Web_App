@@ -33,7 +33,6 @@ import javax.servlet.http.HttpSession;
 @Priority(Interceptor.Priority.APPLICATION)
 public class AccessControlInterceptor extends AbstractMessageController {
 
-    
     @Inject
     AccessControlRepository accessControlRepository;
 
@@ -55,7 +54,8 @@ public class AccessControlInterceptor extends AbstractMessageController {
             ActionType retrievedAction = methodName.action();
             ResourceType retrievedResource = methodName.resource();
 
-            isAllowed = accessControlRepository.isPermissionAllowed(userRole, retrievedResource, retrievedAction);
+            isAllowed = accessControlRepository.
+                    isPermissionAllowed(userRole, retrievedResource, retrievedAction);
 
         }
 
@@ -67,6 +67,4 @@ public class AccessControlInterceptor extends AbstractMessageController {
         }
 
     }
-
-    
 }

@@ -62,10 +62,9 @@ public class UserController extends AbstractController {
     }
 
     @Override
+    @RequiredPermission(action = ActionType.READ, resource = ResourceType.USER)
     public void loadData() {
-
         userList = userRepository.findAll();
-
     }
 
     public UserRole[] getUserRole() {
@@ -85,6 +84,11 @@ public class UserController extends AbstractController {
             super.infoMessage("Updated Successfully");
         }
         loadData();
+    }
+
+    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.USER)
+    public void delete() {
+        super.delete(user);
     }
 
     public boolean isUsernameTaken() {

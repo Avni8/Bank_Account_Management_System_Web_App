@@ -5,10 +5,12 @@
 package com.ams.controller;
 
 import com.ams.model.AbstractEntity;
+import com.ams.model.ActionType;
 import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import com.ams.model.Product;
+import com.ams.model.ResourceType;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.ProductRepository;
 import java.util.List;
@@ -55,6 +57,20 @@ public class ProductController extends AbstractController{
     public void loadData() {
         productList = productRepository.findAll();
     }
+    
+    @Override
+    @RequiredPermission(action = ActionType.WRITE, resource = ResourceType.PRODUCT)
+    public void createUpdate(){
+        super.createUpdate();
+        
+    }
+    
+    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.PRODUCT)
+    public void delete(){
+        super.delete(product);
+    }
+    
+    
 
     public void beforeCreate() {
         product = new Product();

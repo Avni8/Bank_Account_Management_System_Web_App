@@ -8,8 +8,10 @@ import com.ams.model.AbstractEntity;
 import com.ams.model.Account;
 import com.ams.model.AccountMIS;
 import com.ams.model.AccountTransactionDetails;
+import com.ams.model.ActionType;
 import com.ams.model.TransactionType;
 import com.ams.model.Client;
+import com.ams.model.ResourceType;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.AccountMISRepository;
 import com.ams.repository.AccountRepository;
@@ -136,6 +138,7 @@ public class DepositController extends AbstractMessageController {
         this.selectedAccount = selectedAccount;
     }
 
+    
     public void createUpdate() {
 
         if (selectedAccount.getId() == null) {
@@ -182,6 +185,7 @@ public class DepositController extends AbstractMessageController {
                 ? accountRepository.getAccountsByUser(selectedClient) : null;
     }
 
+    @RequiredPermission(action = ActionType.DEPOSIT, resource = ResourceType.ACCOUNT)
     public void deposit() {
 
         boolean depositSuccessful = transactionService.performDeposit(selectedClient, accountList);

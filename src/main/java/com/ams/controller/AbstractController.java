@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
  */
 public abstract class AbstractController extends AbstractMessageController {
 
+    
     public void createUpdate() {
         if (getEntity().getId() == null) {
             getRepository().save(getEntity());
@@ -28,17 +29,17 @@ public abstract class AbstractController extends AbstractMessageController {
         }
         loadData();
     }
-    
-    
-    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.USER)
-    public void delete(AbstractEntity entity){
-        
+
+   
+    public void delete(AbstractEntity entity) {
+
 //        entity = getEntity();
         getRepository().delete(entity.getId());
         super.infoMessage("Deleted Successfully");
         loadData();
     }
 
+    
     public abstract void loadData();
 
     public abstract AbstractRepository getRepository();
