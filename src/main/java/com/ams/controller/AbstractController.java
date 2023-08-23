@@ -5,6 +5,8 @@
 package com.ams.controller;
 
 import com.ams.model.AbstractEntity;
+import com.ams.model.ActionType;
+import com.ams.model.ResourceType;
 import com.ams.repository.AbstractRepository;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
@@ -27,6 +29,8 @@ public abstract class AbstractController extends AbstractMessageController {
         loadData();
     }
     
+    
+    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.USER)
     public void delete(AbstractEntity entity){
         
 //        entity = getEntity();

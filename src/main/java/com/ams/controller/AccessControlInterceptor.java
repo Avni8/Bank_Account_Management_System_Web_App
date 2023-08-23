@@ -4,33 +4,69 @@
  */
 package com.ams.controller;
 
+import com.ams.model.ActionType;
+import com.ams.model.ResourceType;
+import com.ams.model.UserRole;
+import com.ams.repository.AccessControlRepository;
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import javax.annotation.Priority;
+import javax.enterprise.context.Dependent;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author avni
  */
+@RequiredPermission
 @Interceptor
-public class AccessControlInterceptor{
+@Dependent
+@Priority(Interceptor.Priority.APPLICATION)
+public class AccessControlInterceptor extends AbstractMessageController {
 
-//    @AroundInvoke
-//    public Object checkAccess(InvocationContext context) throws Exception {
-//        String requiredRole = context.getMethod().getAnnotation(RequiredPermission.class).value();
-//
-//        HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
-//                            .getExternalContext().getRequest();
-//        
-//        String userRole = (String) httpServletRequest.getSession().getAttribute("userRole");
-//
-//        if (userRole.equals(requiredRole)) {
-//            return context.proceed();
-//        } else {
-//            throw new Exception("Access denied");
-//        }
-//    }
+    
+    @Inject
+    AccessControlRepository accessControlRepository;
 
+    @AroundInvoke
+    public Object checkAccess(InvocationContext context) throws Exception {
+
+        boolean isAllowed = false;
+        Method m =  context.getMethod();
+        RequiredPermission methodName = m.getAnnotation(RequiredPermission.class);
+
+        HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
+                .getExternalContext().getRequest();
+
+        HttpSession session = httpServletRequest.getSession();
+        UserRole userRole = (UserRole) session.getAttribute("userRole");
+
+        if (methodName != null) {
+
+            ActionType retrievedAction = methodName.action();
+            ResourceType retrievedResource = methodName.resource();
+
+            isAllowed = accessControlRepository.isPermissionAllowed(userRole, retrievedResource, retrievedAction);
+
+        }
+
+        if (isAllowed) {
+            return context.proceed();
+        } else {
+           
+            throw new SecurityException("Access denied");
+        }
+
+    }
+
+    
 }

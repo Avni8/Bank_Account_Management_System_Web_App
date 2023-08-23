@@ -5,6 +5,8 @@
 package com.ams.controller;
 
 import com.ams.model.AbstractEntity;
+import com.ams.model.ActionType;
+import com.ams.model.ResourceType;
 import com.ams.model.User;
 import com.ams.model.UserRole;
 import com.ams.repository.AbstractRepository;
@@ -65,12 +67,13 @@ public class UserController extends AbstractController {
         userList = userRepository.findAll();
 
     }
-    
+
     public UserRole[] getUserRole() {
         return UserRole.values();
     }
 
     @Override
+    @RequiredPermission(action = ActionType.WRITE, resource = ResourceType.USER)
     public void createUpdate() {
         if (getEntity().getId() == null && !isUsernameTaken()) {
             getRepository().save(getEntity());
@@ -83,7 +86,6 @@ public class UserController extends AbstractController {
         }
         loadData();
     }
-
 
     public boolean isUsernameTaken() {
 
