@@ -20,7 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 <p:selectOneMenu value="#{statementController.selectedAccount}" 
                                  converter="accountConverter"
-                                 id="accountInp" required="true" filter="true" 
+                                 id="accountInp" filter="true" 
                                  filterMatchMode="startsWith">
 
                     <f:selectItem itemLabel="#{clientAccountController.selectedAccount.accNo}-
@@ -41,7 +41,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                             showOn="button" pattern="MM/dd/yyyy" id="toDateInp" required="true" />
 
                 <p:commandButton value="Show Details" 
-                                 action="#{statementController.loadTransactionDetails()}" 
+                                 action="#{statementController.clientLoadTransactionDetails()}" 
                                  update="transactionPG"
                                  style="margin-top: 7px;"/>
 

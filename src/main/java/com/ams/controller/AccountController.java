@@ -128,8 +128,9 @@ public class AccountController extends AbstractController {
     }
     
     @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.ACCOUNT)
-    public void delete(){
-        super.delete(account);
+    public void delete(Account account){
+        accountRepository.delete(account.getId());
+        loadData();
     }
     
     public DepositController getDepositController() {

@@ -148,4 +148,20 @@ public class Account extends AbstractEntity {
         return Objects.equals(this.getId(), account.getId());
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.accNo);
+        hash = 37 * hash + Objects.hashCode(this.interestRate);
+        hash = 37 * hash + Objects.hashCode(this.openedDate);
+        hash = 37 * hash + Objects.hashCode(this.matureDate);
+        hash = 37 * hash + Objects.hashCode(this.balance);
+        hash = 37 * hash + Objects.hashCode(this.initialBalance);
+        hash = 37 * hash + Objects.hashCode(this.client);
+        hash = 37 * hash + Objects.hashCode(this.product);
+        hash = 37 * hash + Objects.hashCode(this.amount);
+        return hash;
+    }
+    
+
 }

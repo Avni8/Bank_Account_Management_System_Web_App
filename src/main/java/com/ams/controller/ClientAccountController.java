@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import static org.primefaces.component.effect.Effect.PropertyKeys.event;
 
 /**
  *
@@ -23,14 +24,16 @@ import javax.inject.Named;
 public class ClientAccountController extends AbstractMessageController{
     
     private Client loggedInUser;
+    private List<Account> userAccounts;
+    private Account selectedAccount;
+    private Account account;
     
     @Inject
     private AccountRepository accountRepository;
-
-    private List<Account> userAccounts;
     
-    private Account selectedAccount;
-
+    @Inject
+    private UserBean userBean;
+             
     public List<Account> getUserAccounts() {
         return userAccounts;
     }
@@ -54,7 +57,14 @@ public class ClientAccountController extends AbstractMessageController{
     public void setLoggedInUser(Client loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
-    
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
     
      @PostConstruct
     public void init() {
@@ -62,11 +72,20 @@ public class ClientAccountController extends AbstractMessageController{
     }
     
     public void loadUserAccounts() {
-    loggedInUser = (Client) FacesContext.getCurrentInstance()
-                          .getExternalContext().getSessionMap().get("loggedInClient");
+    loggedInUser = userBean.getCurrentClient();
     if (loggedInUser != null) {
         userAccounts = accountRepository.getAccountsByUser(loggedInUser);
     }
+    }
+    
+    public void onAccountSelect(){
+        
+        if(account != null){
+            
+            selectedAccount = account;
+            System.out.println("Selected Account: "+ selectedAccount);
+        }
+        
     }
     
 }

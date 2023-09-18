@@ -213,6 +213,14 @@ public class StatementController extends AbstractMessageController {
 
     }
 
+    public void clientLoadTransactionDetails() {
+        if (selectedAccount != null) {
+            transactionDetails = statementService.loadTransactionDetails(balanceView, selectedAccount);
+            balanceView = statementService.loadOpeningBalance(selectedAccount, balanceView);
+        }
+
+    }
+
 //    public void loadOpeningBalance() {
 //        if (selectedAccount != null) {
 //            balanceView = transactionRepository.getOpeningBalance(balanceView);

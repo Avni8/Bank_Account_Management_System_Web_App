@@ -92,8 +92,9 @@ public class StaffController extends AbstractController {
     }
     
     @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.STAFF)
-    public void delete(){
-        super.delete(staff);
+    public void delete(Staff staff){
+       staffRepository.delete(staff.getId());
+        loadData();
     }
     
 

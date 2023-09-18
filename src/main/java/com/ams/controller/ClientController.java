@@ -141,8 +141,9 @@ public class ClientController extends AbstractController {
     }
     
     @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.CLIENT)
-    public void delete(){
-        super.delete(client);
+    public void delete(Client client){
+        clientRepository.delete(client.getId());
+        loadData();
     }
     
     public UserModel getUserModel() {

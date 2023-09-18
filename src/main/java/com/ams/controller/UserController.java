@@ -87,8 +87,9 @@ public class UserController extends AbstractController {
     }
 
     @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.USER)
-    public void delete() {
-        super.delete(user);
+    public void delete(User user) {
+        userRepository.delete(user.getId());
+        loadData();
     }
 
     public boolean isUsernameTaken() {

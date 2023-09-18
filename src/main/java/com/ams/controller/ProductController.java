@@ -66,8 +66,9 @@ public class ProductController extends AbstractController{
     }
     
     @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.PRODUCT)
-    public void delete(){
-        super.delete(product);
+    public void delete(Product product){
+        productRepository.delete(product.getId());
+        loadData();
     }
     
     

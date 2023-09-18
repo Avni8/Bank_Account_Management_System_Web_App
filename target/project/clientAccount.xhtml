@@ -15,19 +15,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <ui:define name="content">
 
         <h:form id="userAccountForm" >
-            
+
             <p:panel style="border: 1px solid black; padding: 5px; width: 150px; margin-top: 20px;
-                         margin-right: 86%; margin-left: 10px; margin-bottom: 20px;">
-                    <h:outputText value="Account Details" style="font-weight: bold;"/>
-                </p:panel>            
-            
-            <p:dataTable value="#{clientAccountController.userAccounts}" var="account"
-                         id="userAccountDataTable"
-                         selection="#{clientAccountController.selectedAccount}" 
-                         selectionMode="single" paginator="true" rows="10"
-                         paginatorPosition="bottom"  emptyMessage="No records found"
-                         rowKey="#{account.id}">
-                
+                     margin-right: 86%; margin-left: 10px; margin-bottom: 20px;">
+                <h:outputText value="Account Details" style="font-weight: bold;"/>
+            </p:panel>            
+
+            <p:dataTable value="#{clientAccountController.userAccounts}" var="account"  paginator="true" 
+                         rows="10" paginatorPosition="bottom" emptyMessage="No records found" 
+                         id="userAccountDataTable" rowKey="#{account.id}" 
+                         selectionMode="single"
+                         selection="#{clientAccountController.account}">
+
                 <p:column headerText="Account No" width="34" filterBy="#{user.name}" sortBy="#{user.name}">
                     <h:outputText value="#{account.accNo}" />
                 </p:column>
@@ -47,6 +46,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <p:column headerText="Balance" width="35">
                     <h:outputText value="#{account.balance}" />
                 </p:column>
+                <p:ajax event="rowSelect"  update="clientFundTransferForm clientStatementForm"
+                        listener="#{clientAccountController.onAccountSelect()}" />
+
             </p:dataTable>
             <p:toolbar styleClass="center-align-group">
                 <p:toolbarGroup>
@@ -56,7 +58,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                      update=":clientFundTransferForm"
                                      actionListener=
                                      "#{fundtransferController.beforeClientTransfer(userController.user)}"/>
-                                     
+
                 </p:toolbarGroup>
                 <p:toolbarGroup>
                     <p:commandButton value="Statement" 

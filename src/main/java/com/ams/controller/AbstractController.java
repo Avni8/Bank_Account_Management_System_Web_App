@@ -30,15 +30,6 @@ public abstract class AbstractController extends AbstractMessageController {
         loadData();
     }
 
-   
-    public void delete(AbstractEntity entity) {
-
-//        entity = getEntity();
-        getRepository().delete(entity.getId());
-        super.infoMessage("Deleted Successfully");
-        loadData();
-    }
-
     
     public abstract void loadData();
 

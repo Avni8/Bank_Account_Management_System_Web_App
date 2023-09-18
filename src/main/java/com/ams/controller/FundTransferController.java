@@ -63,6 +63,9 @@ public class FundTransferController extends AbstractMessageController {
 
     @Inject
     private TransactionService transactionService;
+    
+    @Inject
+    private UserBean userBean;
 
     public Client getFromUser() {
         return fromUser;
@@ -247,8 +250,10 @@ public class FundTransferController extends AbstractMessageController {
             super.warningMessage("Source and Destination accounts should be different!");
         } else {
             
-            Client fromUser = (Client) FacesContext.getCurrentInstance()
-                            .getExternalContext().getSessionMap().get("loggedInClient");
+//            Client fromUser = (Client) FacesContext.getCurrentInstance()
+//                            .getExternalContext().getSessionMap().get("loggedInClient");
+
+              Client fromUser = userBean.getCurrentClient();
 
             boolean transferSuccessful = transactionService.performFundTransfer(fromUser, toUser, sourceAccount, destinationAccount, transferAmount);
 
