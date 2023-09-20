@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+
+<ui:composition template="staffTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                >
+
+    <ui:param name="pageTitle" value="Account-Details" />
+
+    <ui:define name="content">
+        <p:dialog header="Create a new account" widgetVar="accountDialog" modal="true"
+                  resizable="true">
+            <h:form id="accountForm" styleClass="no-border-input">
+                <h:panelGrid columns="2" cellpadding="5"> 
+
+                    <p:outputLabel id="clientLbl" for="clientInp" value="Client:"/>
+                    <p:selectOneMenu id="clientInp" value="#{accountController.account.client}" 
+                                     converter="clientConverter" required="true" 
+                                     requiredMessage="Client is required!"
+                                     filter="true" filterMatchMode="startsWith">
+                        <f:selectItem itemLabel="Select Client" itemValue="" />
+                        <f:selectItems value="#{accountController.clientList}" 
+                                       var="client" itemValue="#{client}" itemLabel="#{client.name}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel id="productLbl" for="productInp" value="Product:"/>
+                    <p:selectOneMenu id="productInp" value="#{accountController.account.product}" 
+                                     converter="productConverter" required="true"
+                                     requiredMessage="Product is required!"
+                                     filter="true" filterMatchMode="startsWith">
+                        <f:selectItem itemLabel="Select Product Type" itemValue="" />
+                        <f:selectItems value="#{accountController.productList}" var="product" 
+                                       itemValue="#{product}" itemLabel="#{product.product_type}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel id="accLbl" for="accInp" value="Account Number:"/>
+                    <p:inputText id="accInp" value="#{accountController.account.accNo}" 
+                                 required="true" requiredMessage="Account Number is required!"/>
+
+                    <p:outputLabel id="interestLbl" for="interestInp" value="Interest Rate:"/>
+                    <p:inputText id="interestInp" value="#{accountController.account.interestRate}" 
+                                 required="true" requiredMessage="Interest Rate is required!"/>
+
+                    <p:outputLabel id="openedDateLbl" for="openedDateInp" value="Opened Date:" />
+                    <p:calendar id="openedDateInp" value="#{accountController.account.openedDate}" 
+                                navigator="true" showOn="button" pattern="MM-dd-yyyy" required="true"
+                                requiredMessage="Opened Date is required!"/>
+                    
+
+                    <p:outputLabel id="matureDateLbl" for="matureDateInp" value="Mature Date:" />
+                    <p:calendar id="matureDateInp" value="#{accountController.account.matureDate}" 
+                                navigator="true" showOn="button" pattern="MM-dd-yyyy" />
+                    
+                    
+                    <p:outputLabel id="balanceLbl" for="balanceInp" value="Initial Balance:" />
+                    <p:inputText id="balanceInp" value="#{accountController.account.initialBalance}" 
+                                 required="true" requiredMessage="Initial Balance is required!"/>
+
+                </h:panelGrid>
+                <p:commandButton value="Save Account" action="#{accountController.createUpdate()}"
+                                 style="margin-top: 10px;" 
+                                 oncomplete="if (args &amp;&amp; !args.validationFailed) 
+                                 PF('accountDialog').hide();"
+                                 update=":listForm"/>
+            </h:form>
+        </p:dialog>
+        <center>
+            <h:form id="listForm" >
+
+                <p:panel style="border: 1px solid black; padding: 5px; width: 190px; margin-top: 20px;
+                         margin-right: 83%; margin-bottom: 20px;">
+                    <h:outputText value="Bank Account Details" style="font-weight: bold;"/>
+                </p:panel>
+
+                <div class="button-container" style="position: absolute;
+                     top: 15%;
+                     left: 95.3%;
+                     right: 30%;">
+                    <p:commandButton
+                        oncomplete="PF('accountDialog').show()"
+                        icon="ui-icon-plusthick" title="Add Account" update=":accountForm" 
+                        actionListener="#{accountController.beforeCreate()}" 
+                        style="height: 30px;"/>
+
+                </div>
+
+
+                <p:dataTable value="#{accountController.accountList}" var="account" paginator="true" 
+                             rows="10"
+                             paginatorPosition="bottom">
+
+                    <p:column headerText="Id" width="1" filterBy="#{account.id}" sortBy="#{account.id}">
+                        <h:outputText value="#{account.id}" />
+                    </p:column>
+
+                    <p:column headerText="User Name" width="34" filterBy="#{account.client.name}"
+                              sortBy="#{account.client.name}">
+                        <h:outputText value="#{account.client.name}" />
+                    </p:column>
+
+                    <p:column headerText="Account Number" width="30" >
+                        <h:outputText value="#{account.accNo}" />
+                    </p:column>
+
+                    <p:column headerText="Interest Rate" width="12">
+                        <h:outputText value="#{account.interestRate}" />
+                    </p:column>
+
+                    <p:column headerText="Opened Date" width="25" filterBy="#{account.openedDate}"
+                              sortBy="#{account.openedDate}">
+                        <h:outputText value="#{account.openedDate}" />
+                    </p:column>
+
+                    <p:column headerText="Mature Date" width="30" filterBy="#{account.matureDate}"
+                              sortBy="#{account.matureDate}">
+                        <h:outputText value="#{account.matureDate}" />
+                    </p:column>
+
+                    <p:column headerText="Initial Balance" width="30">
+                        <h:outputText value="#{account.initialBalance}" />
+                    </p:column>
+
+                    <p:column headerText="Balance" width="30">
+                        <h:outputText value="#{account.balance}" />
+                    </p:column> 
+
+                    <p:column headerText="Product Type" width="35">
+                        <h:outputText value="#{account.product.product_type}" />
+                    </p:column> 
+
+                    <p:column headerText="Action" width="20">
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         icon="ui-icon-pencil" oncomplete="PF('accountDialog').show()"
+                                         title="Edit Account" update=":accountForm" 
+                                         action="#{accountController.beforeUpdate(account)}" />
+
+                        <p:commandButton styleClass="ui-button-raised ui-button-success" 
+                                         title="Delete Account"
+                                         icon="ui-icon-trash"
+                                         actionListener="#{accountController.delete(account)}"
+                                         update=":listForm"
+                                         />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </center> 
+    </ui:define>
+</ui:composition>
+

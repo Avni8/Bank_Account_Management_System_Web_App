@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>#{pageTitle}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            .center-align-group {
+                display: flex;
+                justify-content: center;
+            }
+
+            .center-align {
+                text-align: center;
+                margin-top: 16%;
+            }
+        </style>    
+    </h:head>
+    <h:body>    
+        <div id="header">
+            <h:form class="my-navbar">   
+            <ui:include src="staffTopMenu.xhtml" /> 
+            </h:form>
+        </div>
+
+        <div id="content">
+            <ui:insert name="content"/>
+        </div>
+    </h:body>
+</html>
+

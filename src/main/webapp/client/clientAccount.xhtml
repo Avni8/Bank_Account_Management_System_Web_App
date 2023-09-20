@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<ui:composition template="clientTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:param name="pageTitle" value="My Account-Details" />
+
+    <ui:define name="content">
+
+        <h:form id="userAccountForm" >
+
+            <p:panel style="border: 1px solid black; padding: 5px; width: 150px; margin-top: 20px;
+                     margin-right: 86%; margin-left: 10px; margin-bottom: 20px;">
+                <h:outputText value="Account Details" style="font-weight: bold;"/>
+            </p:panel>            
+
+            <p:dataTable value="#{clientAccountController.userAccounts}" var="account"  paginator="true" 
+                         rows="10" paginatorPosition="bottom" emptyMessage="No records found" 
+                         id="userAccountDataTable" rowKey="#{account.id}" 
+                         selectionMode="single"
+                         selection="#{clientAccountController.account}">
+
+                <p:column headerText="Account No" width="34" filterBy="#{user.name}" sortBy="#{user.name}">
+                    <h:outputText value="#{account.accNo}" />
+                </p:column>
+
+                <p:column headerText="Product Type" width="24">
+                    <h:outputText value="#{account.product.product_type}" />
+                </p:column>
+
+                <p:column headerText="Opened Date" width="16">
+                    <h:outputText value="#{account.openedDate}" />
+                </p:column>
+
+                <p:column headerText="Mature Date" width="15">
+                    <h:outputText value="#{account.matureDate}" />
+                </p:column>
+
+                <p:column headerText="Balance" width="35">
+                    <h:outputText value="#{account.balance}" />
+                </p:column>
+                <p:ajax event="rowSelect"  update="clientFundTransferForm clientStatementForm"
+                        listener="#{clientAccountController.onAccountSelect()}" />
+
+            </p:dataTable>
+            <p:toolbar styleClass="center-align-group">
+                <p:toolbarGroup>
+                    <p:commandButton value="Fund Transfer" 
+                                     onclick="PF('clientFundTransferDialog').show()"
+                                     title="Transfer Amount"
+                                     update=":clientFundTransferForm"
+                                     actionListener=
+                                     "#{fundtransferController.beforeClientTransfer(userController.user)}"/>
+
+                </p:toolbarGroup>
+                <p:toolbarGroup>
+                    <p:commandButton value="Statement" 
+                                     onclick="PF('clientStatementDialog').show()"
+                                     title="View Statement"
+                                     update=":clientStatementForm"
+                                     actionListener=
+                                     "#{statementController.beforeClientViewStatement(userController.user)}"
+                                     />
+                </p:toolbarGroup>
+
+            </p:toolbar>
+        </h:form>
+        <ui:include src="clientFundTransferDialog.xhtml" />
+        <ui:include src="clientStatementDialog.xhtml" />
+    </ui:define>
+</ui:composition>
+

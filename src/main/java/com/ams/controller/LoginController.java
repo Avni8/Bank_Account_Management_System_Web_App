@@ -88,7 +88,7 @@ public class LoginController extends AbstractMessageController {
                     httpServletRequest.getSession().setAttribute("userRole", userRole);
                     userBean.setCurrentClient(client);
                     try {
-                        FacesContext.getCurrentInstance().getExternalContext().redirect("clientHome.xhtml");
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("/project/client/clientHome.xhtml");
                     } catch (IOException e) {
                         e.printStackTrace();
 
@@ -104,7 +104,7 @@ public class LoginController extends AbstractMessageController {
                     httpServletRequest.getSession().setAttribute("userRole", userRole);
                     userBean.setCurrentStaff(staff);
                     try {
-                        FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("/project/staff/home.xhtml");
                     } catch (IOException e) {
                         e.printStackTrace();
 

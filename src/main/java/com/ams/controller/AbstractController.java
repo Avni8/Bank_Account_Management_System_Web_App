@@ -30,7 +30,6 @@ public abstract class AbstractController extends AbstractMessageController {
         loadData();
     }
 
-    
     public abstract void loadData();
 
     public abstract AbstractRepository getRepository();

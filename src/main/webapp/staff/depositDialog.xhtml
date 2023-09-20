@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:dialog header="Deposit" widgetVar="depositDialog" modal="true" resizable="false" width="800" height="400">
+
+        <h:form id="depositForm">
+            <p:panelGrid columns="2" style="margin-bottom: 20px">
+                
+                <p:outputLabel value="Client:" />
+                <p:selectOneMenu value="#{depositController.selectedClient}" 
+                                 converter="clientConverter" id="userMenu" filter="true" 
+                                 filterMatchMode="startsWith">
+                    <f:selectItem itemLabel="#{clientController.selectedClient.name}"
+                                  itemValue="#{clientController.selectedClient}" />
+                    <f:selectItems value="#{accountController.clientList}" 
+                                   var="client" itemValue="#{client}" itemLabel="#{client.name}" />
+                    <p:ajax listener="#{depositController.retrieveAccounts()}" update="accountForm" />
+                    
+                </p:selectOneMenu>
+            </p:panelGrid>
+            
+            <h:panelGroup id="accountForm">
+                <p:dataTable value="#{depositController.accountList}" var="account">
+                    <p:column headerText="Account">
+                        <h:outputText value="#{account.accNo}-#{account.product.product_type}" />
+                    </p:column>
+                    <p:column headerText="Balance">
+                        <h:outputText value="#{account.balance}"/>
+                    </p:column>
+                    <p:column headerText="Amount">
+                        <p:inputNumber value="#{account.amount}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:panelGroup>
+            <p:commandButton value="Deposit" action="#{depositController.deposit()}"
+                             oncomplete="PF('depositDialog').hide()"
+                             style="margin-top: 20px"
+                             />
+        </h:form>  
+    </p:dialog>
+</ui:composition>
+

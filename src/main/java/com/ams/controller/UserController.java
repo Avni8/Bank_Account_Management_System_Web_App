@@ -23,6 +23,7 @@ import javax.inject.Named;
  */
 @ViewScoped
 @Named("userController")
+//@PagePermission("STAFF")
 public class UserController extends AbstractController {
 
     private User user;

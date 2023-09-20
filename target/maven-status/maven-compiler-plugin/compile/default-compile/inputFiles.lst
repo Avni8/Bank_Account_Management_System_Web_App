@@ -39,11 +39,11 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountTransactionDetailsController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/request/TransactionRequest.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/WithdrawResource.java
-/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/config/ResourceMappingConfig.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/UserController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/RestApplication.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/BalanceView.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/ActionType.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/PagePermission.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/AccountTransactionDetailsRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/service/LoginService.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/User.java
