@@ -37,6 +37,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/SessionController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/jwt/JwtUtils.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountTransactionDetailsController.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/ClientAccount.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/request/TransactionRequest.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/WithdrawResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/UserController.java

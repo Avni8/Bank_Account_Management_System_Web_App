@@ -75,3 +75,4 @@ com/ams/repository/AccountConverter.class
 com/ams/model/UserRole.class
 com/ams/model/Permission.class
 com/ams/controller/AccountMISController.class
+com/ams/restresource/ClientAccount.class

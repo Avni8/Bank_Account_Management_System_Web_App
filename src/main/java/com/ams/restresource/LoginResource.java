@@ -55,7 +55,7 @@ public class LoginResource {
 
             if (returnedUser.getRole() == UserRole.CLIENT) {
                 return RestResponse.responseBuilder(
-                        "true", "200", "Client login Successful", null);
+                        "true", "200", "Client login Successful", jwtToken);
             } else if (returnedUser.getRole() == UserRole.STAFF) {
                 return RestResponse.responseBuilder(
                         "true", "200", "Staff Login Successful", jwtToken);
