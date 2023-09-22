@@ -4,6 +4,9 @@
  */
 package com.ams.restresource;
 
+import com.ams.controller.RequiredPermission;
+import com.ams.model.ActionType;
+import com.ams.model.ResourceType;
 import com.ams.model.Staff;
 import com.ams.repository.StaffRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -36,6 +39,7 @@ public class StaffResource implements Serializable {
     @Inject
     StaffRepository staffRepository;
 
+    @RequiredPermission(action = ActionType.WRITE, resource = ResourceType.STAFF)
     @POST
     public Response createStaff(Staff staff) throws JsonProcessingException {
         staffRepository.save(staff);
@@ -45,6 +49,7 @@ public class StaffResource implements Serializable {
         return RestResponse.responseBuilder("true", "201", "Staff created successfully", str);
     }
 
+    @RequiredPermission(action = ActionType.READ, resource = ResourceType.STAFF)
     @GET
     public Response getAllStaffs() throws JsonProcessingException {
         List<Staff> staffList = staffRepository.findAll();
@@ -53,6 +58,7 @@ public class StaffResource implements Serializable {
         return RestResponse.responseBuilder("true", "200", "List of staffs", str);
     }
 
+    @RequiredPermission(action = ActionType.READ, resource = ResourceType.STAFF)
     @GET
     @Path("/{id}")
     public Response getStaffById(@PathParam("id") long id) throws JsonProcessingException {
@@ -68,6 +74,7 @@ public class StaffResource implements Serializable {
 
     }
 
+    @RequiredPermission(action = ActionType.UPDATE, resource = ResourceType.STAFF)
     @PUT
     @Path("/{id}")
     public Response updateStaff(@PathParam("id") long id, Staff staff) throws JsonProcessingException {
@@ -85,6 +92,7 @@ public class StaffResource implements Serializable {
         return RestResponse.responseBuilder("true", "200", " Staff updated successfully", str);
     }
 
+    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.STAFF)
     @DELETE
     @Path("/{id}")
     public Response deleteStaff(@PathParam("id") long id) throws JsonProcessingException {
