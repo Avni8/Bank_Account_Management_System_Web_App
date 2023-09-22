@@ -40,6 +40,7 @@ public class UserResource implements Serializable {
     @Inject
     UserRepository userRepository;
     
+    @RequiredPermission(action = ActionType.WRITE, resource = ResourceType.USER)
     @POST
     public Response createUser(User user) throws JsonProcessingException {
         userRepository.save(user);
@@ -58,6 +59,7 @@ public class UserResource implements Serializable {
         return RestResponse.responseBuilder("true", "200", "List of users", str);
     }
 
+    @RequiredPermission(action = ActionType.READ, resource = ResourceType.USER)
     @GET
     @Path("/{id}")
     public Response getUserById(@PathParam("id") long id) throws JsonProcessingException {
@@ -72,6 +74,7 @@ public class UserResource implements Serializable {
         return RestResponse.responseBuilder("true", "200", "user with id " + id + " found", str);
     }
 
+    @RequiredPermission(action = ActionType.UPDATE, resource = ResourceType.USER)
     @PUT
     @Path("/{id}")
     public Response updateUser(@PathParam("id") long id, User user) throws JsonProcessingException {
@@ -89,6 +92,7 @@ public class UserResource implements Serializable {
         return RestResponse.responseBuilder("true", "200", "user updated successfully", str);
     }
 
+    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.USER)
     @DELETE
     @Path("/{id}")
     public Response deleteCLient(@PathParam("id") long id) {
