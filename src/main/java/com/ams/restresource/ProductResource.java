@@ -4,7 +4,10 @@
  */
 package com.ams.restresource;
 
+import com.ams.controller.RequiredPermission;
+import com.ams.model.ActionType;
 import com.ams.model.Product;
+import com.ams.model.ResourceType;
 import com.ams.repository.ProductRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,6 +39,7 @@ public class ProductResource implements Serializable {
     @Inject
     ProductRepository productRepository;
 
+    @RequiredPermission(action = ActionType.WRITE, resource = ResourceType.PRODUCT)
     @POST
     public Response createProduct(Product product) throws JsonProcessingException {
         productRepository.save(product);
@@ -46,6 +50,7 @@ public class ProductResource implements Serializable {
 
     }
 
+    @RequiredPermission(action = ActionType.READ, resource = ResourceType.PRODUCT)
     @GET
     public Response getAllProducts() throws JsonProcessingException {
         List<Product> productList = productRepository.findAll();
@@ -54,6 +59,7 @@ public class ProductResource implements Serializable {
         return RestResponse.responseBuilder("true", "200", "List of products", str);
     }
 
+    @RequiredPermission(action = ActionType.READ, resource = ResourceType.PRODUCT)
     @GET
     @Path("/{id}")
     public Response getProductById(@PathParam("id") long id) throws JsonProcessingException {
@@ -69,6 +75,7 @@ public class ProductResource implements Serializable {
 
     }
 
+    @RequiredPermission(action = ActionType.UPDATE, resource = ResourceType.PRODUCT)
     @PUT
     @Path("/{id}")
     public Response updateProduct(@PathParam("id") long id, Product product) throws JsonProcessingException {
@@ -87,6 +94,7 @@ public class ProductResource implements Serializable {
 
     }
 
+    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.PRODUCT)
     @DELETE
     @Path("/{id}")
     public Response deleteProduct(@PathParam("id") long id) {
