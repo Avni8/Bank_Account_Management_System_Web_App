@@ -57,7 +57,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 </h:panelGrid>
                 <p:dataTable value="#{statementController.transactionDetails}" var="transaction"
-                             sortBy="#{transaction.date}" sortOrder="descending">
+                             sortBy="#{transaction.date}" sortOrder="descending"
+                             scrollable="true" scrollHeight="180">
                     <p:column headerText="Date">
                         <h:outputText value="#{transaction.date}"/>
                     </p:column>

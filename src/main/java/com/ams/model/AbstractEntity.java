@@ -14,6 +14,7 @@ import javax.persistence.MappedSuperclass;
  *
  * @author avni
  */
+
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
     

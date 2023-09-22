@@ -19,20 +19,21 @@
     <body>
         <h:form class="my-navbar">
             <p:growl id="growl" showDetail="false" sticky="true" autoUpdate="true" life="100" /> 
-            <p:menubar style="background-color: #ccccff;">
+            <p:menubar style="background-color: #cdd9eb">
                 <p:menuitem value="Home" icon= "fa fa-home remove-bold" url="clientHome.xhtml" />
                 
                 <p:menuitem value="Account" icon="fa fa-coins" url="clientAccount.xhtml" />
                 
                 
-                <p:menuitem style="pointer-events: none; cursor: default; margin-left: 910px; 
+                <p:menuitem style="pointer-events: none; cursor: default; margin-left: 905px;
+                            margin-right: 1px;
                             margin-top: 4px;" 
                             icon="fa fa-user"
                             value="#{userBean.currentClient.name}" />
                 
-                <p:menuitem style="position: absolute;">
+                <p:menuitem >
                     
-                    <p:commandButton id="id"
+                    <p:commandButton id="id" 
                                      style="height:25px; width:30px;"
                                      icon="fa fa-sign-out"
                                      action="#{logoutController.logout}"

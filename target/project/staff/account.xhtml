@@ -44,6 +44,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:inputText id="accInp" value="#{accountController.account.accNo}" 
                                  required="true" requiredMessage="Account Number is required!"/>
 
+
                     <p:outputLabel id="interestLbl" for="interestInp" value="Interest Rate:"/>
                     <p:inputText id="interestInp" value="#{accountController.account.interestRate}" 
                                  required="true" requiredMessage="Interest Rate is required!"/>
@@ -52,13 +53,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:calendar id="openedDateInp" value="#{accountController.account.openedDate}" 
                                 navigator="true" showOn="button" pattern="MM-dd-yyyy" required="true"
                                 requiredMessage="Opened Date is required!"/>
-                    
+
 
                     <p:outputLabel id="matureDateLbl" for="matureDateInp" value="Mature Date:" />
                     <p:calendar id="matureDateInp" value="#{accountController.account.matureDate}" 
                                 navigator="true" showOn="button" pattern="MM-dd-yyyy" />
-                    
-                    
+
+
                     <p:outputLabel id="balanceLbl" for="balanceInp" value="Initial Balance:" />
                     <p:inputText id="balanceInp" value="#{accountController.account.initialBalance}" 
                                  required="true" requiredMessage="Initial Balance is required!"/>

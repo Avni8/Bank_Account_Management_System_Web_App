@@ -69,9 +69,7 @@ public class AccessControlInterceptor implements Serializable {
                     isAllowed = accessControlRepository.
                             isPermissionAllowed(userRole, retrievedResource, retrievedAction);
                 }
-
             }
-
         }
         if (isAllowed) {
             return context.proceed();
@@ -79,7 +77,5 @@ public class AccessControlInterceptor implements Serializable {
 
             throw new SecurityException("Access denied");
         }
-
     }
-
 }

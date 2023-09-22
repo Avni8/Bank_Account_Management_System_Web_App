@@ -48,8 +48,6 @@ public class AccountController extends AbstractController {
 
     @Inject
     private ProductRepository productRepository;
-    
-    
 
     public List<Account> getAccountList() {
         return accountList;
@@ -92,9 +90,9 @@ public class AccountController extends AbstractController {
     public AbstractRepository getRepository() {
         return accountRepository;
     }
-    
+
     @Override
-    public AbstractEntity getEntity(){
+    public AbstractEntity getEntity() {
         return account;
     }
 
@@ -119,20 +117,20 @@ public class AccountController extends AbstractController {
         }
         return productList;
     }
-    
+
     @Override
     @RequiredPermission(action = ActionType.WRITE, resource = ResourceType.ACCOUNT)
-    public void createUpdate(){
+    public void createUpdate() {
         super.createUpdate();
-        
+
     }
-    
+
     @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.ACCOUNT)
-    public void delete(Account account){
+    public void delete(Account account) {
         accountRepository.delete(account.getId());
         loadData();
     }
-    
+
     public DepositController getDepositController() {
         return depositController;
     }
@@ -140,5 +138,5 @@ public class AccountController extends AbstractController {
     public void setDepositController(DepositController depositController) {
         this.depositController = depositController;
     }
-    
+
 }

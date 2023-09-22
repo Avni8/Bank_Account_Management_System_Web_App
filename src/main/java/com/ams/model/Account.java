@@ -6,6 +6,7 @@ package com.ams.model;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Random;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,32 +19,36 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
 /**
  *
  * @author avni
  */
+
 @Entity
 @Table(name = "account")
 public class Account extends AbstractEntity {
 
-    @Column(name = "acc_no")
+    @Column(name = "acc_no", unique = true)
     private String accNo;
+
     @Column(name = "interest_rate")
     private Double interestRate;
-    
+
     @Column(name = "opened_date")
     @Temporal(TemporalType.DATE)
     private Date openedDate;
-    
+
     @Column(name = "mature_date")
     @Temporal(TemporalType.DATE)
     private Date matureDate;
-    
+
     @Column(name = "balance")
     private Double balance;
+
     @Column(name = "initial_balance")
     private Double initialBalance;
-   
+
 //    (cascade = CascadeType.ALL)
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -63,7 +68,7 @@ public class Account extends AbstractEntity {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-
+    
     public String getAccNo() {
         return accNo;
     }
@@ -71,14 +76,7 @@ public class Account extends AbstractEntity {
     public void setAccNo(String accNo) {
         this.accNo = accNo;
     }
-
-//    public String getAccType() {
-//        return accType;
-//    }
-//
-//    public void setAccType(String accType) {
-//        this.accType = accType;
-//    }
+    
     public Double getInterestRate() {
         return interestRate;
     }
@@ -127,7 +125,7 @@ public class Account extends AbstractEntity {
     public void setClient(Client client) {
         this.client = client;
     }
-    
+
     public Product getProduct() {
         return product;
     }
@@ -162,6 +160,4 @@ public class Account extends AbstractEntity {
         hash = 37 * hash + Objects.hashCode(this.amount);
         return hash;
     }
-    
-
 }

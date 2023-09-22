@@ -63,10 +63,10 @@ public class LoginCheckListener implements PhaseListener {
 
             if (currentPage.startsWith("/client/") && !userRole.equals(UserRole.CLIENT)) {
                 nh.handleNavigation(facesContext, null,
-                        "/accessDenied.xhtml");
+                        "/staffAccessDenied.xhtml");
             } else if (currentPage.startsWith("/staff/") && !userRole.equals(UserRole.STAFF)) {
                 nh.handleNavigation(facesContext, null,
-                        "/accessDenied.xhtml");
+                        "/clientAccessDenied.xhtml");
             }
 
         }

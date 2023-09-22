@@ -50,8 +50,6 @@ public abstract class AbstractRepository<T extends AbstractEntity> {
 
             entityManager().remove(entity);
             entityManager().flush();
-
         }
-
     }
 }
