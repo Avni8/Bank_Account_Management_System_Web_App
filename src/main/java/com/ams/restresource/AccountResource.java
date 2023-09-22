@@ -4,8 +4,11 @@
  */
 package com.ams.restresource;
 
+import com.ams.controller.RequiredPermission;
 import com.ams.model.Account;
+import com.ams.model.ActionType;
 import com.ams.model.Client;
+import com.ams.model.ResourceType;
 import com.ams.repository.AccountRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,6 +40,7 @@ public class AccountResource implements Serializable {
     @Inject
     AccountRepository accountRepository;
 
+    @RequiredPermission(action = ActionType.WRITE, resource = ResourceType.ACCOUNT)
     @POST
     public Response createAccount(Account account) throws JsonProcessingException {
         accountRepository.save(account);
@@ -46,6 +50,7 @@ public class AccountResource implements Serializable {
         return RestResponse.responseBuilder("true", "201", "Account created successfully", str);
     }
 
+    @RequiredPermission(action = ActionType.READ, resource = ResourceType.ACCOUNT)
     @GET
     public Response getAllAccounts() throws JsonProcessingException {
         List<Account> accountList = accountRepository.findAll();
@@ -54,6 +59,7 @@ public class AccountResource implements Serializable {
         return RestResponse.responseBuilder("true", "200", "List of accounts", str);
     }
 
+    @RequiredPermission(action = ActionType.READ, resource = ResourceType.ACCOUNT)
     @GET
     @Path("/{id}")
     public Response getAccountById(@PathParam("id") long id) throws JsonProcessingException {
@@ -69,6 +75,7 @@ public class AccountResource implements Serializable {
 
     }
 
+    @RequiredPermission(action = ActionType.UPDATE, resource = ResourceType.ACCOUNT)
     @PUT
     @Path("/{id}")
     public Response updateAccount(@PathParam("id") long id, Account account) throws JsonProcessingException {
@@ -88,6 +95,7 @@ public class AccountResource implements Serializable {
 
     }
 
+    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.ACCOUNT)
     @DELETE
     @Path("/{id}")
     public Response deleteAccount(@PathParam("id") long id) throws JsonProcessingException {
