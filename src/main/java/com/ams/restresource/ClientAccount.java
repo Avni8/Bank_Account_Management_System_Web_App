@@ -4,8 +4,12 @@
  */
 package com.ams.restresource;
 
+import com.ams.controller.RequiredPermission;
+import com.ams.controller.UserBean;
 import com.ams.model.Account;
+import com.ams.model.ActionType;
 import com.ams.model.Client;
+import com.ams.model.ResourceType;
 import com.ams.model.UserRole;
 import com.ams.model.User;
 import com.ams.repository.AccountRepository;
@@ -38,28 +42,18 @@ public class ClientAccount {
     AccountRepository accountRepository;
 
     @Inject
-    ClientRepository clientRepository;
-
-    @Context
-    private HttpServletRequest httpServletRequest;
+    UserBean userBean;
 
     @GET
     public Response getAccountsByClient() throws JsonProcessingException {
 
-        User loggedInUser = (User) httpServletRequest.getSession().getAttribute("loggedInUser");
-        String string="";
+        Client loggedInClient = userBean.getCurrentClient();
+        List<Account> accountList = accountRepository.getAccountsByUser(loggedInClient);
+        ObjectMapper mapper = new ObjectMapper();
+        String string = mapper.writeValueAsString(accountList);
 
-        if (loggedInUser.getRole().equals(UserRole.CLIENT)) {
-
-            Client client = clientRepository.getClientByUser(loggedInUser);
-
-            List<Account> accountList = accountRepository.getAccountsByUser(client);
-
-            ObjectMapper mapper = new ObjectMapper();
-            string = mapper.writeValueAsString(accountList);
-
-        }
-            return RestResponse.responseBuilder("true", "200", "List of accounts", string);
+        return RestResponse.responseBuilder("true", "200", 
+                "List of accounts", string);
 
     }
 

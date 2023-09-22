@@ -54,7 +54,8 @@ public class LoginCheckListener implements PhaseListener {
 
             nh.handleNavigation(facesContext, null,
                     "/login.xhtml?faces-redirect=true");
-        } else if (isClientLoggedIn() || isStaffLoggedIn() || !isLoginPage) {
+        } 
+        else if (isClientLoggedIn() || isStaffLoggedIn() || !isLoginPage) {
 
             HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
                     .getExternalContext().getRequest();

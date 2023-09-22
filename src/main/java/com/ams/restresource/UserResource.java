@@ -4,6 +4,10 @@
  */
 package com.ams.restresource;
 
+import com.ams.controller.AccessControlInterceptor;
+import com.ams.controller.RequiredPermission;
+import com.ams.model.ActionType;
+import com.ams.model.ResourceType;
 import com.ams.model.User;
 import com.ams.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,11 +35,11 @@ import javax.ws.rs.core.Response;
 @Path("/user")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class UserResource implements Serializable{
-    
-     @Inject
-    UserRepository userRepository;
+public class UserResource implements Serializable {
 
+    @Inject
+    UserRepository userRepository;
+    
     @POST
     public Response createUser(User user) throws JsonProcessingException {
         userRepository.save(user);
@@ -45,6 +49,7 @@ public class UserResource implements Serializable{
         return RestResponse.responseBuilder("true", "201", "User created successfully", str);
     }
 
+    @RequiredPermission(action = ActionType.READ, resource = ResourceType.USER)
     @GET
     public Response getAllUsers() throws JsonProcessingException {
         List<User> userList = userRepository.findAll();
@@ -94,5 +99,5 @@ public class UserResource implements Serializable{
         userRepository.delete(id);
         return RestResponse.responseBuilder("true", "200", "user with id " + id + " deleted successfully", null);
     }
-    
+
 }

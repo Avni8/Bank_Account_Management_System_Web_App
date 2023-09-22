@@ -8,7 +8,6 @@ import com.ams.model.ActionType;
 import com.ams.model.ResourceType;
 import com.ams.model.UserRole;
 import com.ams.repository.AccessControlRepository;
-import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import javax.annotation.Priority;
@@ -20,9 +19,10 @@ import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 
 /**
  *
@@ -32,42 +32,47 @@ import javax.servlet.http.HttpSession;
 @Interceptor
 @Dependent
 @Priority(Interceptor.Priority.APPLICATION)
-public class AccessControlInterceptor extends AbstractMessageController {
+public class AccessControlInterceptor implements Serializable {
 
     @Inject
     AccessControlRepository accessControlRepository;
 
+    @Inject
+    @Context
+    HttpServletRequest httpServletRequest;
+
+    @Inject
+    UserBean userBean;
+
     @AroundInvoke
     public Object checkAccess(InvocationContext context) throws Exception {
 
-//        Class<?> targetClass = context.getTarget().getClass();
-//        PagePermission pagePermission = targetClass.getAnnotation(PagePermission.class);
-//
-//        if (pagePermission != null && !hasPermission(pagePermission)) {
-//            redirectToAccessDeniedPage();
-//            return null;
-//        }
-
         boolean isAllowed = false;
         Method m = context.getMethod();
-        RequiredPermission methodName = m.getAnnotation(RequiredPermission.class);
 
-        HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
-                .getExternalContext().getRequest();
+//        HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
+//                .getExternalContext().getRequest();
+//        HttpSession session = httpServletRequest.getSession();
+        if (httpServletRequest != null) {
 
-        HttpSession session = httpServletRequest.getSession();
-        UserRole userRole = (UserRole) session.getAttribute("userRole");
+            UserRole userRole = (UserRole) httpServletRequest.getSession().getAttribute("userRole");
 
-        if (methodName != null) {
+            if (userRole != null) {
 
-            ActionType retrievedAction = methodName.action();
-            ResourceType retrievedResource = methodName.resource();
+                RequiredPermission methodName = m.getAnnotation(RequiredPermission.class);
 
-            isAllowed = accessControlRepository.
-                    isPermissionAllowed(userRole, retrievedResource, retrievedAction);
+                if (methodName != null) {
+
+                    ActionType retrievedAction = methodName.action();
+                    ResourceType retrievedResource = methodName.resource();
+
+                    isAllowed = accessControlRepository.
+                            isPermissionAllowed(userRole, retrievedResource, retrievedAction);
+                }
+
+            }
 
         }
-
         if (isAllowed) {
             return context.proceed();
         } else {
@@ -76,30 +81,5 @@ public class AccessControlInterceptor extends AbstractMessageController {
         }
 
     }
-
-//    private boolean hasPermission(PagePermission permission) {
-//        
-//        String requiredRole = permission.value();
-//
-//        HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
-//                .getExternalContext().getRequest();
-//
-//        HttpSession session = httpServletRequest.getSession();
-//        UserRole userRole = (UserRole) session.getAttribute("userRole");
-//        String role = userRole.toString();
-//
-//        if (role != null && role.equals(requiredRole)) {
-//            return true;
-//        }
-//
-//        return false;
-//    }
-//
-//    private void redirectToAccessDeniedPage() throws IOException {
-//
-//        FacesContext facesContext = FacesContext.getCurrentInstance();
-//        String contextPath = facesContext.getExternalContext().getRequestContextPath();
-//        facesContext.getExternalContext().redirect(contextPath + "/accessDenied.xhtml");
-//    }
 
 }
