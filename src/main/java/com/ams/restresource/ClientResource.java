@@ -4,6 +4,8 @@
  */
 package com.ams.restresource;
 
+import com.ams.controller.RequiredPermission;
+import com.ams.model.ActionType;
 import com.ams.repository.ClientRepository;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
@@ -11,6 +13,7 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import com.ams.model.Client;
+import com.ams.model.ResourceType;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -37,6 +40,7 @@ public class ClientResource implements Serializable {
     @Inject
     ClientRepository clientRepository;
 
+    @RequiredPermission(action = ActionType.WRITE, resource = ResourceType.CLIENT)
     @POST
     public Response createClient(Client client) throws JsonProcessingException {
         clientRepository.save(client);
@@ -46,6 +50,7 @@ public class ClientResource implements Serializable {
         return RestResponse.responseBuilder("true", "201", "Client created successfully", str);
     }
 
+    @RequiredPermission(action = ActionType.READ, resource = ResourceType.CLIENT)
     @GET
     public Response getAllClients() throws JsonProcessingException {
         List<Client> clientList = clientRepository.findAll();
@@ -54,6 +59,7 @@ public class ClientResource implements Serializable {
         return RestResponse.responseBuilder("true", "200", "List of clients", str);
     }
 
+    @RequiredPermission(action = ActionType.READ, resource = ResourceType.CLIENT)
     @GET
     @Path("/{id}")
     public Response getClientById(@PathParam("id") long id) throws JsonProcessingException {
@@ -68,6 +74,7 @@ public class ClientResource implements Serializable {
         return RestResponse.responseBuilder("true", "200", "client with id " + id + " found", str);
     }
 
+    @RequiredPermission(action = ActionType.UPDATE, resource = ResourceType.CLIENT)
     @PUT
     @Path("/{id}")
     public Response updateClient(@PathParam("id") long id, Client client) throws JsonProcessingException {
@@ -85,6 +92,7 @@ public class ClientResource implements Serializable {
         return RestResponse.responseBuilder("true", "200", "client updated successfully", str);
     }
 
+    @RequiredPermission(action = ActionType.DELETE, resource = ResourceType.CLIENT)
     @DELETE
     @Path("/{id}")
     public Response deleteCLient(@PathParam("id") long id) {
