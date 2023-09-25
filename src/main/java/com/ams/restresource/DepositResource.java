@@ -67,11 +67,8 @@ public class DepositResource {
         UserRole userRole = (UserRole) httpServletRequest.getSession().getAttribute("userRole");
 
         if (userRole.equals(UserRole.CLIENT)) {
-
             Client loggedInClient = userBean.getCurrentClient();
-
             allow = Objects.equals(selectedUser, loggedInClient);
-
         }
 
         if (userRole.equals(UserRole.STAFF) || allow == true) {
