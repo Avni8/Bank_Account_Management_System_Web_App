@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>File-Management</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </h:head>
+    <h:body>
+        <center>
+            <div style="margin-top: 5%; border: 2px solid #ccc; padding: 10px; width: 400px;
+                 padding: 14px;">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:form enctype="multipart/form-data">
+                        <p:growl id="growl" showDetail="false" sticky="true" autoUpdate="true" life="100"/> 
+
+                        <p:fileUpload fileUploadListener="#{uploadController.fileUploadListener}" 
+                                      mode="advanced" />
+                    </h:form>
+                </h:panelGrid>
+                </div>
+                <h:form>
+                    <p:dataTable value="#{uploadController.documentList}" var="file" >
+                        <p:column headerText="Id">
+                            <h:outputText value="#{file.id}" />
+                        </p:column>
+                        <p:column headerText="File Name">
+                            <h:outputText value="#{file.documentName}" />
+                        </p:column>
+                        <p:column headerText="User">
+                            <h:outputText value="#{file.client}" />
+                        </p:column>
+                        <p:column headerText="Download">
+                            <p:commandButton id="downloadLink" ajax="false" icon="fa fa-download"
+                                             actionListener="#{downloadController.
+                                                               prepDownload(file)}"> 
+                                <p:fileDownload value="#{downloadController.download}" />
+                            </p:commandButton>   
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            
+        </center>
+    </h:body>
+</html>
+

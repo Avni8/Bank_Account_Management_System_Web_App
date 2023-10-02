@@ -3,9 +3,11 @@ com/ams/request/FundTransferRequest.class
 com/ams/controller/ClientController.class
 com/ams/model/ResourceType.class
 com/ams/controller/WithdrawController.class
+com/ams/model/Document.class
 com/ams/model/BalanceView.class
 com/ams/restresource/ClientResource.class
 com/ams/restresource/FundTransferResource.class
+com/ams/repository/DocumentRepository.class
 com/ams/model/Product.class
 com/ams/jwt/JwtUtils.class
 com/ams/restresource/StaffResource.class
@@ -13,6 +15,7 @@ com/ams/restresource/ProductResource.class
 com/ams/model/UserModel.class
 com/ams/controller/DepositController.class
 com/ams/repository/CrudRepository.class
+com/ams/controller/UploadController.class
 com/ams/request/LoginRequest.class
 com/ams/repository/AccountRepository.class
 com/ams/controller/UserController.class
@@ -74,5 +77,6 @@ com/ams/repository/GenericConverter.class
 com/ams/repository/AccountConverter.class
 com/ams/model/UserRole.class
 com/ams/model/Permission.class
+com/ams/controller/DownloadController.class
 com/ams/controller/AccountMISController.class
 com/ams/restresource/ClientAccount.class

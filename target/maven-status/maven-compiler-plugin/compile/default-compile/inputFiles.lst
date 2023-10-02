@@ -17,6 +17,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/AccountResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/FundTransferResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/FundTransferController.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Document.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/StaffController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/ProductConverter.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/request/StatementRequest.java
@@ -24,6 +25,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Product.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/RestResponse.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/UserModel.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/DownloadController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AbstractMessageController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/LogoutController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/request/FundTransferRequest.java
@@ -57,6 +59,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/UserRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AccountMIS.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/UserBean.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/UploadController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/controller/AccountMISController.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/RoleConverter.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/UserRole.java
@@ -68,6 +71,7 @@
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AbstractEntity.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/restresource/ClientResource.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/response/StatementResponse.java
+/home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/repository/DocumentRepository.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/Staff.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/model/AccountTransactionDetails.java
 /home/avni/NetBeansProjects/Project_AMS1/src/main/java/com/ams/service/StatementService.java
