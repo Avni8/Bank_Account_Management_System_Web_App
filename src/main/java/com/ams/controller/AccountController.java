@@ -6,7 +6,6 @@ package com.ams.controller;
 
 import com.ams.model.AbstractEntity;
 import com.ams.repository.AccountRepository;
-import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -20,9 +19,6 @@ import com.ams.model.ResourceType;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.ProductRepository;
 import com.ams.repository.ClientRepository;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  *

@@ -12,7 +12,6 @@ import com.ams.model.Staff;
 import com.ams.model.User;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.UserRepository;
-import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;

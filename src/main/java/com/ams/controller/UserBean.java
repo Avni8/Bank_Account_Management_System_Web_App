@@ -6,7 +6,6 @@ package com.ams.controller;
 
 import com.ams.model.Staff;
 import com.ams.model.Client;
-import com.ams.model.User;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;

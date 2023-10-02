@@ -6,7 +6,6 @@ package com.ams.controller;
 
 import com.ams.model.ActionType;
 import com.ams.model.ResourceType;
-import com.ams.model.UserRole;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

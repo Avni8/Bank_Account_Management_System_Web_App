@@ -20,11 +20,6 @@ import com.ams.model.UserModel;
 import com.ams.repository.AbstractRepository;
 import com.ams.repository.UserRepository;
 import com.ams.repository.AccountRepository;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 
 /**
  *

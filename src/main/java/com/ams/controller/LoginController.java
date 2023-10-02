@@ -4,7 +4,6 @@
  */
 package com.ams.controller;
 
-import com.ams.model.Account;
 import com.ams.model.Staff;
 import com.ams.service.LoginService;
 import com.ams.model.Client;
@@ -14,16 +13,11 @@ import com.ams.repository.AccountRepository;
 import com.ams.repository.StaffRepository;
 import com.ams.repository.ClientRepository;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
-import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *

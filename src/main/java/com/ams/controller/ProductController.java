@@ -6,7 +6,6 @@ package com.ams.controller;
 
 import com.ams.model.AbstractEntity;
 import com.ams.model.ActionType;
-import java.io.Serializable;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import com.ams.model.Product;
